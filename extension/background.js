@@ -2,7 +2,7 @@
     if(details.reason == "install"){
         chrome.tabs.create({url:"https://scratchtools.tk/isonline/register/"});}
     if(details.reason == "update"){
-        //chrome.tabs.create({url: "https://isonlineupdate.blogspot.com/"});
+        chrome.tabs.create({url: "https://scratch.mit.edu/isonline-extension/update"});
 		}
 });
 

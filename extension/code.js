@@ -4,51 +4,34 @@
     try{nav=document.getElementsByClassName("user-nav")[0].innerHTML;nav=nav.substring(nav.search('<a href="/users/')+16); redirectuser=nav.substring(0, nav.search('/'));window.location = "https://scratchtools.tk/isonline/register/#"+redirectuser;}
     catch(err){window.location = "https://scratchtools.tk/isonline/register/";}}
 
-    isOwnAccount = false;
-    stop = 0;
-    chrome.storage.sync.get("iOaccounts", function (data) {
-        registeredUsers = JSON.stringify(data) === "{}" ? [] : JSON.parse(data.iOaccounts);
-        try{chrome.runtime.sendMessage({setuninstallurl: registeredUsers[0]});}catch(err){}
-        try{start();}catch(err){document.onreadystatechange = start;}
-    });
+/* Discuss button */ if(localStorage.getItem("iOdiscuss")=="1"){try{ try{nav=document.getElementsByClassName("site-nav")[0].innerHTML;document.getElementsByClassName("site-nav")[0].innerHTML = nav.replace('<li class="last">','<li><a href="/discuss">Discuss</a></li><li class="last">');} catch(err){document.getElementsByClassName("link tips")[0].outerHTML += '<li class="link about"><a href="/discuss"><span>Discuss</span></a></li>';}} catch(err){}} if(location.href.toLowerCase()=="https://scratch.mit.edu/users/discussbutton/"){ stop="Discuss button page"; if (localStorage.getItem("iOdiscuss")!="1"){ document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Enable</a>"; document.getElementById("discussbutton").onclick = function(){localStorage.setItem("iOdiscuss","1");location.reload();}; }else{ document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Disable</a>"; document.getElementById("discussbutton").onclick = function(){localStorage.removeItem("iOdiscuss");location.reload();}; } }
+
+isOwnAccount = false;
+stop = 0;
+chrome.storage.sync.get("iOaccounts", function (data) {
+    registeredUsers = JSON.stringify(data) === "{}" ? [] : JSON.parse(data.iOaccounts);
+    try{chrome.runtime.sendMessage({setuninstallurl: registeredUsers[0]});}catch(err){}
+    try{console.log("First try");start();}catch(err){document.onreadystatechange = start;}
+});
+
+if(location.href == "https://scratch.mit.edu/isonline-extension/update") {
+    if (localStorage.getItem("iOaccounts") !== null) {
+        LSaccounts = JSON.parse(localStorage.getItem("iOaccounts"));
+        transition(0);
+    } else{
+        window.location="https://isonlineupdate.blogspot.com";}
+} // Update
 
 /* Easter egg */      if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
 
 function main() {
 
-    // Transition from v1.2 to v1.3
-    if (localStorage.getItem("iOaccounts") !== null) {
-        chrome.storage.sync.set({iOaccounts : localStorage.getItem("iOaccounts")});
-        localStorage.removeItem("iOaccounts");
-        localStorage.removeItem("iO.version");
-        localStorage.removeItem("iO.was.installed");
-        for (i = 0; i < registeredUsers.length; i++) {
-            if(i>10){break;}
-            if(registeredUsers[i].key.length==16 || registeredUsers[i].key == "changed"){console.log("nice!");}
-            else{
-                regenerate = new XMLHttpRequest();
-                regenerate.open("PUT", "https://scratchtools.tk/isonline/api/v1/"+registeredUsers[i].name+"/"+registeredUsers[i].key+"/regenerate", true);
-                regenerate.send();
-                indx = registeredUsers.findIndex(k => k.name === registeredUsers[i].name);
-                name = registeredUsers[i].name;
-                regenerate.onreadystatechange = function() {if (regenerate.readyState === 4 && regenerate.status === 200) {
-                    chrome.storage.sync.set({"iOaccounts" : JSON.stringify(registeredUsers.slice(0, indx).concat({
-                        "name": name,
-                        "key": JSON.parse(regenerate.responseText).key
-                    }).concat(registeredUsers.slice(indx + 1)))});
-                }};
-            }
-        }
-    } //Transition end
-
     /* Data for helping page*/ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/isonline-extension/helpdata")) {stop="On data page";document.documentElement.innerHTML = "<center><h2><b>ONLY give this information to the official isOnline account, @isOnlineV2.</b></h2></center><br><br><small>" + JSON.stringify(localStorage)+ " / " + JSON.stringify(registeredUsers)+ " / " + navigator.userAgent + " / Version: "+JSON.stringify(chrome.runtime.getManifest().version) + "</small>";}
 
-    /* Discuss button */ if(localStorage.getItem("iOdiscuss")=="1"){try{ try{nav=document.getElementsByClassName("site-nav")[0].innerHTML;document.getElementsByClassName("site-nav")[0].innerHTML = nav.replace('<li class="last">','<li><a href="/discuss">Discuss</a></li><li class="last">');} catch(err){document.getElementsByClassName("link tips")[0].outerHTML += '<li class="link about"><a href="/discuss"><span>Discuss</span></a></li>';}} catch(err){}} if(location.href.toLowerCase()=="https://scratch.mit.edu/users/discussbutton/"){ stop="Discuss button page"; if (localStorage.getItem("iOdiscuss")!="1"){ document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Enable</a>"; document.getElementById("discussbutton").onclick = function(){localStorage.setItem("iOdiscuss","1");location.reload();}; }else{ document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Disable</a>"; document.getElementById("discussbutton").onclick = function(){localStorage.removeItem("iOdiscuss");location.reload();}; } }
+    if (window.location.href.startsWith("https://scratch.mit.edu/isonline-extension/verify")) {
+        stop = "On verification page";
+        try{validateAccount();}catch(err){document.onreadystatechange = validateAccount;}} // Account validation
 
-	if (window.location.href.startsWith("https://scratch.mit.edu/isonline-extension/verify")) {
-	stop = "On verification page";
-    try{validateAccount();}catch(err){document.onreadystatechange = validateAccount;}} // Account validation
-	
     if (registeredUsers.length === 0) {
         console.log("test");
         stop = "User didn't validate any account.";
@@ -94,19 +77,6 @@ function main() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function update() {
     if (stop !== 0 || window.location.href.startsWith("https://scratch.mit.edu/isonline-extension")) {return;}
     if (localstatus() == "online") {
@@ -143,7 +113,7 @@ function status() {
     document.getElementById("iOstatus").innerHTML=chrome.i18n.getMessage("loadingstatus");
 
     try{
-        var a = document.getElementsByClassName("time")[0].innerText;
+        var a = document.getElementsByClassName("activity-stream")[0].getElementsByClassName("time")[0].innerText;
         var b=["0 minutes ago", "1 minute ago", "2 minutes ago", "3 minutes ago", "4 minutes ago", "5 minutes ago"];
         if(b.includes(a)){probablyOnline();}
         if(b.includes(a)){return;}
@@ -187,13 +157,13 @@ function status() {
 }
 
 function isOwn(){
+    iOcrown();
     opt = [{"name": chrome.i18n.getMessage("onlineauto"),   "value" : "online",  "color": "green"},
            {"name": chrome.i18n.getMessage("absent"),       "value" : "absent",  "color": "orange"},
            {"name": chrome.i18n.getMessage("offlineghost"), "value" : "offline", "color": "grey"}];
     isOwnAccount = true;
     document.getElementById("iOstatus").innerHTML = '<img id="iostatusimage" src="https://scratchtools.tk/isonline/assets/' + (localstatus() === "ghost" ? "offline" : localstatus()) + '.svg" height="12" width="12">';
     document.getElementById("iOstatus").innerHTML += " <select id='ioselect' style='font-weight: color: " + opt.find(k => localstatus() === k.value).color + "; width: 132px; padding:0px; font-size:13px; height:23px; margin:0px;'>" + opt.map(k => "<option style='color:" + k.color + ";' " + (k.value === localstatus() ? "selected" : "") +">" + k.name + "</option>") + "</select>" + " <small><div id=\"ownstatushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("ownstatushelp")+"\">?<\/div><\/small>";
-    iOcrown();
     document.getElementById("ioselect").addEventListener("change", changed);
     console.log("test");
 }
@@ -280,8 +250,19 @@ function localstatus(){if(localStorage.getItem("iOstatus")!==null){return localS
 
 function time() {return Math.floor(Date.now() / 1000);}
 
-function iOcrown() { try { if (document.getElementsByClassName("overview")[0].innerHTML.toLowerCase().includes("isonline.tk") || document.getElementsByClassName("overview")[1].innerHTML.toLowerCase().includes("isonline.tk")) { document.getElementsByClassName("header-text")[0].innerHTML = document.getElementsByClassName("header-text")[0].innerHTML.replace('</h2>', ' <a href="https://scratch.mit.edu/projects/158291459/" target="_blank" title="isOnline crown">👑</a></h2>').replace('<h2>', '<h2 style="color:orange;text-shadow:none;">'); } } catch (err) { try { if (document.getElementById("user-details").innerHTML.toLowerCase().includes("isonline.tk")) { document.getElementsByClassName("header-text")[0].innerHTML = document.getElementsByClassName("header-text")[0].innerHTML.replace('</h2>', ' <a href="https://scratch.mit.edu/projects/158291459/" target="_blank" title="isOnline crown">👑</a></h2>').replace('<h2>', '<h2 style="color:orange;text-shadow:none;">'); } } catch (err) {} } } 
-
+function iOcrown() {
+    try {
+        if (document.getElementsByClassName("overview")[0].innerHTML.toLowerCase().includes("isonline.tk") || document.getElementsByClassName("overview")[1].innerHTML.toLowerCase().includes("isonline.tk")) {
+            document.getElementsByClassName("header-text")[0].innerHTML = document.getElementsByClassName("header-text")[0].innerHTML.replace('</h2>', ' <a href="https://scratch.mit.edu/projects/158291459/" target="_blank" style="text-decoration: none;font-size:27px;" title="isOnline crown - click for more info">👑</a></h2>').replace('<h2>', '<h2 style="color:orange;text-shadow:none;">');
+        }
+    } catch (err) {
+        try {
+            if (document.getElementById("user-details").innerHTML.toLowerCase().includes("isonline.tk")) {
+                document.getElementsByClassName("header-text")[0].innerHTML = document.getElementsByClassName("header-text")[0].innerHTML.replace('</h2>', ' <a href="https://scratch.mit.edu/projects/158291459/" target="_blank" style="text-decoration: none;font-size:27px;" title="isOnline crown - click for more info">👑</a></h2>').replace('<h2>', '<h2 style="color:orange;text-shadow:none;">');
+            }
+        } catch (err) {}
+    }
+}
 function changed() {document.getElementById("ioselect").style.color=opt[document.getElementById("ioselect").selectedIndex].color;localStorage.setItem("iOstatus", opt[document.getElementById("ioselect").selectedIndex].value);document.getElementById("iostatusimage").src="https://scratchtools.tk/isonline/assets/" +opt[document.getElementById("ioselect").selectedIndex].value+".svg";update();}
 
 function checkResponse(request) {
@@ -321,7 +302,44 @@ function validateAccount(){
     };
 }
 
+function transition(currentaccount) {
+
+    i = currentaccount;
+    ls = localStorage.getItem("iOaccounts");
+
+    if(i>LSaccounts.length-1){
+        localStorage.removeItem("iOaccounts");
+        localStorage.removeItem("iO.version");
+        localStorage.removeItem("iO.was.installed");
+        chrome.storage.sync.set({iOaccounts : ls}, function(){window.location="https://isonlineupdate.blogspot.com";});
+    }
+    if(i>LSaccounts.length-1){return;}
+    console.log(LSaccounts.length);
+    console.log(i);
+
+    thename = LSaccounts[i].name;
+    thekey = LSaccounts[i].key;
+
+    if(thekey.length==15 || thekey == "changed"){
+        console.log("nice!");transition(i+1);}
+
+    else{
+        regenerate = new XMLHttpRequest();
+        regenerate.open("PUT", "https://scratchtools.tk/isonline/api/v1/"+thename+"/"+thekey+"/regenerate", true);
+        regenerate.send();
+        indx = LSaccounts.findIndex(k => k.name === thename);
+        regenerate.onreadystatechange = function() {if (regenerate.readyState === 4 && regenerate.status === 200) {
+            localStorage.setItem("iOaccounts", JSON.stringify(LSaccounts.slice(0, indx).concat({
+                "name": thename,
+                "key": JSON.parse(regenerate.responseText).key
+            }).concat(LSaccounts.slice(indx + 1))));
+            transition(i+1);
+        }};
+    }
+} // Transition end
+
 function start() {
-	if(document.getElementById("project-create")===null) {iOlog("On Scratch-www page");document.onreadystatechange = function(){localuser = document.getElementsByClassName("profile-name")[0].innerHTML;main();};}
+    if(location.href == "https://scratch.mit.edu/isonline-extension/update"){return;}
+    if(document.getElementById("project-create")===null) {iOlog("On Scratch-www page");localuser = document.getElementsByClassName("profile-name")[0].innerHTML;main();}
     else{nav=document.getElementsByClassName("user-nav")[0].innerHTML;nav=nav.substring(nav.search('<a href="/users/')+16); localuser=nav.substring(0, nav.search('/'));main();}
 }
