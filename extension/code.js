@@ -365,19 +365,20 @@ function scratchwwwgetuser() {
 }
 
 function friendListButtons() {
+	console.log(friendListEnabled);
     if (friendListEnabled!=="1"){return;}
-    query = user;
-    console.log(friendList);
-    console.log(friendList.findIndex(item => query.toLowerCase() === item.toLowerCase()));
-    if(friendList.findIndex(item => query.toLowerCase() === item.toLowerCase())===-1) {
+	try {x = friendList.findIndex(item => user.toLowerCase() === item.toLowerCase());}catch(err){x=-2;}
+	console.log(x);
+    if(x===-2 || x===-1) {
         document.getElementById("iOstatus").innerHTML += ' <a id="addfriend"><small>+ friends</small></a>';
         document.getElementById("addfriend").onclick = function(){
             chrome.runtime.sendMessage({addfriend: user}, function (response){
+				console.log(response);
                 if(response.result=="ok") {document.getElementById("addfriend").remove();}
             });
         };
     }
-    else {
+    if(x!==-1 && x!==-2) {
         document.getElementById("iOstatus").innerHTML += ' <a id="removefriend"><small>x friends</small></a>';
         document.getElementById("removefriend").onclick = function(){
             chrome.runtime.sendMessage({removefriend: user}, function (response){
