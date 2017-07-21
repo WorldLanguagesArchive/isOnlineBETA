@@ -1,4 +1,4 @@
-﻿iOlog("isOnline started");
+iOlog("isOnline started");
 
 isOwnAccount = false;
 stop = 0;
@@ -100,7 +100,7 @@ function update() {
             localStorage.setItem("iOlastAbs", time());
             iOlog("Sent away request");}}
     if (localstatus() == "offline") {
-        updateStatus("grey");}
+        updateStatus("gray");}
 }
 
 
@@ -161,7 +161,7 @@ function isOwn(){
     iOcrown();
     opt = [{"name": chrome.i18n.getMessage("onlineauto"),   "value" : "online",  "color": "green"},
            {"name": chrome.i18n.getMessage("absent"),       "value" : "absent",  "color": "orange"},
-           {"name": chrome.i18n.getMessage("offlineghost"), "value" : "offline", "color": "grey"}];
+           {"name": chrome.i18n.getMessage("offlineghost"), "value" : "offline", "color": "gray"}];
     isOwnAccount = true;
     document.getElementById("iOstatus").innerHTML = '<img id="iostatusimage" src="https://scratchtools.tk/isonline/assets/' + (localstatus() === "ghost" ? "offline" : localstatus()) + '.svg" height="12" width="12">';
     document.getElementById("iOstatus").innerHTML += " <select id='ioselect' style='font-weight: color: " + opt.find(k => localstatus() === k.value).color + "; width: 132px; padding:0px; font-size:13px; height:23px; margin:0px;'>" + opt.map(k => "<option style='color:" + k.color + ";' " + (k.value === localstatus() ? "selected" : "") +">" + k.name + "</option>") + "</select>" + " <small><div id=\"ownstatushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("ownstatushelp")+"\">ℹ️<\/div><\/small>";
@@ -242,6 +242,7 @@ function updateStatus(color) {
         document.getElementById("ioselect").selectedIndex = opt.findIndex(k => k.color === color);
         document.getElementById("ioselect").style.color = color;
         document.getElementById("iostatusimage").src = "https://scratchtools.tk/isonline/assets/" + opt.find(k => k.color === color).value + ".svg";}
+	chrome.runtime.sendMessage({color});
 }
 
 function localstatus(){if(localStorage.getItem("iOstatus")!==null){return localStorage.getItem("iOstatus");}else{return "online";}}
