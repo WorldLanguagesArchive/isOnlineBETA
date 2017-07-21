@@ -52,7 +52,7 @@ function friendlistcode() {
         if(x>max){x=0;}
         chrome.tabs.query({url:"https://scratch.mit.edu/*"}, function(tabs) {
 			scratchopen = tabs.length>0;
-            if(scratchopen===false){friendliststatuses=["Unknown","Unknown","Unknown","Unknown","Unknown","Unknown","Unknown","Unknown","Unknown","Unknown"];chrome.browserAction.setBadgeText({text: ""});}
+            if(scratchopen===false){friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");chrome.browserAction.setBadgeText({text: ""});}
         });
     }, 3000);
 
