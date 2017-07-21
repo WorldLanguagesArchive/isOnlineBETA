@@ -1,4 +1,4 @@
-﻿chrome.runtime.onInstalled.addListener(function(details){
+chrome.runtime.onInstalled.addListener(function(details){
     if(details.reason == "install"){
         chrome.tabs.create({url:"https://scratchtools.tk/isonline/register/"});}
     if(details.reason == "update"){
@@ -12,4 +12,15 @@ chrome.runtime.onMessage.addListener(
             location.reload();}
 		if (request.setuninstallurl != null) {
 		chrome.runtime.setUninstallURL("https://scratchtools.tk/isonline/uninstall/?user="+request.setuninstallurl.name+"&key="+request.setuninstallurl.key);}
+		
+		if(request.color){
+			console.log(request.color);
+			chrome.browserAction.setBadgeBackgroundColor({color: request.color});
+		}
     });
+	
+setInterval(function(){
+    chrome.tabs.query({url:"https://scratch.mit.edu/*"}, function(tabs) {
+        if (tabs.length===0){chrome.browserAction.setBadgeText({text: ""});}
+    });
+}, 10000);

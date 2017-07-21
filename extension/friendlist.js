@@ -1,4 +1,5 @@
 var audio = new Audio('sound.mp3');
+var selfonline = false;
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
@@ -20,6 +21,9 @@ chrome.runtime.onMessage.addListener(
             friendlist.splice(friendlist.indexOf(request.removefriend), 1);
             chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification("Removed "+request.removefriend+" of friend list","You won't receive notifications when they get online anymore.");location.reload();});
         }
+		if (request.color !== undefined) {
+			selfonline = request.color === "green";
+		}
     });
 
 
@@ -101,7 +105,7 @@ function check(i) {
 
                 if (friendliststatuses.toString().match(/Online/g) === null) {
                     console.log("smaller");
-                    chrome.browserAction.setBadgeText({text: ""});}
+                    chrome.browserAction.setBadgeText({text: selfonline ? "" : " "});}
                 else {
                     console.log("bigger");
                     chrome.browserAction.setBadgeText({text: String(friendliststatuses.toString().match(/Online/g).length)});}
