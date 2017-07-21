@@ -40,7 +40,7 @@ chrome.permissions.contains({
 function friendlistcode() {
 
     if (JSON.stringify(friendlist)==="[]"){return;}
-    friendliststatuses=["Unknown","Unknown","Unknown","Unknown","Unknown","Unknown","Unknown","Unknown","Unknown","Unknown"];
+    friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");
     time = function(){return Math.floor(Date.now() / 1000);};
 
     x = 0;
