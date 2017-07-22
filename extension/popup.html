@@ -9,9 +9,11 @@
 </style>
 </head>
 <body>
-<input type="checkbox" id="enablefriendlist">Notifications when my friends get online
+<input type="checkbox" id="enablefriendlist">Notifications when my friends get online</input>
+<br>
+<small id="anote"">Note: Disabling notifications won't delete your friend list.</small>
 
-<br><br>
+<br>
 
 <div class="friendsatuseslist">
 
@@ -23,14 +25,15 @@
 
 <div id="unknownfriends"></div>
 
-<br><br>
-<details>
-  <summary>Friend list settings</summary>
-<input type="checkbox" id="enablefriendlist">Sound notification<br>
-
-</details>
-
 </div>
+
+<div id="newlines"><br><br></div>
+
+<details id="settings">
+<summary>Friend list settings</summary>
+<input type="checkbox" id="awaytoonline">Notify me if one of my friends is Away and becomes Online<br>
+<input type="checkbox" id="soundnotif">Sound notification<br>
+</details>
 
 
 

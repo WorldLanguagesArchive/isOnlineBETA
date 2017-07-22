@@ -1,6 +1,5 @@
 iOlog("isOnline started");
 
-isOwnAccount = false;
 stop = 0;
 
 /* Discuss button */if (localStorage.getItem("iOdiscuss") == "1") {try {try {nav = document.getElementsByClassName("site-nav")[0].innerHTML;document.getElementsByClassName("site-nav")[0].innerHTML = nav.replace('<li class="last">', '<li><a href="/discuss">Discuss</a></li><li class="last">');} catch (err) {document.getElementsByClassName("link tips")[0].outerHTML += '<li class="link about"><a href="/discuss"><span>Discuss</span></a></li>';}} catch (err) {}}if (window.location.href.substring(30,100).substring(0, window.location.href.substring(30,100).indexOf('/')).toLowerCase() == "discussbutton") {document.getElementsByClassName("box slider-carousel-container prevent-select")[2].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[1].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[0].remove();document.getElementsByClassName("group")[0].innerText="isOnline extra option";stop = "Discuss button page";if (localStorage.getItem("iOdiscuss") != "1") {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Enable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.setItem("iOdiscuss", "1");location.reload();};} else {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Disable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.removeItem("iOdiscuss");location.reload();};}}
@@ -8,7 +7,7 @@ stop = 0;
 chrome.storage.sync.get(["iOaccounts","iOfriendlist","iOfriendsenabled"], function (data) {
     registeredUsers = JSON.stringify(data) === "{}" ? [] : JSON.parse(data.iOaccounts);
     friendList = data.iOfriendlist;
-    friendListEnabled = data.iOfriendsenabled;
+    friendListEnabled = data.iOfriendsenabled==1;
     try{chrome.runtime.sendMessage({setuninstallurl: registeredUsers[0]});}catch(err){}
     start();
 });
@@ -22,9 +21,28 @@ if(location.href == "https://scratch.mit.edu/isonline-extension/update") {
         window.location="https://isonlineupdate.blogspot.com";}
 } // Update
 
+if(location.href.startsWith("https://scratch.mit.edu/studios/4100062/comments/")){
+
+    var code = location.href.substring(location.href.indexOf('?')+1);
+    var clickpost = function(){
+        setTimeout(function(){document.getElementsByClassName("button small")[0].style.background='red';}, 1000);
+        setTimeout(function(){document.getElementsByClassName("button small")[0].style.background='';clickpost();}, 2000);};
+    var closetabwhenpost = function(){
+        if(document.getElementsByClassName("highlighted")[0]===undefined){setTimeout(closetabwhenpost,100);return;}
+        window.close();};
+
+    if((code.length===5||code.length===6) && parseInt(code,16).toString(16) === code){
+        document.getElementsByName("content")[0].value=code;
+        clickpost();closetabwhenpost();
+    }
+
+}
+
 /* Easter egg */      if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
 
 function main() {
+	
+	isOwnAccount = false;
 
     /* Data for helping page*/ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/isonline-extension/helpdata")) {stop="On data page";document.documentElement.innerHTML = "<center><h2><b>ONLY give this information to the official isOnline account, @isOnlineV2.</b></h2></center><br><br><small>" + JSON.stringify(localStorage)+ " / " + JSON.stringify(registeredUsers)+ " / " + navigator.userAgent + " / Version: "+JSON.stringify(chrome.runtime.getManifest().version) + "</small>";}
 
@@ -83,7 +101,6 @@ function update() {
     if (localstatus() == "online") {
         updateStatus("");
         if (time()-localStorage.getItem("iOlastOn") > 240 && time()-localStorage.getItem("iOlastAbs") > 120) {
-            chrome.runtime.sendMessage({status: "absent"});
             absentrequest = new XMLHttpRequest();
             absentrequest.open("POST", 'https://scratchtools.tk/isonline/api/v1/' + localuser + '/' + key + '/set/absent', true);
             absentrequest.send();
@@ -116,8 +133,8 @@ function status() {
     try{
         var a = document.getElementsByClassName("activity-stream")[0].getElementsByClassName("time")[0].innerText;
         var b=["0 minutes ago", "1 minute ago", "2 minutes ago", "3 minutes ago", "4 minutes ago", "5 minutes ago"];
-        if(b.includes(a)){probablyOnline();}
-        if(b.includes(a)){return;}
+        if(b.includes(a) && !friendListEnabled){probablyOnline();}
+        if(b.includes(a) && !friendListEnabled){return;}
     }catch(err){}
 
     getstatus = new XMLHttpRequest();getstatus.open("GET", ' https://scratchtools.tk/isonline/api/v1/' + localuser + '/' + key + "/get/" + user, true);getstatus.send();
@@ -223,10 +240,9 @@ function isBot() { try{
     document.getElementById("alert-view").innerHTML="<div class='alert fade in alert-success' style='display: block;'><span class='close' onclick='document.getElementById(\"alert-view\").style.display=\"none\";'>×</span>" + chrome.i18n.getMessage("isbot") + "</div>";}catch(err){}}
 
 function iOlog(x) {
-    /*console.log("isOnline log @ " + new Date().toLocaleTimeString() + ": " + x);*/}
+    console.log("isOnline log @ " + new Date().toLocaleTimeString() + ": " + x);}
 
 function setOnline() {
-    chrome.runtime.sendMessage({status: "online"});
     iOlog("Sent online request");
     onlinerequest = new XMLHttpRequest();
     onlinerequest.open("POST", 'https://scratchtools.tk/isonline/api/v1/' + localuser + '/' + key + '/set/online', true);
@@ -235,6 +251,7 @@ function setOnline() {
     localStorage.setItem("iOlastOn", time());}
 
 function updateStatus(color) {
+	chrome.runtime.sendMessage({color});
     try {document.getElementsByClassName("user-name dropdown-toggle")[0].style.backgroundColor=color;}
     catch(err) {document.getElementsByClassName("link right account-nav")[0].style.backgroundColor=color;}
     color = color === "" ? "green" : color;
@@ -242,7 +259,6 @@ function updateStatus(color) {
         document.getElementById("ioselect").selectedIndex = opt.findIndex(k => k.color === color);
         document.getElementById("ioselect").style.color = color;
         document.getElementById("iostatusimage").src = "https://scratchtools.tk/isonline/assets/" + opt.find(k => k.color === color).value + ".svg";}
-	chrome.runtime.sendMessage({color});
 }
 
 function localstatus(){if(localStorage.getItem("iOstatus")!==null){return localStorage.getItem("iOstatus");}else{return "online";}}
@@ -367,7 +383,7 @@ function scratchwwwgetuser() {
 
 function friendListButtons() {
 	console.log(friendListEnabled);
-    if (friendListEnabled!=="1"){return;}
+    if (!friendListEnabled){return;}
 	try {x = friendList.findIndex(item => user.toLowerCase() === item.toLowerCase());}catch(err){x=-2;}
 	console.log(x);
     if(x===-2 || x===-1) {
