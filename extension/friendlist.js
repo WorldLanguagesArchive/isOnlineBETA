@@ -62,7 +62,7 @@ function friendlistcode() {
 
 function docheck(){
     if(x>max){console.log("x>max");interval=60000/(max+1);x=0;console.log("Interval: "+interval);check(x);}
-	else{check(x);}
+    else{check(x);}
 }
 
 
@@ -97,7 +97,9 @@ function check(i) {
                         friendliststatuses[i] = "Offline";}}
 
                 if (status == "dnd") {
-                    friendliststatuses[i] = "DND";}
+                    if (time() - timestamp < 180) {friendliststatuses[i] = "DND";}
+                    else{friendliststatuses[i] = "Offline";}
+                }
 
                 if (friendliststatuses.toString().match(/Online/g) === null) {
                     chrome.browserAction.setBadgeText({text: ""});}
@@ -111,11 +113,12 @@ function check(i) {
                 chrome.storage.sync.set({iOfriendlist : friendlist}, function(){location.reload();});
             }
             setTimeout(docheck, interval);}
-    };
+    }
 
-}
+};
 
 function notification(user) {
+	if(localStorage.getItem("iOstatus")==="dnd"){console.log("nopee");return;}
     if(localStorage.getItem("iOfriendlistsound")==1){audio.play();}
     var notification = new Notification(user+' is now online', {
         icon: "icon.png",

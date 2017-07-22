@@ -41,8 +41,8 @@ if(location.href.startsWith("https://scratch.mit.edu/studios/4100062/comments/")
 /* Easter egg */      if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
 
 function main() {
-	
-	isOwnAccount = false;
+
+    isOwnAccount = false;
 
     /* Data for helping page*/ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/isonline-extension/helpdata")) {stop="On data page";document.documentElement.innerHTML = "<center><h2><b>ONLY give this information to the official isOnline account, @isOnlineV2.</b></h2></center><br><br><small>" + JSON.stringify(localStorage)+ " / " + JSON.stringify(registeredUsers)+ " / " + navigator.userAgent + " / Version: "+JSON.stringify(chrome.runtime.getManifest().version) + "</small>";}
 
@@ -116,8 +116,18 @@ function update() {
             checkResponse(absentrequest);
             localStorage.setItem("iOlastAbs", time());
             iOlog("Sent away request");}}
+    if (localstatus() == "dnd") {
+        updateStatus("gray");
+        if (time()-localStorage.getItem("iOlastAbs") > 120) {
+            dndrequest = new XMLHttpRequest();
+            dndrequest.open("POST", 'https://scratchtools.tk/isonline/api/v1/' + localuser + '/' + key + '/set/dnd', true);
+            dndrequest.send();
+            checkResponse(dndrequest);
+            localStorage.setItem("iOlastAbs", time());
+        }
+    }
     if (localstatus() == "offline") {
-        updateStatus("gray");}
+        updateStatus("red");}
 }
 
 
@@ -178,7 +188,8 @@ function isOwn(){
     iOcrown();
     opt = [{"name": chrome.i18n.getMessage("onlineauto"),   "value" : "online",  "color": "green"},
            {"name": chrome.i18n.getMessage("absent"),       "value" : "absent",  "color": "orange"},
-           {"name": chrome.i18n.getMessage("offlineghost"), "value" : "offline", "color": "gray"}];
+           {"name": "Do Not Disturb",       "value" : "dnd",  "color": "gray"},
+           {"name": chrome.i18n.getMessage("offlineghost"), "value" : "offline", "color": "red"}];
     isOwnAccount = true;
     document.getElementById("iOstatus").innerHTML = '<img id="iostatusimage" src="https://scratchtools.tk/isonline/assets/' + (localstatus() === "ghost" ? "offline" : localstatus()) + '.svg" height="12" width="12">';
     document.getElementById("iOstatus").innerHTML += " <select id='ioselect' style='font-weight: color: " + opt.find(k => localstatus() === k.value).color + "; width: 132px; padding:0px; font-size:13px; height:23px; margin:0px;'>" + opt.map(k => "<option style='color:" + k.color + ";' " + (k.value === localstatus() ? "selected" : "") +">" + k.name + "</option>") + "</select>" + " <small><div id=\"ownstatushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("ownstatushelp")+"\">ℹ️<\/div><\/small>";
@@ -251,7 +262,7 @@ function setOnline() {
     localStorage.setItem("iOlastOn", time());}
 
 function updateStatus(color) {
-	chrome.runtime.sendMessage({color});
+    chrome.runtime.sendMessage({color});
     try {document.getElementsByClassName("user-name dropdown-toggle")[0].style.backgroundColor=color;}
     catch(err) {document.getElementsByClassName("link right account-nav")[0].style.backgroundColor=color;}
     color = color === "" ? "green" : color;
@@ -382,15 +393,15 @@ function scratchwwwgetuser() {
 }
 
 function friendListButtons() {
-	console.log(friendListEnabled);
+    console.log(friendListEnabled);
     if (!friendListEnabled){return;}
-	try {x = friendList.findIndex(item => user.toLowerCase() === item.toLowerCase());}catch(err){x=-2;}
-	console.log(x);
+    try {x = friendList.findIndex(item => user.toLowerCase() === item.toLowerCase());}catch(err){x=-2;}
+    console.log(x);
     if(x===-2 || x===-1) {
         document.getElementById("iOstatus").innerHTML += ' <a id="addfriend"><small>+ friends</small></a>';
         document.getElementById("addfriend").onclick = function(){
             chrome.runtime.sendMessage({addfriend: user}, function (response){
-				console.log(response);
+                console.log(response);
                 if(response.result=="ok") {document.getElementById("addfriend").remove();}
             });
         };
@@ -399,7 +410,7 @@ function friendListButtons() {
         document.getElementById("iOstatus").innerHTML += ' <a id="removefriend"><small>x friends</small></a>';
         document.getElementById("removefriend").onclick = function(){
             chrome.runtime.sendMessage({removefriend: user}, function (response){
-				console.log(response);
+                console.log(response);
                 if(response.result=="ok") {document.getElementById("removefriend").remove();}
             });
         };
