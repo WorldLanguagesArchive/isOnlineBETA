@@ -233,7 +233,7 @@ function isError() { try{
         document.getElementsByClassName("location")[0].innerHTML += ' | <span title="Error: ' + stop + '">' + chrome.i18n.getMessage("error") + '</span>';}}catch(err){}}
 
 function didntValidate() {
-    if(window.location.href=="https://scratch.mit.edu/projects/149841742/"){return;}
+    if(location.href.startsWith("https://scratch.mit.edu/studios/4100062/comments/")){return;}
     try{ document.getElementById("alert-view").innerHTML="<div class='alert fade in alert-success' style='display: block;'><span class='close' onclick='document.getElementById(\"alert-view\").style.display=\"none\";'>×</span>" + chrome.i18n.getMessage("didnotvalidate") + "</div>";}catch(err){}}
 
 function unvalidatedAcc() {
@@ -243,6 +243,7 @@ function unvalidatedAcc() {
         document.getElementById("alert-view").innerHTML="<div class='alert fade in alert-success' style='display: block;'><span class='close' onclick='document.getElementById(\"alert-view\").style.display=\"none\";localStorage.setItem(\"iObanner\"," + time() + ")'>×</span>" + chrome.i18n.getMessage("unvalidatedacc") + "</div>";}}
 
 function keyWasChanged(stored) {
+    if(location.href.startsWith("https://scratch.mit.edu/studios/4100062/comments/")){return;}
     if (stored == "n") {
         chrome.storage.sync.get("iOaccounts", function (data) {
             oldkey = JSON.parse(data.iOaccounts).find(user => user.name === localuser).key;

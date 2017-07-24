@@ -54,7 +54,7 @@ function friendlistcode() {
             if (scratchopen === false && tabs.length>0){location.reload();}
             if  (firsttime && tabs.length>0){firsttime=false;docheck();}
             scratchopen = tabs.length>0;
-            if(scratchopen===false){friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");chrome.browserAction.setBadgeText({text: ""});}
+            if(scratchopen===false){friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");chrome.browserAction.getBadgeText({}, function(result) {console.log(result);if(result!==" "){chrome.browserAction.setBadgeText({text: ""});}});}
         });
     }, 3000);
 
@@ -101,7 +101,12 @@ function check(i) {
                 }
 
                 if (friendliststatuses.toString().match(/Online/g) === null) {
-                    chrome.browserAction.setBadgeText({text: ""});}
+                    	chrome.browserAction.getBadgeText({}, function(result) {
+							console.log(result);
+						if(result!==" "){
+						chrome.browserAction.setBadgeText({text: ""});}
+					});
+				}
                 else {
                     chrome.browserAction.setBadgeText({text: String(friendliststatuses.toString().match(/Online/g).length)});}
 
