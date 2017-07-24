@@ -60,7 +60,7 @@ window.onload = function() {
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
                             if(document.getElementById("onlinefriends").innerHTML === ""){document.getElementById("onlinefriends").innerHTML = '<br><img id="iostatusimage" src="online.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:green">Online</span></b>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("onlinefriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+response.thelist[i]+"/'target='_blank'>"+response.thelist[i]+"</a>";
+                        document.getElementById("onlinefriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a>";
                         document.getElementById(id).src=image;
                     }
                 };
@@ -82,7 +82,7 @@ window.onload = function() {
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
                             if(document.getElementById("awayfriends").innerHTML === ""){document.getElementById("awayfriends").innerHTML = '<br><img id="iostatusimage" src="absent.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:orange">Away</span></b>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("awayfriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+response.thelist[i]+"/'target='_blank'>"+response.thelist[i]+"</a>";
+                        document.getElementById("awayfriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a>";
                         document.getElementById(id).src=image;
                     }
                 };
@@ -104,7 +104,7 @@ window.onload = function() {
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
                             if(document.getElementById("offlinefriends").innerHTML === ""){document.getElementById("offlinefriends").innerHTML = '<br><img id="iostatusimage" src="offline.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:red">Offline</span></b>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("offlinefriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+response.thelist[i]+"/'target='_blank'>"+response.thelist[i]+"</a>";
+                        document.getElementById("offlinefriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a>";
                         document.getElementById(id).src=image;
                     }
                 };
