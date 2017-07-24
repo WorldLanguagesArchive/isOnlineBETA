@@ -28,8 +28,8 @@ chrome.permissions.contains({
     if (result && localStorage.getItem("iOfriendlistenabled")==1) {
         chrome.storage.sync.get(["iOaccounts", "iOfriendlist"], function (data) {
             registeredUsers = JSON.stringify(data.iOaccounts) === "{}" ? [] : JSON.parse(data.iOaccounts);
-            friendlist = data.iOfriendlist===undefined ? [] : data.iOfriendlist;
-			if(friendlist.length==0){localStorage.setItem("iOfriendsempty","1");}else{localStorage.setItem("iOfriendsempty","0");}
+            friendlist = data.iOfriendlist===undefined || typeof(data.iOfriendlist)===undefined ? [] : data.iOfriendlist;
+			if(friendlist.length==0||friendlist===undefined){localStorage.setItem("iOfriendsempty","1");}else{localStorage.setItem("iOfriendsempty","0");}
             for (i = 0; i < registeredUsers.length; i++) {
                 if(registeredUsers[i].key !== "changed"){localuser = registeredUsers[i].name;key = registeredUsers[i].key;friendlistcode();}
             }
