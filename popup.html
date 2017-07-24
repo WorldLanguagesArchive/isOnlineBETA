@@ -9,7 +9,22 @@
        #title {
            position: relative;
        }
+       h1 {
+           font-family: Exo;
+       }
+       ul {
+           list-style: decimal;
+       }
+       a {
+           text-decoration: none;
+           color:blue;
+       }
+       a:hover {
+           color:deepskyblue;
+       }
 </style>
+    
+<link href='https://fonts.googleapis.com/css?family=Exo' rel='stylesheet'>
 </head>
 <body>
     <center><h1 id="title"><img id="logo" src="icon.png" height="30" width="30"></img>&nbsp; isOnline</h1>
@@ -23,13 +38,28 @@
 
 <div class="friendsatuseslist">
 
-<div id="onlinefriends"></div>
+<div id="divonlinefriends">
+    <div id="titleonlinefriends"></div>
+    <ul id="onlinefriends"></ul>
+    
+    </div>
 
-<div id="awayfriends"></div>
+<div id="divawayfriends">
+    <div id="titleawayfriends"></div>
+    <ul id="awayfriends"></ul>
+    </div>
 
-<div id="offlinefriends"></div>
+<div id="divofflinefriends">
+    <div id="titleofflinefriends"></div>
+    <ul id="offlinefriends">
+    </ul>
+    </div>
 
-<div id="unknownfriends"></div>
+<div id="divunknownfriends">
+    <div id="titleunknownfriends"></div>
+    <ul id="unknownfriends">
+    </ul>
+    </div>
 
 </div>
 
