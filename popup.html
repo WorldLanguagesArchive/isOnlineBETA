@@ -6,12 +6,22 @@
          body {
             width: 300px;
          }
+       #logo {
+           float: left;
+           width: 50px;
+       }
+       #title {
+           position: relative;
+       }
 </style>
 </head>
 <body>
+    <h1 id="title"><img id="logo" src="icon.png"></img>&nbsp; isOnline v 2.1</h1>
+    <br>
+    <hr>
 <input type="checkbox" id="enablefriendlist">Notifications when my friends get online</input>
 <br>
-<small id="anote"">Note: Disabling notifications won't delete your friend list.</small>
+<small id="anote">Note: Disabling notifications won't delete your friend list.</small>
 
 <br>
 
@@ -34,8 +44,6 @@
 <input type="checkbox" id="awaytoonline">Notify me if one of my friends is Away and becomes Online<br>
 <input type="checkbox" id="soundnotif">Sound notification<br>
 </details>
-
-
 
 
 </body>
