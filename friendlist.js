@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener(
             else {
                 sendResponse({result: "ok"});
                 checkfollowing(0,request.addfriend[0],request.addfriend[1]);}
-		}
+        }
         if (request.removefriend) {
             sendResponse({result: "ok"});
             friendlist.splice(friendlist.indexOf(request.removefriend), 1);
@@ -29,6 +29,7 @@ chrome.permissions.contains({
         chrome.storage.sync.get(["iOaccounts", "iOfriendlist"], function (data) {
             registeredUsers = JSON.stringify(data.iOaccounts) === "{}" ? [] : JSON.parse(data.iOaccounts);
             friendlist = data.iOfriendlist===undefined ? [] : data.iOfriendlist;
+			if(friendlist.length==0){localStorage.setItem("iOfriendsempty","1");}else{localStorage.setItem("iOfriendsempty","0");}
             for (i = 0; i < registeredUsers.length; i++) {
                 if(registeredUsers[i].key !== "changed"){localuser = registeredUsers[i].name;key = registeredUsers[i].key;friendlistcode();}
             }
@@ -111,34 +112,42 @@ function check(i) {
                 chrome.storage.sync.set({iOfriendlist : friendlist}, function(){location.reload();});
             }
             setTimeout(docheck, interval);}
-    }
+    };
 
-};
+}
 
 
 function notification(user) {
-	if(localStorage.getItem("iOstatus")==="dnd"){console.log("nopee");return;}
-    if(localStorage.getItem("iOfriendlistsound")!=0){audio.play();}
-    var notification = new Notification(user+' is now online', {
-        icon: "icon.png",
-        body: "Click to go to profile",
-    });
-    notification.onclick = function(){notification.close();window.open("https://scratch.mit.edu/users/"+user+"/");};
-    setTimeout(function () {
-        notification.close();
-    }, 10000);
+    if(localStorage.getItem("iOstatus")==="dnd"){console.log("nopee");return;}
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "https://api.scratch.mit.edu/users/" + user, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            response = JSON.parse(xhttp.responseText);
+            id = response.id;
+            if(localStorage.getItem("iOfriendlistsound")!=0){audio.play();}
+            var notification = new Notification(user+' is now online', {
+                icon: "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_90x90.png?"+Math.round(new Date().getTime()/1000),
+                body: "Click to go to profile",
+            });
+            notification.onclick = function(){notification.close();window.open("https://scratch.mit.edu/users/"+user+"/");};
+            setTimeout(function () {
+                notification.close();
+            }, 10000);
+        }};
 }
 
 function checkfollowing(offset,user,localuser) {
-	console.log("checkfollowing");
+    console.log("checkfollowing");
     var followinglist = new XMLHttpRequest();
     followinglist.open('GET', 'https://api.scratch.mit.edu/users/' + user + "/following?offset=" + offset, true);
     followinglist.send();
     followinglist.onreadystatechange = function() {
         if (followinglist.readyState === 4 && followinglist.status === 200) {
             response = JSON.parse(followinglist.responseText);
-			console.log(response.length);
-			if(response==[]){couldNotAdd("You can only add users that are following you to your friend list");return;}
+            console.log(response.length);
+            if(response==[]){couldNotAdd("You can only add users that are following you to your friend list");return;}
             for (i = 0; i < response.length; i++) {
                 if(response[i].username.toLowerCase()===localuser.toLowerCase()){addToFriends(user);return;}
                 if(i===response.length-1 && response.length!==20){couldNotAdd("You can only add users that are following you to your friend list");return;}
@@ -154,7 +163,7 @@ function addToFriends(user) {
 }
 
 function couldNotAdd(message) {
-  anynotification("Could not add to friend list",message);
+    anynotification("Could not add to friend list",message);
 }
 
 function anynotification(title,body) {

@@ -6,22 +6,18 @@
          body {
             width: 300px;
          }
-       #logo {
-           float: left;
-           width: 50px;
-       }
        #title {
            position: relative;
        }
 </style>
 </head>
 <body>
-    <h1 id="title"><img id="logo" src="icon.png"></img>&nbsp; isOnline v 2.1</h1>
-    <br>
+    <center><h1 id="title"><img id="logo" src="icon.png" height="30" width="30"></img>&nbsp; isOnline</h1>
+	<small>Need help or have questions? Make a comment on <a href="https://scratch.mit.edu/users/isOnlineV2">@isOnlineV2</a>!</small></center>
     <hr>
-<input type="checkbox" id="enablefriendlist">Notifications when my friends get online</input>
+<input type="checkbox" id="enablefriendlist">isOnline friends & online notifications</input>
 <br>
-<small id="anote">Note: Disabling notifications won't delete your friend list.</small>
+<div id="anote"><small>Note: You can disable notifications temporarily by setting your status to "Do Not Disturb" on your profile.</small></div>
 
 <br>
 
@@ -41,7 +37,7 @@
 
 <details id="settings">
 <summary>Friend list settings</summary>
-<input type="checkbox" id="awaytoonline">Notify me if one of my friends is Away and becomes Online<br>
+<input type="checkbox" id="awaytoonline">Notify me if a friend is Away and becomes Online<br>
 <input type="checkbox" id="soundnotif">Sound notification<br>
 </details>
 

@@ -1,4 +1,6 @@
 window.onload = function() {
+	
+	if(localStorage.getItem("iOfriendsempty")==1){document.getElementById("anote").innerHTML+='<br><br><b>You can add people that follow you to your friend list by clicking "+ friends" on their profiles!';}
 
     document.getElementById("enablefriendlist").onclick = function() {
         chrome.runtime.sendMessage({friendlist: "refresh"});
@@ -28,7 +30,7 @@ window.onload = function() {
         document.getElementById("awaytoonline").checked = true;
     }
 	
-    if(localStorage.getItem("iOfriendlistsound")==1) {
+    if(localStorage.getItem("iOfriendlistsound")!=0) {
         document.getElementById("soundnotif").checked = true;
     }
 
@@ -56,9 +58,9 @@ window.onload = function() {
                         var str = this.responseText;
                         id = str.substring(6, str.indexOf("username")-2);
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
-                            if(document.getElementById("onlinefriends").innerHTML === ""){document.getElementById("onlinefriends").innerHTML = '<br><img id="iostatusimage" src="online.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:red">Online</span></b>';}
+                            if(document.getElementById("onlinefriends").innerHTML === ""){document.getElementById("onlinefriends").innerHTML = '<br><img id="iostatusimage" src="online.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:green">Online</span></b>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("onlinefriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/'_target='_blank'>"+username+"</a>";
+                        document.getElementById("onlinefriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+response.thelist[i]+"/'target='_blank'>"+response.thelist[i]+"</a>";
                         document.getElementById(id).src=image;
                     }
                 };
@@ -69,7 +71,7 @@ window.onload = function() {
 
         chrome.runtime.sendMessage({getfriendsbystatus: "Away"}, function (response){
             if(JSON.stringify(response.thelist)===awayresponse){console.log("same");return;}
-            awayesponse = JSON.stringify(response.thelist);
+            awayresponse = JSON.stringify(response.thelist);
             document.getElementById("awayfriends").innerHTML = "";
             for (i = 0; i < response.thelist.length; i++) {
                 var xhttp = new XMLHttpRequest();
@@ -78,9 +80,9 @@ window.onload = function() {
                         var str = this.responseText;
                         id = str.substring(6, str.indexOf("username")-2);
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
-                            if(document.getElementById("awayfriends").innerHTML === ""){document.getElementById("awayfriends").innerHTML = '<br><img id="iostatusimage" src="away.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:red">Away</span></b>';}
+                            if(document.getElementById("awayfriends").innerHTML === ""){document.getElementById("awayfriends").innerHTML = '<br><img id="iostatusimage" src="absent.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:orange">Away</span></b>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("awayfriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/'_target='_blank'>"+username+"</a>";
+                        document.getElementById("awayfriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+response.thelist[i]+"/'target='_blank'>"+response.thelist[i]+"</a>";
                         document.getElementById(id).src=image;
                     }
                 };
@@ -90,7 +92,6 @@ window.onload = function() {
         });
 
         chrome.runtime.sendMessage({getfriendsbystatus: "Offline"}, function (response){
-            var id;
             if(JSON.stringify(response.thelist)===offlineresponse){console.log("same");return;}
             offlineresponse = JSON.stringify(response.thelist);
             document.getElementById("offlinefriends").innerHTML = "";
@@ -103,7 +104,7 @@ window.onload = function() {
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
                             if(document.getElementById("offlinefriends").innerHTML === ""){document.getElementById("offlinefriends").innerHTML = '<br><img id="iostatusimage" src="offline.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:red">Offline</span></b>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("offlinefriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/'_target='_blank'>"+username+"</a>";
+                        document.getElementById("offlinefriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+response.thelist[i]+"/'target='_blank'>"+response.thelist[i]+"</a>";
                         document.getElementById(id).src=image;
                     }
                 };

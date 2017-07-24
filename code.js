@@ -5,7 +5,7 @@ stop = 0;
 /* Discuss button */if (localStorage.getItem("iOdiscuss") == "1") {try {try {nav = document.getElementsByClassName("site-nav")[0].innerHTML;document.getElementsByClassName("site-nav")[0].innerHTML = nav.replace('<li class="last">', '<li><a href="/discuss">Discuss</a></li><li class="last">');} catch (err) {document.getElementsByClassName("link tips")[0].outerHTML += '<li class="link about"><a href="/discuss"><span>Discuss</span></a></li>';}} catch (err) {}}if (window.location.href.substring(30,100).substring(0, window.location.href.substring(30,100).indexOf('/')).toLowerCase() == "discussbutton") {document.getElementsByClassName("box slider-carousel-container prevent-select")[2].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[1].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[0].remove();document.getElementsByClassName("group")[0].innerText="isOnline extra option";stop = "Discuss button page";if (localStorage.getItem("iOdiscuss") != "1") {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Enable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.setItem("iOdiscuss", "1");location.reload();};} else {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Disable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.removeItem("iOdiscuss");location.reload();};}}
 
 chrome.storage.sync.get(["iOaccounts","iOfriendlist","iOfriendsenabled"], function (data) {
-    registeredUsers = JSON.stringify(data) === "{}" ? [] : JSON.parse(data.iOaccounts);
+    registeredUsers = data.iOaccounts === undefined ? [] : JSON.parse(data.iOaccounts);
     friendList = data.iOfriendlist;
     friendListEnabled = data.iOfriendsenabled==1;
     try{chrome.runtime.sendMessage({setuninstallurl: registeredUsers[0]});}catch(err){}
@@ -329,6 +329,7 @@ function validateAccount(){
             document.getElementById("loader").style.display = "none";
             document.getElementById("header").innerHTML = "<center><h3 style='color:red'>"+chrome.i18n.getMessage("verifyerror")+"</h3></center>";
         }
+		chrome.runtime.sendMessage({friendlist: "refresh"});
     };
 }
 
