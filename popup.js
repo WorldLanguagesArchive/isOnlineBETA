@@ -58,9 +58,9 @@ window.onload = function() {
                         var str = this.responseText;
                         id = str.substring(6, str.indexOf("username")-2);
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
-                            if(document.getElementById("onlinefriends").innerHTML === ""){document.getElementById("onlinefriends").innerHTML = '<br><img id="iostatusimage" src="online.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:green">Online</span></b>';}
+                            if(document.getElementById("titleonlinefriends").innerHTML === ""){document.getElementById("titleonlinefriends").innerHTML = '<img id="iostatusimage" src="online.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:green">Online</span></b><hr>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("onlinefriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a>";
+                        document.getElementById("onlinefriends").innerHTML += "<li class='onlinefriends'><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a></li><hr>";
                         document.getElementById(id).src=image;
                     }
                 };
@@ -80,9 +80,9 @@ window.onload = function() {
                         var str = this.responseText;
                         id = str.substring(6, str.indexOf("username")-2);
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
-                            if(document.getElementById("awayfriends").innerHTML === ""){document.getElementById("awayfriends").innerHTML = '<br><img id="iostatusimage" src="absent.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:orange">Away</span></b>';}
+                            if(document.getElementById("titleawayfriends").innerHTML === ""){document.getElementById("titleawayfriends").innerHTML = '<img id="iostatusimage" src="absent.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:orange">Away</span></b><hr>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("awayfriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a>";
+                        document.getElementById("awayfriends").innerHTML += "<li class='awayfriends'><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a></li><hr>";
                         document.getElementById(id).src=image;
                     }
                 };
@@ -102,9 +102,9 @@ window.onload = function() {
                         var str = this.responseText;
                         id = str.substring(6, str.indexOf("username")-2);
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
-                            if(document.getElementById("offlinefriends").innerHTML === ""){document.getElementById("offlinefriends").innerHTML = '<br><img id="iostatusimage" src="offline.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:red">Offline</span></b>';}
+                            if(document.getElementById("titleofflinefriends").innerHTML === ""){document.getElementById("titleofflinefriends").innerHTML = '<img id="iostatusimage" src="offline.svg" height="12" width="12"> <b><span id="iOstatustext" style="color:red">Offline</span></b><hr>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("offlinefriends").innerHTML += "<br><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a>";
+                        document.getElementById("offlinefriends").innerHTML += "<li class='offlinefriends'><img height='20' width='20' id='"+id+"'src='"+image+"'/>&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a></li><hr>";
                         document.getElementById(id).src=image;
                     }
                 };
@@ -120,8 +120,8 @@ window.onload = function() {
             document.getElementById("unknownfriends").innerHTML = "";
             for (i = 0; i < response.thelist.length; i++) {
                 if(response.thelist[i] !== ""){
-                    if(document.getElementById("unknownfriends").innerHTML === ""){document.getElementById("unknownfriends").innerHTML = '<br><b><span id="iOstatustext" style="color:grey">Loading statuses from...</span></b>';}
-                    document.getElementById("unknownfriends").innerHTML += "<br><a href='https://scratch.mit.edu/users/"+response.thelist[i]+"/' target='_blank'>"+response.thelist[i]+"</a>";}}
+                    if(document.getElementById("titleunknownfriends").innerHTML === ""){document.getElementById("titledivunknownfriends").innerHTML = '<b><span id="iOstatustext" style="color:grey">Loading statuses from...</span></b><hr>';}
+                    document.getElementById("unknownfriends").innerHTML += "<li class='unknownfriends'><a href='https://scratch.mit.edu/users/"+response.thelist[i]+"/' target='_blank'>"+response.thelist[i]+"</a></li><hr>";}}
         });
     }
 
