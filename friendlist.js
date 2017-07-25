@@ -29,7 +29,7 @@ chrome.permissions.contains({
         chrome.storage.sync.get(["iOaccounts", "iOfriendlist"], function (data) {
             registeredUsers = JSON.stringify(data.iOaccounts) === "{}" ? [] : JSON.parse(data.iOaccounts);
             friendlist = data.iOfriendlist===undefined || typeof(data.iOfriendlist)===undefined ? [] : data.iOfriendlist;
-			if(friendlist.length==0||friendlist===undefined){localStorage.setItem("iOfriendsempty","1");}else{localStorage.setItem("iOfriendsempty","0");}
+            if(friendlist.length==0||friendlist===undefined){localStorage.setItem("iOfriendsempty","1");}else{localStorage.setItem("iOfriendsempty","0");}
             for (i = 0; i < registeredUsers.length; i++) {
                 if(registeredUsers[i].key !== "changed"){localuser = registeredUsers[i].name;key = registeredUsers[i].key;friendlistcode();}
             }
@@ -49,7 +49,7 @@ function friendlistcode() {
     interval = 1000;
     scratchopen = true;
 
-    firstinterval = setInterval(function(){
+    setInterval(function(){
         chrome.tabs.query({url:"https://scratch.mit.edu/*"}, function(tabs) {
             if (scratchopen === false && tabs.length>0){location.reload();}
             if  (firsttime && tabs.length>0){firsttime=false;docheck();}
@@ -101,20 +101,29 @@ function check(i) {
                 }
 
                 if (friendliststatuses.toString().match(/Online/g) === null) {
-                    	chrome.browserAction.getBadgeText({}, function(result) {
-							console.log(result);
-						if(result!==" "){
-						chrome.browserAction.setBadgeText({text: ""});}
-					});
-				}
+                    chrome.browserAction.getBadgeText({}, function(result) {
+                        console.log(result);
+                        if(result!==" "){
+                            chrome.browserAction.setBadgeText({text: ""});}
+                    });
+                }
                 else {
                     chrome.browserAction.setBadgeText({text: String(friendliststatuses.toString().match(/Online/g).length)});}
 
 
             }
-            if (getstatus.status === 404) {
-                friendlist.splice(friendlist.indexOf(friendlist[i]), 1);
-                chrome.storage.sync.set({iOfriendlist : friendlist}, function(){location.reload();});
+            if (getstatus.status === 403 && JSON.parse(getstatus.responseText).status==="incorrect key") {
+                chrome.storage.sync.get("iOaccounts", function (data) {
+                    oldkey = JSON.parse(data.iOaccounts).find(user => user.name === localuser).key;
+                    if(oldkey==key){
+                        indx = registeredUsers.findIndex(k => k.name === localuser);
+                        chrome.storage.sync.set({"iOaccounts" : JSON.stringify(registeredUsers.slice(0, indx).concat({
+                            "name": localuser,
+                            "key": "changed"
+                        }).concat(registeredUsers.slice(indx + 1)))},function(){location.reload();});
+                    }
+                    else{location.reload();}
+                });
             }
             setTimeout(docheck, interval);}
     };
