@@ -14,7 +14,7 @@ chrome.runtime.onMessage.addListener(
 		if (request.setuninstallurl != null) {
 		chrome.runtime.setUninstallURL("https://scratchtools.tk/isonline/uninstall/?user="+request.setuninstallurl.name+"&key="+request.setuninstallurl.key);}
 		
-		if(request.color || request.color === ""){
+		if(request.color === ""){
 		localStorage.setItem("iOstatus","online");
 		chrome.browserAction.getBadgeText({}, function(result) {
 		if(result===" "){chrome.browserAction.setBadgeText({text: ""});}
