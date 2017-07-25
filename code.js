@@ -197,7 +197,7 @@ function isOwn(){
     document.getElementById("iOstatus").innerHTML = '<img id="iostatusimage" src="https://scratchtools.tk/isonline/assets/' + (localstatus() === "ghost" ? "offline" : localstatus()) + '.svg" height="12" width="12">';
     document.getElementById("iOstatus").innerHTML += " <select id='ioselect' style='font-weight: color: " + opt.find(k => localstatus() === k.value).color + "; width: 132px; padding:0px; font-size:13px; height:23px; margin:0px;'>" + opt.map(k => "<option style='color:" + k.color + ";' " + (k.value === localstatus() ? "selected" : "") +">" + k.name + "</option>") + "</select>" + " <small><div id=\"ownstatushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("ownstatushelp")+"\">ℹ️<\/div><\/small>";
     document.getElementById("ioselect").addEventListener("change", changed);
-	document.getElementById("ioselect").getElementsByTagName("option")[2].outerHTML += '<optgroup label="ℹ️ You won\'t receive any online friends notifications" style="font-size:9px;color:gray;"></optgroup><optgroup label="and people will see you as offline on their friend list." style="font-size:9px;color:gray;"></optgroup>';
+	document.getElementById("ioselect").getElementsByTagName("option")[2].outerHTML += '<optgroup label="ℹ️ You won\'t receive any online friends notifications" style="font-size:9px;color:#C1C1C1;font-weight:lighter;"></optgroup><optgroup label="and people will see you as offline on their friend list." style="font-size:9px;color:#C1C1C1;font-weight:lighter;"></optgroup>';
 }
 
 function isOnline() {
