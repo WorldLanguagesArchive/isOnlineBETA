@@ -51,6 +51,7 @@ window.onload = function() {
             if(JSON.stringify(response.thelist)===onlineresponse){console.log("online is same");return;}
             onlineresponse = JSON.stringify(response.thelist);
             document.getElementById("onlinefriends").innerHTML = "";
+            document.getElementById("titleonlinefriends").innerHTML = "";
             for (i = 0; i < response.thelist.length; i++) {
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
@@ -73,6 +74,7 @@ window.onload = function() {
             if(JSON.stringify(response.thelist)===awayresponse){console.log("same");return;}
             awayresponse = JSON.stringify(response.thelist);
             document.getElementById("awayfriends").innerHTML = "";
+			document.getElementById("titleawayfriends").innerHTML = "";
             for (i = 0; i < response.thelist.length; i++) {
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
@@ -95,8 +97,10 @@ window.onload = function() {
             if(JSON.stringify(response.thelist)===offlineresponse){console.log("same");return;}
             offlineresponse = JSON.stringify(response.thelist);
             document.getElementById("offlinefriends").innerHTML = "";
-            document.getElementById("offlinefriends").style.display = "block";
+            document.getElementById("titleofflinefriends").innerHTML = "";
+			document.getElementById("divofflinefriends").style.display = "none";
             for (i = 0; i < response.thelist.length; i++) {
+			document.getElementById("divofflinefriends").style.display = "block";
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
@@ -119,8 +123,7 @@ chrome.runtime.sendMessage({getfriendsbystatus: "Unknown"}, function (response){
             if(JSON.stringify(response.thelist)===unknownresponse){console.log("same");return;}
             unknownresponse = JSON.stringify(response.thelist);
             document.getElementById("unknownfriends").innerHTML = "";
-    
-            document.getElementById("offlinefriends").style.display = "none";
+            document.getElementById("titleunknownfriends").innerHTML = "";
             for (i = 0; i < response.thelist.length; i++) {
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
@@ -144,8 +147,6 @@ chrome.runtime.sendMessage({getfriendsbystatus: "Unknown"}, function (response){
 
     function onlineList() {
         chrome.tabs.query({url:"https://scratch.mit.edu/*"}, function(tabs) {
-            
-            document.getElementById("offlinefriends").style.display = "none";
             if (tabs.length!==0){getStatuses();}
             else {
                 document.getElementById("errorMessage").innerHTML="<img src='sorryneedtabopen.png' style='width:300px;display: absolute;margin: 0 auto;padding:0px;'></img>";
