@@ -14,7 +14,10 @@ isOnline is an extension that can be used to easily know if a Scratcher is Offli
 
 ### Where can I get isOnline?
 
-You can get it right here:
+You can get isOnline by using the following links:
 
 1.  Chrome: [http://ison.ga](http://ison.ga)
 2.  Mozilla: [http://ison.ga](http://ison.ga)
+3.  Opera: [http://ison.ga](http://ison.ga)
+
+*Note: [http://ison.ga](http://ison.ga) will send you to the correct link based on your browser*
