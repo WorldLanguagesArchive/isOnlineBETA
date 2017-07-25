@@ -1,7 +1,5 @@
 window.onload = function() {
 	
-	if(localStorage.getItem("iOfriendsempty")==1){document.getElementById("anote").innerHTML+='<br><br><b>You can add people that follow you to your friend list by clicking "+ friends" on their profiles!';}
-
     document.getElementById("enablefriendlist").onclick = function() {
         chrome.runtime.sendMessage({friendlist: "refresh"});
         chrome.permissions.contains({
@@ -41,6 +39,8 @@ window.onload = function() {
         document.getElementById("enablefriendlist").checked = true;
     }
     else{document.getElementById("settings").remove();document.getElementById("anote").remove();document.getElementById("newlines").remove();return;}
+
+	if(localStorage.getItem("iOfriendsempty")!=0){document.getElementById("anote").innerHTML+='<br><br><b>You can add people that follow you to your friend list by clicking "+ friends" on their profiles!';return;}
 
     onlineresponse = {"thelist":"0"};
     awayresponse = {"thelist":"0"};
@@ -128,7 +128,7 @@ window.onload = function() {
 chrome.runtime.sendMessage({getfriendsbystatus: "Unknown"}, function (response){
             if(JSON.stringify(response.thelist)===unknownresponse){console.log("same");return;}
             unknownresponse = JSON.stringify(response.thelist);
-			if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='<hr style="border-color:gray;">Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
+			if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
             document.getElementById("unknownfriends").innerHTML = "";
             document.getElementById("titleunknownfriends").innerHTML = "";
             for (i = 0; i < response.thelist.length; i++) {

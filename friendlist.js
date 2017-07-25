@@ -1,4 +1,5 @@
 audio = new Audio('sound.mp3');
+friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
@@ -30,7 +31,7 @@ chrome.permissions.contains({
     if (result && localStorage.getItem("iOfriendlistenabled")==1) {
         chrome.storage.sync.get(["iOaccounts", "iOfriendlist"], function (data) {
             registeredUsers = JSON.stringify(data.iOaccounts) === "{}" ? [] : JSON.parse(data.iOaccounts);
-            friendlist = data.iOfriendlist===undefined || typeof(data.iOfriendlist)===undefined ? [] : data.iOfriendlist;
+            friendlist = typeof(data.iOfriendlist)===undefined ? [] : data.iOfriendlist;
             if(friendlist.length==0||friendlist===undefined){localStorage.setItem("iOfriendsempty","1");}else{localStorage.setItem("iOfriendsempty","0");}
             for (i = 0; i < registeredUsers.length; i++) {
                 if(registeredUsers[i].key !== "changed"){localuser = registeredUsers[i].name;key = registeredUsers[i].key;friendlistcode();}
@@ -42,7 +43,6 @@ chrome.permissions.contains({
 function friendlistcode() {
 
     if (JSON.stringify(friendlist)==="[]"){return;}
-    friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");
     time = function(){return Math.floor(Date.now() / 1000);};
 
     x = 0;
