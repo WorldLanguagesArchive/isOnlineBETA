@@ -50,6 +50,7 @@ window.onload = function() {
             console.log(response);
             if(JSON.stringify(response.thelist)===onlineresponse){console.log("online is same");return;}
             onlineresponse = JSON.stringify(response.thelist);
+			if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
             document.getElementById("onlinefriends").innerHTML = "";
             document.getElementById("titleonlinefriends").innerHTML = "";
             for (i = 0; i < response.thelist.length; i++) {
@@ -73,6 +74,7 @@ window.onload = function() {
         chrome.runtime.sendMessage({getfriendsbystatus: "Away"}, function (response){
             if(JSON.stringify(response.thelist)===awayresponse){console.log("same");return;}
             awayresponse = JSON.stringify(response.thelist);
+			if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
             document.getElementById("awayfriends").innerHTML = "";
 			document.getElementById("titleawayfriends").innerHTML = "";
             for (i = 0; i < response.thelist.length; i++) {
@@ -96,6 +98,7 @@ window.onload = function() {
         chrome.runtime.sendMessage({getfriendsbystatus: "Offline"}, function (response){
             if(JSON.stringify(response.thelist)===offlineresponse){console.log("same");return;}
             offlineresponse = JSON.stringify(response.thelist);
+			if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
             document.getElementById("offlinefriends").innerHTML = "";
             document.getElementById("titleofflinefriends").innerHTML = "";
 			document.getElementById("divofflinefriends").style.display = "none";
@@ -122,6 +125,7 @@ window.onload = function() {
 chrome.runtime.sendMessage({getfriendsbystatus: "Unknown"}, function (response){
             if(JSON.stringify(response.thelist)===unknownresponse){console.log("same");return;}
             unknownresponse = JSON.stringify(response.thelist);
+			if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
             document.getElementById("unknownfriends").innerHTML = "";
             document.getElementById("titleunknownfriends").innerHTML = "";
             for (i = 0; i < response.thelist.length; i++) {
