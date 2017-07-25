@@ -142,7 +142,7 @@ chrome.runtime.sendMessage({getfriendsbystatus: "Unknown"}, function (response){
     function onlineList() {
         chrome.tabs.query({url:"https://scratch.mit.edu/*"}, function(tabs) {
             if (tabs.length!==0){getStatuses();}
-            else {document.getElementById("friendstatuseslist").innerHTML="<img src='sorryneedtabopen.png' style='width:300px;display: absolute;margin: 0 auto;padding:0px;'></img>"}
+            else {document.getElementById("errorMessage").innerHTML="<img src='sorryneedtabopen.png' style='width:300px;display: absolute;margin: 0 auto;padding:0px;'></img>"}
         });
     }
 
