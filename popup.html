@@ -45,6 +45,11 @@
        h1 {
            padding: 0px;
        }
+       #titleofonline {
+           font-family: Cabin;
+           font-size: 20px;
+           font-weight: bold;
+       }
 </style>
     
 <link href='https://fonts.googleapis.com/css?family=Exo' rel='stylesheet'>
@@ -64,6 +69,11 @@
 <ul id="errorMessage">
     
     </ul>
+    <hr>
+    <br>
+    <center><div id="titleofonline">My Friends</div></center>
+    <hr style="border-color:blue;">
+    <br>
 <div id="divonlinefriends">
     <div id="titleonlinefriends"></div>
     <ul id="onlinefriends"></ul>
@@ -77,7 +87,9 @@
 
 <div id="divofflinefriends">
     <div id="titleofflinefriends"></div>
+    
     <details id="offlinefriends">
+    
     </details>
     </div>
 
@@ -93,7 +105,7 @@
 
 <details id="settings">
 <summary>Friend list settings</summary>
-    <hr>
+    
 <input type="checkbox" id="awaytoonline">Notify me if a friend is Away and becomes Online<br>
 <input type="checkbox" id="soundnotif">Sound notification<br>
 </details>
