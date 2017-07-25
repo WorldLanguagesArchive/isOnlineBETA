@@ -1,0 +1,66 @@
+#ioselect {
+	background-color: #e0e0e0;
+    border: none;
+    margin-left: 5px;
+	margin-bottom: 0;
+	height: 23px;
+	width: auto;
+	outline: 0;
+	transition: background-color 0.2s;
+}
+
+#ioselect:hover, #ioselect:focus {
+	background-color: #eaeaea;
+}
+
+#isonline-helpcontainer {
+	background-color: #444;
+	margin-left: 5px;
+	height: 23px;
+	vertical-align: top;
+	display: inline-block;
+	border-radius: 4px;
+	max-width: 23px;
+	transition: max-width 0.4s;
+}
+
+#ownstatushelp {
+	height: 23px;
+	vertical-align: top;
+}
+
+#ownstatushelp-path {
+	fill: #2196f3;
+	transition: fill 0.2s;
+}
+
+#ownstatushelp:hover #ownstatushelp-path {
+	fill: rgb(106, 182, 243);
+}
+
+#isonline-helpcontainer:hover {
+	max-width: 600px;
+}
+
+#isonline-helptext {
+	text-shadow: none;
+	line-height: 23px;
+	margin-left: 5px;
+    margin-right: 5px;
+	display: none;
+	white-space: nowrap;
+	text-overflow: hidden;
+	overflow: hidden;
+}
+
+.io-option {
+	background-color: white;
+}
+
+.io-option-info {
+	background-color: white;
+	padding-left: 5px;
+	font-size: 9px;
+	color: #c1c1c1;
+	font-weight: lighter;
+}

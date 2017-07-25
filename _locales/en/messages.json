@@ -57,7 +57,7 @@
       "message":"Whoops! It looks like you've been marked as a bot by the isOnline server. isOnline isn't working. Please contact <a href='https://scratch.mit.edu/users/chooper100/#comments' target='blank'>chooper100</a> to unblock your account."
    },
    "ownstatushelp":{
-      "message":"You can choose your status to be automatically set to the correct one, or manually select to be seen as Away or Offline."
+      "message":"Set your status manually, or leave it on automatic."
    },
    "probablyonlinehelp":{
       "message":"This user shows activity on their What I've been doing from the last 5 minutes."

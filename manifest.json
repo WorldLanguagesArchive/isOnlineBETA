@@ -9,6 +9,9 @@
          "matches":[  
             "https://scratch.mit.edu/*"
          ],
+		 "css":[
+			"inject-styles.css"
+		 ],
          "js":[  
             "code.js"
          ],
