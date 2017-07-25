@@ -30,6 +30,9 @@ window.onload = function() {
         document.getElementById("awaytoonline").checked = true;
     }
 	
+	document.getElementById("awaytoonline").onclick = function(){
+	localStorage.setItem("iOfriendsawaytoonline", document.getElementById("awaytoonline").checked ? 1 : 0);};
+	
     if(localStorage.getItem("iOfriendlistsound")!=0) {
         document.getElementById("soundnotif").checked = true;
     }
