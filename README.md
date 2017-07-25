@@ -20,4 +20,4 @@ You can get isOnline by using the following links:
 2.  Mozilla: [http://ison.ga](http://ison.ga)
 3.  Opera: [http://ison.ga](http://ison.ga)
 
-*Note: [http://ison.ga](http://ison.ga) will send you to the correct link based on your browser*
+*Note: [http://ison.ga](http://ison.ga) will send you to the correct link based on your browser.*
