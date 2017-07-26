@@ -107,7 +107,7 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-       #a {
+      .a {
     vertical-align: middle;
        }
 </style>
@@ -119,7 +119,7 @@ input:checked + .slider:before {
     <center><h1 id="title"><img id="logo" src="isOnlineLogo.png" height="60" width="150"></img></h1>
 	<small>Need help or have questions? Comment on <a href="https://scratch.mit.edu/users/isOnlineV2" target="_blank">@isOnlineV2</a>!</small></center>
     <hr>
-    <div id="a">
+    <div class="a">
     <label style="display:inline;vertical-align:top;"class="switch">
   <input type="checkbox"  id="enablefriendlist" ></input>
   <span class="slider round"></span>
@@ -164,8 +164,22 @@ input:checked + .slider:before {
 <details id="settings">
 <summary>Friend list settings</summary>
 <hr>    
-<input type="checkbox" id="awaytoonline">Notify me if a friend is Away and becomes Online<br>
-<input type="checkbox" id="soundnotif">Sound notification<br>
+    <div class="a">
+    <label style="display:inline;vertical-align:top;"class="switch">
+  <input type="checkbox"  id="awaytoonline" ></input>
+  <span class="slider round"></span>
+</label>
+
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notify me if a friend is Away and becomes Online</p>
+    </div>
+<div class="a">
+    <label style="display:inline;vertical-align:top;"class="switch">
+  <input type="checkbox"  id="soundnotif" ></input>
+  <span class="slider round"></span>
+</label>
+
+    <p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sound Notification</p>
+    </div><br>
 </details>
 
 
