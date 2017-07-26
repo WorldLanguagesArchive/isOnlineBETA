@@ -50,6 +50,66 @@
            font-size: 20px;
            font-weight: bold;
        }
+       .switch {
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 17px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+    width:35px;
+    height:17px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 4px;
+  bottom: 1px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+       #a {
+    vertical-align: middle;
+       }
 </style>
     
 <link href='https://fonts.googleapis.com/css?family=Exo' rel='stylesheet'>
@@ -59,8 +119,14 @@
     <center><h1 id="title"><img id="logo" src="isOnlineLogo.png" height="60" width="150"></img></h1>
 	<small>Need help or have questions? Comment on <a href="https://scratch.mit.edu/users/isOnlineV2" target="_blank">@isOnlineV2</a>!</small></center>
     <hr>
-<input type="checkbox" id="enablefriendlist">isOnline friends & online notifications</input>
-<br>
+    <div id="a">
+    <label style="display:inline;vertical-align:top;"class="switch">
+  <input type="checkbox"  id="enablefriendlist" ></input>
+  <span class="slider round"></span>
+</label>
+
+    <p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOnline friends & online notifications</p>
+    </div>
 <div id="anote"><small>Note: You can disable notifications temporarily while keeping friends by setting your status to "Do Not Disturb" on your profile.</small></div>
 <hr>
 
