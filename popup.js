@@ -1,7 +1,7 @@
 window.onload = function() {
-	
+
     document.getElementById("enablefriendlist").onclick = function() {
-        chrome.runtime.sendMessage({friendlist: "refresh"});
+        chrome.runtime.sendMessage({friendlist: "enable"});
         chrome.permissions.contains({
             permissions: ['notifications'],
         }, function(result) {
@@ -13,7 +13,7 @@ window.onload = function() {
             } else { // If there's no permission
                 chrome.permissions.request({
                     permissions: ['notifications'],
-                }, function(granted) {if(!granted){return;}localStorage.setItem("iOfriendlistenabled",1);chrome.storage.sync.set({iOfriendsenabled : "1"},function(){chrome.runtime.sendMessage({friendlist: "refresh"});location.reload();});});
+                });
             }
         }
                                    );
@@ -21,16 +21,16 @@ window.onload = function() {
 
 
     document.getElementById("soundnotif").onclick = function() {
-		audio = new Audio('sound.mp3');audio.play();
+        audio = new Audio('sound.mp3');audio.play();
         localStorage.setItem("iOfriendlistsound",document.getElementById("soundnotif").checked ? 1 : 0);};
 
     if(localStorage.getItem("iOfriendsawaytoonline")==1) {
         document.getElementById("awaytoonline").checked = true;
     }
-	
-	document.getElementById("awaytoonline").onclick = function(){
-	localStorage.setItem("iOfriendsawaytoonline", document.getElementById("awaytoonline").checked ? 1 : 0);};
-	
+
+    document.getElementById("awaytoonline").onclick = function(){
+        localStorage.setItem("iOfriendsawaytoonline", document.getElementById("awaytoonline").checked ? 1 : 0);};
+
     if(localStorage.getItem("iOfriendlistsound")!=0) {
         document.getElementById("soundnotif").checked = true;
     }
@@ -40,7 +40,7 @@ window.onload = function() {
     }
     else{document.getElementById("settings").remove();document.getElementById("anote").remove();document.getElementById("newlines").remove();return;}
 
-	if(localStorage.getItem("iOfriendsempty")!=0){document.getElementById("anote").innerHTML+='<br><br><b>You can add people that follow you to your friend list by clicking "+ friends" on their profiles!';return;}
+    if(localStorage.getItem("iOfriendsempty")!=0){document.getElementById("divonlinefriends").innerHTML+='<b>You can add people that follow you to your friend list by clicking "+ friends" on their profiles!';return;}
 
     onlineresponse = {"thelist":"0"};
     awayresponse = {"thelist":"0"};
@@ -53,7 +53,7 @@ window.onload = function() {
             console.log(response);
             if(JSON.stringify(response.thelist)===onlineresponse){console.log("online is same");return;}
             onlineresponse = JSON.stringify(response.thelist);
-			if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
+            if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
             document.getElementById("onlinefriends").innerHTML = "";
             document.getElementById("titleonlinefriends").innerHTML = "";
             for (i = 0; i < response.thelist.length; i++) {
@@ -63,7 +63,7 @@ window.onload = function() {
                         var str = this.responseText;
                         id = str.substring(6, str.indexOf("username")-2);
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
-                            if(document.getElementById("titleonlinefriends").innerHTML === ""){document.getElementById("titleonlinefriends").innerHTML = '<img id="iostatusimage" src="online.svg" height="16" width="16"> <span id="iOstatustext" style="color:green;font-size:18px;">Online</span><hr  style="border: 1px solid green;">';}
+                        if(document.getElementById("titleonlinefriends").innerHTML === ""){document.getElementById("titleonlinefriends").innerHTML = '<img id="iostatusimage" src="online.svg" height="16" width="16"> <span id="iOstatustext" style="color:green;font-size:18px;">Online</span><hr  style="border: 1px solid green;">';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
                         document.getElementById("onlinefriends").innerHTML += "<li class='onlinefriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'>";
                         document.getElementById(id).src=image;
@@ -77,9 +77,9 @@ window.onload = function() {
         chrome.runtime.sendMessage({getfriendsbystatus: "Away"}, function (response){
             if(JSON.stringify(response.thelist)===awayresponse){console.log("same");return;}
             awayresponse = JSON.stringify(response.thelist);
-			if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
+            if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
             document.getElementById("awayfriends").innerHTML = "";
-			document.getElementById("titleawayfriends").innerHTML = "";
+            document.getElementById("titleawayfriends").innerHTML = "";
             for (i = 0; i < response.thelist.length; i++) {
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
@@ -87,7 +87,7 @@ window.onload = function() {
                         var str = this.responseText;
                         id = str.substring(6, str.indexOf("username")-2);
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
-                            if(document.getElementById("titleawayfriends").innerHTML === ""){document.getElementById("titleawayfriends").innerHTML = '<img id="iostatusimage" src="absent.svg" height="16" width="16"> <span id="iOstatustext" style="color:orange;font-size:18px;">Away</span><hr style="border: 1px solid orange;">';}
+                        if(document.getElementById("titleawayfriends").innerHTML === ""){document.getElementById("titleawayfriends").innerHTML = '<img id="iostatusimage" src="absent.svg" height="16" width="16"> <span id="iOstatustext" style="color:orange;font-size:18px;">Away</span><hr style="border: 1px solid orange;">';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
                         document.getElementById("awayfriends").innerHTML += "<li class='awayfriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/' target='_blank'>"+username+"</a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'>";
                         document.getElementById(id).src=image;
@@ -101,19 +101,19 @@ window.onload = function() {
         chrome.runtime.sendMessage({getfriendsbystatus: "Offline"}, function (response){
             if(JSON.stringify(response.thelist)===offlineresponse){console.log("same");return;}
             offlineresponse = JSON.stringify(response.thelist);
-			if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
+            if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
             document.getElementById("offlinefriends").innerHTML = '<hr style="border: 1px solid red;">';
             document.getElementById("titleofflinefriends").innerHTML = "";
-			document.getElementById("divofflinefriends").style.display = "none";
+            document.getElementById("divofflinefriends").style.display = "none";
             for (i = 0; i < response.thelist.length; i++) {
-			document.getElementById("divofflinefriends").style.display = "block";
+                document.getElementById("divofflinefriends").style.display = "block";
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         var str = this.responseText;
                         id = str.substring(6, str.indexOf("username")-2);
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
-                            if(document.getElementById("offlinefriends").innerHTML == '<hr style="border: 1px solid red;">'){document.getElementById("offlinefriends").innerHTML += '<summary id="iOstatustext" style="color:red;font-size:18px;"><img id="iostatusimage" src="offline.svg" height="16" width="16"> Offline</summary>';}
+                        if(document.getElementById("offlinefriends").innerHTML == '<hr style="border: 1px solid red;">'){document.getElementById("offlinefriends").innerHTML += '<summary id="iOstatustext" style="color:red;font-size:18px;"><img id="iostatusimage" src="offline.svg" height="16" width="16"> Offline</summary>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
                         document.getElementById("offlinefriends").innerHTML += "<li class='offlinefriends'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style='vertical-align:middle;'height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a><hr align='right' width='88%' style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'></li>";
                         document.getElementById(id).src=image;
@@ -122,13 +122,13 @@ window.onload = function() {
                 xhttp.open("GET", "https://api.scratch.mit.edu/users/" +response.thelist[i], true);
                 xhttp.send();
             }
-            
+
         });
 
-chrome.runtime.sendMessage({getfriendsbystatus: "Unknown"}, function (response){
+        chrome.runtime.sendMessage({getfriendsbystatus: "Unknown"}, function (response){
             if(JSON.stringify(response.thelist)===unknownresponse){console.log("same");return;}
             unknownresponse = JSON.stringify(response.thelist);
-			if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
+            if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML='Error: <a href="https://scratch.mit.edu/isonline-extension/register" target="_blank">re-validate</a> to solve the problem.';return;}
             document.getElementById("unknownfriends").innerHTML = "";
             document.getElementById("titleunknownfriends").innerHTML = "";
             for (i = 0; i < response.thelist.length; i++) {
@@ -138,7 +138,7 @@ chrome.runtime.sendMessage({getfriendsbystatus: "Unknown"}, function (response){
                         var str = this.responseText;
                         id = str.substring(6, str.indexOf("username")-2);
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
-                            if(document.getElementById("titleunknownfriends").innerHTML === ""){document.getElementById("titleunknownfriends").innerHTML = '<span id="iOstatustext" style="color:gray;font-size:18px;">Loading statuses from...</span><hr>';}
+                        if(document.getElementById("titleunknownfriends").innerHTML === ""){document.getElementById("titleunknownfriends").innerHTML = '<span id="iOstatustext" style="color:gray;font-size:18px;">Loading statuses from...</span><hr>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
                         document.getElementById("unknownfriends").innerHTML += "<li class='unknownfriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'>";
                         document.getElementById(id).src=image;
@@ -147,10 +147,10 @@ chrome.runtime.sendMessage({getfriendsbystatus: "Unknown"}, function (response){
                 xhttp.open("GET", "https://api.scratch.mit.edu/users/" +response.thelist[i], true);
                 xhttp.send();
             }
-            
+
         });
-		
-	}
+
+    }
 
     function onlineList() {
         chrome.tabs.query({url:"https://scratch.mit.edu/*"}, function(tabs) {
