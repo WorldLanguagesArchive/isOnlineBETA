@@ -42,8 +42,6 @@ if(location.href.startsWith("https://scratch.mit.edu/studios/4100062/comments/")
 
 function main() {
 
-    isOwnAccount = false;
-
     /* Data for helping page*/ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/isonline-extension/helpdata")) {stop="On data page";document.documentElement.innerHTML = "<center><h2><b>ONLY give this information to the official isOnline account, @isOnlineV2.</b></h2></center><br><br><small>" + JSON.stringify(localStorage)+ " / " + JSON.stringify(registeredUsers)+ " / " + navigator.userAgent + " / Version: "+JSON.stringify(chrome.runtime.getManifest().version) + "</small>";}
 
     /* Redirect to verification */ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/isonline-extension/register")) {window.location = "https://scratchtools.tk/isonline/register/#"+localuser;}
@@ -193,7 +191,6 @@ function isOwn(){
            {"name": chrome.i18n.getMessage("absent"),       "value" : "absent",  "color": "orange"},
            {"name": "Do Not Disturb",       "value" : "dnd",  "color": "gray"},
            {"name": chrome.i18n.getMessage("offlineghost"), "value" : "offline", "color": "red"}];
-    isOwnAccount = true;
 	
     document.getElementById("iOstatus").innerHTML = '<img id="iostatusimage" src="https://scratchtools.tk/isonline/assets/' + (localstatus() === "ghost" ? "offline" : localstatus()) + '.svg" height="12" width="12">';
     document.getElementById("iOstatus").innerHTML += "<select id='ioselect' style='color: " + opt.find(k => localstatus() === k.value).color + ";'>" + opt.map(k => "<option class='io-option' style='color:" + k.color + ";' " + (k.value === localstatus() ? "selected" : "") +">" + k.name + "</option>") + '</select><div id="isonline-helpcontainer"><svg id="ownstatushelp" title="'+chrome.i18n.getMessage('ownstatushelp')+'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path id="ownstatushelp-path" d="M48 41.333C48 45.068 45.068 48 41.333 48H6.667C2.932 48 0 45.068 0 41.333V6.667C0 2.932 2.932 0 6.667 0h34.666C45.068 0 48 2.932 48 6.667z"/><path d="M26.667 36h-5.334V21.333h5.334zm.666-22c0-1.865-1.468-3.333-3.333-3.333-1.865 0-3.333 1.468-3.333 3.333 0 1.865 1.468 3.333 3.333 3.333 1.865 0 3.333-1.468 3.333-3.333" fill="#fff"/></svg><span  style="color:#e8e5e5" id="isonline-helptext"></span></div>';
@@ -303,7 +300,7 @@ function updateStatus(color) {
     try {document.getElementsByClassName("user-name dropdown-toggle")[0].style.backgroundColor=color;}
     catch(err) {document.getElementsByClassName("link right account-nav")[0].style.backgroundColor=color;}
     color = color === "" ? "green" : color;
-    if(isOwnAccount && document.getElementById("ioselect").style.color !== color){
+    if(localuser.toUpperCase() == user.toUpperCase() && document.getElementById("ioselect").style.color !== color){
         document.getElementById("ioselect").selectedIndex = opt.findIndex(k => k.color === color);
         document.getElementById("ioselect").style.color = color;
         document.getElementById("iostatusimage").src = "https://scratchtools.tk/isonline/assets/" + opt.find(k => k.color === color).value + ".svg";}

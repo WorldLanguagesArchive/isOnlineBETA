@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener(
 
         }
         if (request.friendlist == "refresh") {
-            setTimeout(function(){location.reload();},5000);}
+		location.reload();}
         if (request.getfriendsbystatus) {
             try{list = [friendlist[0]===undefined||friendliststatuses[0]!==request.getfriendsbystatus ? "" : friendlist[0],friendlist[1]===undefined||friendliststatuses[1]!==request.getfriendsbystatus ? "" : friendlist[1],friendlist[2]===undefined||friendliststatuses[2]!==request.getfriendsbystatus ? "" : friendlist[2],friendlist[3]===undefined||friendliststatuses[3]!==request.getfriendsbystatus ? "" : friendlist[3],friendlist[4]===undefined||friendliststatuses[4]!==request.getfriendsbystatus ? "" : friendlist[4],friendlist[5]===undefined||friendliststatuses[5]!==request.getfriendsbystatus ? "" : friendlist[5],friendlist[6]===undefined||friendliststatuses[6]!==request.getfriendsbystatus ? "" : friendlist[6],friendlist[7]===undefined||friendliststatuses[7]!==request.getfriendsbystatus ? "" : friendlist[7],friendlist[8]===undefined||friendliststatuses[8]!==request.getfriendsbystatus ? "" : friendlist[8],friendlist[9]===undefined||friendliststatuses[9]!==request.getfriendsbystatus ? "" : friendlist[9]].filter(Boolean);
                 sendResponse({thelist: list});}
@@ -29,7 +29,7 @@ chrome.runtime.onMessage.addListener(
         if (request.removefriend) {
             sendResponse({result: "ok"});
             friendlist.splice(friendlist.indexOf(request.removefriend), 1);
-            chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification("Removed "+request.removefriend+" of friend list","You won't receive notifications when they get online anymore.");location.reload();});
+            chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification("Removed "+request.removefriend+" of friend list","You won't receive notifications when they get online anymore.");setTimeout(function(){location.reload()},100);});
         }
     });
 
@@ -172,7 +172,7 @@ function checkfollowing(offset,user,localuser) {
         if (followinglist.readyState === 4 && followinglist.status === 200) {
             response = JSON.parse(followinglist.responseText);
             console.log(response.length);
-            if(response==[]){couldNotAdd("You can only add users that are following you to your friend list");return;}
+            if(response.length==0){couldNotAdd("You can only add users that are following you to your friend list");return;}
             for (i = 0; i < response.length; i++) {
                 if(response[i].username.toLowerCase()===localuser.toLowerCase()){addToFriends(user);return;}
                 if(i===response.length-1 && response.length!==20){couldNotAdd("You can only add users that are following you to your friend list");return;}
@@ -184,7 +184,7 @@ function checkfollowing(offset,user,localuser) {
 
 function addToFriends(user) {
     friendlist.push(user);
-    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification("Added "+user+" to friend list","You'll now receive notifications when they get online.");location.reload();});
+    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification("Added "+user+" to friend list","You'll now receive notifications when they get online.");setTimeout(function(){location.reload()},100);});
 }
 
 function couldNotAdd(message) {

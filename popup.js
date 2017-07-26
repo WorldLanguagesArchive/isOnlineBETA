@@ -38,7 +38,7 @@ window.onload = function() {
     if(localStorage.getItem("iOfriendlistenabled")==1) {
         document.getElementById("enablefriendlist").checked = true;
     }
-    else{document.getElementById("settings").remove();document.getElementById("anote").remove();document.getElementById("newlines").remove();return;}
+    else{document.getElementById("settings").remove();document.getElementById("anote").innerHTML="<small>Know the statuses of a maximum of 10 friends with just a click and receive instant desktop notifications when they get on!</small>";document.getElementById("newlines").remove();return;}
 
     if(localStorage.getItem("iOfriendsempty")!=0){document.getElementById("divonlinefriends").innerHTML+='<b>You can add people that follow you to your friend list by clicking "+ friends" on their profiles!';return;}
 
