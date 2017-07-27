@@ -148,7 +148,7 @@ window.onload = function() {
                         var str = this.responseText;
                         id = str.substring(6, str.indexOf("username")-2);
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
-                        if(document.getElementById("titleunknownfriends").innerHTML === ""){document.getElementById("titleunknownfriends").innerHTML = '<span id="iOstatustext" style="color:gray;font-size:18px;">'+chrome.i18n.getMessage("loadingstatusesfrom")+'</span><hr>';}
+                        if(document.getElementById("titleunknownfriends").innerHTML === ""){document.getElementById("titleunknownfriends").innerHTML = '<br><span id="iOstatustext" style="color:gray;font-size:18px;">'+chrome.i18n.getMessage("loadingstatusesfrom")+'</span><hr>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
                         document.getElementById("unknownfriends").innerHTML += "<li class='unknownfriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'>";
                         document.getElementById(id).src=image;
