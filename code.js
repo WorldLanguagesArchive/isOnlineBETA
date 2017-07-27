@@ -430,7 +430,7 @@ function friendListButtons() {
     }
     if(x!==-1 && x!==-2) {
         document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].style.display="inline";
-        document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].outerHTML += ' <a id="removefriend" style="display:inline;vertical-align:middle;"><small>+ '+chrome.i18n.getMessage("friends")+'</small></a>';        
+        document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].outerHTML += ' <a id="removefriend" style="display:inline;vertical-align:middle;"><small>x '+chrome.i18n.getMessage("friends")+'</small></a>';        
         document.getElementById("removefriend").onclick = function(){
             chrome.runtime.sendMessage({removefriend: user}, function (response){
                 console.log(response);
