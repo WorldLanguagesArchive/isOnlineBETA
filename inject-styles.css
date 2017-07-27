@@ -5,6 +5,7 @@
 	margin-bottom: 0;
 	height: 23px;
 	width: auto;
+    border-radius: 7px;
 	outline: 0;
 	transition: background-color 0.2s;
 }
