@@ -4,6 +4,10 @@ stop = 0;
 
 /* Discuss button */if (localStorage.getItem("iOdiscuss") == "1") {try {try {nav = document.getElementsByClassName("site-nav")[0].innerHTML;document.getElementsByClassName("site-nav")[0].innerHTML = nav.replace('<li class="last">', '<li><a href="/discuss">Discuss</a></li><li class="last">');} catch (err) {document.getElementsByClassName("link tips")[0].outerHTML += '<li class="link about"><a href="/discuss"><span>Discuss</span></a></li>';}} catch (err) {}}if (window.location.href.substring(30,100).substring(0, window.location.href.substring(30,100).indexOf('/')).toLowerCase() == "discussbutton") {document.getElementsByClassName("box slider-carousel-container prevent-select")[2].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[1].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[0].remove();document.getElementsByClassName("group")[0].innerText="isOnline extra option";stop = "Discuss button page";if (localStorage.getItem("iOdiscuss") != "1") {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Enable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.setItem("iOdiscuss", "1");location.reload();};} else {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Disable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.removeItem("iOdiscuss");location.reload();};}}
 
+/* Easter egg */      if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
+
+/* Account redirect */ if(location.href.toLowerCase()==="https://scratch.mit.edu/users/isonline/"){window.location = "https://scratch.mit.edu/users/isOnlineV2/";}
+
 chrome.storage.sync.get(["iOaccounts","iOfriendlist","iOfriendsenabled"], function (data) {
     registeredUsers = data.iOaccounts === undefined ? [] : JSON.parse(data.iOaccounts);
     friendList = data.iOfriendlist;
@@ -37,8 +41,6 @@ if(location.href.startsWith("https://scratch.mit.edu/studios/4100062/comments/")
     }
 
 }
-
-/* Easter egg */      if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
 
 function main() {
 
@@ -412,11 +414,13 @@ function scratchwwwgetuser() {
 function friendListButtons() {
     devs=["jokebookservice1","World_Languages","chooper100","PackersRuleGoPack"];
     if(devs.findIndex(item => user.toLowerCase() === item.toLowerCase())!=-1){document.getElementById("iOstatustext").innerHTML += " | isOnline dev";}
+    if(user.toLowerCase() === "isonlinev2"){document.getElementById("iOstatustext").innerHTML = "Official isOnline account";}
     if (!friendListEnabled){return;}
     try {x = friendList.findIndex(item => user.toLowerCase() === item.toLowerCase());}catch(err){x=-2;}
     console.log(x);
     if(x===-2 || x===-1) {
-        document.getElementById("iOstatus").innerHTML += ' <a id="addfriend"><small>+ '+chrome.i18n.getMessage("friends")+'</small></a>';
+        document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].style.display="inline";
+        document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].outerHTML += ' <a id="addfriend" style="display:inline;vertical-align:middle;"><small>+ '+chrome.i18n.getMessage("friends")+'</small></a>';        
         document.getElementById("addfriend").onclick = function(){
             chrome.runtime.sendMessage({addfriend: [user,localuser]}, function (response){
                 console.log(response);
@@ -425,7 +429,8 @@ function friendListButtons() {
         };
     }
     if(x!==-1 && x!==-2) {
-        document.getElementById("iOstatus").innerHTML += ' <a id="removefriend"><small>x '+chrome.i18n.getMessage("friends")+'</small></a>';
+        document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].style.display="inline";
+        document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].outerHTML += ' <a id="removefriend" style="display:inline;vertical-align:middle;"><small>+ '+chrome.i18n.getMessage("friends")+'</small></a>';        
         document.getElementById("removefriend").onclick = function(){
             chrome.runtime.sendMessage({removefriend: user}, function (response){
                 console.log(response);
