@@ -63,10 +63,17 @@
 	color: #c1c1c1;
 	font-weight: lighter;
 }
-#addfriend, #removefriend {
-    color: darkblue;
+#addfriend{
+    color: green;
 }
-#addfriend, #removefriend {
-    color: deepskyblue;
+#addfriend:hover{
+    color: lawngreen;
     text-decoration: none;
+}
+#removefriend:hover  {
+    color: red;
+    text-decoration: none;
+}
+#removefriend {
+    color: maroon;
 }
