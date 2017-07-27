@@ -189,13 +189,13 @@ function isOwn(){
     iOcrown();
     opt = [{"name": chrome.i18n.getMessage("onlineauto"),   "value" : "online",  "color": "green"},
            {"name": chrome.i18n.getMessage("absent"),       "value" : "absent",  "color": "orange"},
-           {"name": "Do Not Disturb",       "value" : "dnd",  "color": "gray"},
+           {"name": chrome.i18n.getMessage("dnd"),       "value" : "dnd",  "color": "gray"},
            {"name": chrome.i18n.getMessage("offlineghost"), "value" : "offline", "color": "red"}];
 	
     document.getElementById("iOstatus").innerHTML = '<img id="iostatusimage" src="https://scratchtools.tk/isonline/assets/' + (localstatus() === "ghost" ? "offline" : localstatus()) + '.svg" height="12" width="12">';
     document.getElementById("iOstatus").innerHTML += "<select id='ioselect' style='color: " + opt.find(k => localstatus() === k.value).color + ";'>" + opt.map(k => "<option class='io-option' style='color:" + k.color + ";' " + (k.value === localstatus() ? "selected" : "") +">" + k.name + "</option>") + '</select><div id="isonline-helpcontainer"><svg id="ownstatushelp" title="'+chrome.i18n.getMessage('ownstatushelp')+'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path id="ownstatushelp-path" d="M48 41.333C48 45.068 45.068 48 41.333 48H6.667C2.932 48 0 45.068 0 41.333V6.667C0 2.932 2.932 0 6.667 0h34.666C45.068 0 48 2.932 48 6.667z"/><path d="M26.667 36h-5.334V21.333h5.334zm.666-22c0-1.865-1.468-3.333-3.333-3.333-1.865 0-3.333 1.468-3.333 3.333 0 1.865 1.468 3.333 3.333 3.333 1.865 0 3.333-1.468 3.333-3.333" fill="#fff"/></svg><span  style="color:#e8e5e5" id="isonline-helptext"></span></div>';
     document.getElementById("ioselect").addEventListener("change", changed);
-	document.getElementById("ioselect").getElementsByTagName("option")[2].outerHTML += '<optgroup class="io-option-info" label="You won\'t receive any online friends notifications"></optgroup><optgroup class="io-option-info" label="and people will see you as offline on their friend list."></optgroup>';
+	document.getElementById("ioselect").getElementsByTagName("option")[2].outerHTML += '<optgroup class="io-option-info" label="'+chrome.i18n.getMessage("dndhelp1")+'"></optgroup><optgroup class="io-option-info" label="'+chrome.i18n.getMessage("dndhelp2")+'"></optgroup>';
 	
 	var statuscontainer = document.getElementById('isonline-helpcontainer');
 	var statushelp = document.getElementById('ownstatushelp');
@@ -433,7 +433,7 @@ function friendListButtons() {
     try {x = friendList.findIndex(item => user.toLowerCase() === item.toLowerCase());}catch(err){x=-2;}
     console.log(x);
     if(x===-2 || x===-1) {
-        document.getElementById("iOstatus").innerHTML += ' <a id="addfriend"><small>+ friends</small></a>';
+        document.getElementById("iOstatus").innerHTML += ' <a id="addfriend"><small>+ '+chrome.i18n.getMessage("friends")+'</small></a>';
         document.getElementById("addfriend").onclick = function(){
             chrome.runtime.sendMessage({addfriend: [user,localuser]}, function (response){
                 console.log(response);
@@ -442,7 +442,7 @@ function friendListButtons() {
         };
     }
     if(x!==-1 && x!==-2) {
-        document.getElementById("iOstatus").innerHTML += ' <a id="removefriend"><small>x friends</small></a>';
+        document.getElementById("iOstatus").innerHTML += ' <a id="removefriend"><small>x '+chrome.i18n.getMessage("friends")+'</small></a>';
         document.getElementById("removefriend").onclick = function(){
             chrome.runtime.sendMessage({removefriend: user}, function (response){
                 console.log(response);

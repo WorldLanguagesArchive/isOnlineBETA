@@ -21,7 +21,7 @@ chrome.runtime.onMessage.addListener(
                 sendResponse({thelist: "error"});}
         }
         if (request.addfriend) {
-            if(friendlist.length==10){sendResponse({result: "ok"});couldNotAdd("Reached maximum amount of friends (10). You can remove friends by going to their profiles.");} 
+            if(friendlist.length==10){sendResponse({result: "ok"});couldNotAdd(chrome.i18n.getMessage("maxreached"));} 
             else {
                 sendResponse({result: "ok"});
                 checkfollowing(0,request.addfriend[0],request.addfriend[1]);}
@@ -29,7 +29,7 @@ chrome.runtime.onMessage.addListener(
         if (request.removefriend) {
             sendResponse({result: "ok"});
             friendlist.splice(friendlist.indexOf(request.removefriend), 1);
-            chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification("Removed "+request.removefriend+" of friend list","You won't receive notifications when they get online anymore.");setTimeout(function(){location.reload()},100);});
+            chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(chrome.i18n.getMessage("removedfromfriends"),chrome.i18n.getMessage("removedfromfriendsbody"));setTimeout(function(){location.reload()},100);});
         }
     });
 
@@ -172,10 +172,10 @@ function checkfollowing(offset,user,localuser) {
         if (followinglist.readyState === 4 && followinglist.status === 200) {
             response = JSON.parse(followinglist.responseText);
             console.log(response.length);
-            if(response.length==0){couldNotAdd("You can only add users that are following you to your friend list");return;}
+            if(response.length==0){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));return;}
             for (i = 0; i < response.length; i++) {
                 if(response[i].username.toLowerCase()===localuser.toLowerCase()){addToFriends(user);return;}
-                if(i===response.length-1 && response.length!==20){couldNotAdd("You can only add users that are following you to your friend list");return;}
+                if(i===response.length-1 && response.length!==20){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));return;}
                 if(i===response.length-1 && response.length===20){setTimeout(function(){checkfollowing(offset+20,user,localuser);},100);}
             }
         }};
@@ -184,11 +184,11 @@ function checkfollowing(offset,user,localuser) {
 
 function addToFriends(user) {
     friendlist.push(user);
-    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification("Added "+user+" to friend list","You'll now receive notifications when they get online.");setTimeout(function(){location.reload()},100);});
+    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(user+" "+chrome.i18n.getMessage("wasadded"),chrome.i18n.getMessage("wasaddedbody"));setTimeout(function(){location.reload()},100);});
 }
 
 function couldNotAdd(message) {
-    anynotification("Could not add to friend list",message);
+    anynotification(chrome.i18n.getMessage("couldnotadd"),message);
 }
 
 function anynotification(title,body) {

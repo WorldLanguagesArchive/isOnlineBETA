@@ -127,7 +127,7 @@ input:checked + .slider:before {
 </head>
 <body>
     <center><h1 id="title"><img id="logo" src="isOnlineLogo.png" height="60" width="150"></img></h1>
-	<small>Need help or have questions? Comment on <a href="https://scratch.mit.edu/users/isOnlineV2" target="_blank">@isOnlineV2</a>!</small></center>
+	<small><span id="help">Need help or have questions? Comment on</span> <a href="https://scratch.mit.edu/users/isOnlineV2" target="_blank">@isOnlineV2</a>!</small></center>
     <hr>
     <div class="a">
     <label style="display:inline;vertical-align:top;"class="switch">
@@ -135,9 +135,9 @@ input:checked + .slider:before {
   <span class="slider round"></span>
 </label>
 
-    <p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOnline friends & online notifications</p>
+    <p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="friendlist">isOnline friends & online notifications</div></p>
     </div>
-<div id="anote"><small>Note: You can disable notifications temporarily while keeping friends by setting your status to "Do Not Disturb" on your profile.</small></div>
+<div id="anote"><small><div id="friendsnote">Note: You can disable notifications temporarily while keeping friends by setting your status to "Do Not Disturb" on your profile.</span></small></div>
 <hr>
 
 <div id="friendstatuseslist">
@@ -172,7 +172,7 @@ input:checked + .slider:before {
 <div id="newlines"><br><br></div>
 
 <details id="settings">
-<summary>Friend list settings</summary>
+<summary><span id="friendsettings">Friend list settings</span></summary>
 <hr>    
     <div class="a">
     <label style="display:inline;vertical-align:top;"class="switch">
@@ -180,7 +180,7 @@ input:checked + .slider:before {
   <span class="slider round"></span>
 </label>
 
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notify if a friend is Away and becomes Online</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="notifyawayonline">Notify if a friend is Away and becomes Online</span></p>
     </div>
 <div class="a">
     <label style="display:inline;vertical-align:top;"class="switch">
@@ -188,7 +188,7 @@ input:checked + .slider:before {
   <span class="slider round"></span>
 </label>
 
-    <p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sound Notification</p>
+    <p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="soundnotiftext">Sound Notification</span></p>
     </div>
 </details>
 
