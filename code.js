@@ -162,25 +162,23 @@ function status() {
                     if (time() - timestamp < 180) {isDND();friendListButtons();} else{isOffline();friendListButtons();}}
 
                 if (time()-timestamp>604800) {
-                    if (a !== "notimestamp"){if (!(a.includes("week") || a.includes("month") || a.includes("year"))){isUnknown();}}
+                    if (a !== "notimestamp"){if (!(a.includes("week") || a.includes("month") || a.includes("year"))){isUnknown();}}}
 
-                } // if 200
+            } // if 200
 
-                if (getstatus.status === 404) {noiO();}
+            if (getstatus.status === 404) {noiO();}
 
-                if (getstatus.status === 403) {
-                    isError();
-                    var status = JSON.parse(getstatus.responseText).status;
-                    if (status=="incorrect key") {stop = "Key was changed";keyWasChanged("n");}
-                    if (status=="bot") {stop = "User is a bot";isBot();}
-                }
+            if (getstatus.status === 403) {
+                isError();
+                var status = JSON.parse(getstatus.responseText).status;
+                if (status=="incorrect key") {stop = "Key was changed";keyWasChanged("n");}
+                if (status=="bot") {stop = "User is a bot";isBot();}
+            }
 
-                if (getstatus.status === 500) {isError();}
+            if (getstatus.status === 500) {isError();}
 
 
-            }} // on ready
-
-    };
+        }}; // on ready
 
 }
 
@@ -223,6 +221,7 @@ function isDND() {
     document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/dnd.svg" height="12" width="12"> <span id="iOstatustext" style="color:gray">' + "Do Not Disturb" + "</span> " + getInfoHTML(chrome.i18n.getMessage("dndotherhelp"));}
 
 function noiO() {
+    console.log("noio");
     iOlog("Detected that the user didn't install isOnline");
     document.getElementById("iOstatus").innerHTML = chrome.i18n.getMessage("notiouser") + " " + getInfoHTML(chrome.i18n.getMessage("noiohelp"));}
 
