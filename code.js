@@ -217,20 +217,48 @@ function isOwn(){
 
 function isOnline() {
     iOlog("Detected that the user is online");
-    document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/online.svg" height="12" width="12"> <span id="iOstatustext" style="color:green">' + chrome.i18n.getMessage("online") + '</span>' ;}
+    var username = (window.location.href).substring(30);
+    console.log(username);
+    if ((username.toLowerCase()=="World_Languages/".toLowerCase())||(username.toLowerCase()=="PackersRuleGoPack/".toLowerCase())||(username.toLowerCase()=="chooper100/".toLowerCase())||(username.toLowerCase()=="jokebookservice1/".toLowerCase())) {
+        
+        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/online.svg" height="12" width="12"> <span id="iOstatustext" style="color:green">' + "isOnline Dev" + '</span>' ;
+    }
+    else {
+        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/online.svg" height="12" width="12"> <span id="iOstatustext" style="color:green">' + chrome.i18n.getMessage("online") + '</span>' ;
+    }
+}
 
 function probablyOnline() {
     iOlog("Detected that the user is probably online");
-    document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/online.svg" height="12" width="12"> <span id="iOstatustext" style="color:green">' + chrome.i18n.getMessage("probablyonline") + '</span>' + " <small><div id=\"statushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("probablyonlinehelp")+"\">ℹ️<\/div><\/small>";}
-
+    var username = (window.location.href).substring(30);
+    if ((username.toLowerCase()=="World_Languages/".toLowerCase())||(username.toLowerCase()=="PackersRuleGoPack/".toLowerCase())||(username.toLowerCase()=="chooper100/".toLowerCase())||(username.toLowerCase()=="jokebookservice1/".toLowerCase())) {
+        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/online.svg" height="12" width="12"> <span id="iOstatustext" style="color:green">' + "isOnline Dev" + '</span>' ;
+    }
+    else {
+        
+        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/online.svg" height="12" width="12"> <span id="iOstatustext" style="color:green">' + chrome.i18n.getMessage("probablyonline") + '</span>' + " <small><div id=\"statushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("probablyonlinehelp")+"\">ℹ️<\/div><\/small>";
+    }
+}
 function isOffline() {
     iOlog("Detected that the user is offline");
-    document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/offline.svg" height="12" width="12"> <span id="iOstatustext" style="color:red">' + chrome.i18n.getMessage("offline") + '</span>' ;}
-
+    var username = (window.location.href).substring(30);
+    if ((username.toLowerCase()=="World_Languages/".toLowerCase())||(username.toLowerCase()=="PackersRuleGoPack/".toLowerCase())||(username.toLowerCase()=="chooper100/".toLowerCase())||(username.toLowerCase()=="jokebookservice1/".toLowerCase())) {
+        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/offline.svg" height="12" width="12"> <span id="iOstatustext" style="color:red">' + "isOnline Dev" + '</span>' ;    
+    }
+    else {
+        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/offline.svg" height="12" width="12"> <span id="iOstatustext" style="color:red">' + chrome.i18n.getMessage("offline") + '</span>' ;
+    }
+}
 function isAbsent() {
     iOlog("Detected that the user is away");
-    document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/absent.svg" height="12" width="12"> <span id="iOstatustext" style="color:orange">' + chrome.i18n.getMessage("absent") + '</span>'+ " <small><div id=\"statushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("absenthelp")+"\">ℹ️<\/div><\/small>";}
-
+    var username = (window.location.href).substring(30);
+    if ((username.toLowerCase()=="World_Languages/".toLowerCase())||(username.toLowerCase()=="PackersRuleGoPack/".toLowerCase())||(username.toLowerCase()=="chooper100/".toLowerCase())||(username.toLowerCase()=="jokebookservice1/".toLowerCase())) {
+        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/absent.svg" height="12" width="12"> <span id="iOstatustext" style="color:orange">' + "isOnline Dev" + '</span>' ;
+    }
+else {
+    document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/absent.svg" height="12" width="12"> <span id="iOstatustext" style="color:orange">' + chrome.i18n.getMessage("absent") + '</span>'+ " <small><div id=\"statushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("absenthelp")+"\">ℹ️<\/div><\/small>";
+    }
+}
 function isUnknown() {
     iOlog("Detected that the user status is unknown");
     document.getElementById("iOstatus").innerHTML = chrome.i18n.getMessage("unknown") + " <small><div id=\"statushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("unknownhelp")+"\">ℹ️<\/div><\/small>";}
