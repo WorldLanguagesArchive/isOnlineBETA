@@ -138,13 +138,6 @@ function status() {
 
     document.getElementById("iOstatus").innerHTML=chrome.i18n.getMessage("loadingstatus");
 
-    try{
-        var a = document.getElementsByClassName("activity-stream")[0].getElementsByClassName("time")[0].innerText;
-        var b=["0 minutes ago", "1 minute ago", "2 minutes ago", "3 minutes ago", "4 minutes ago", "5 minutes ago"];
-        if(b.includes(a) && !friendListEnabled){probablyOnline();}
-        if(b.includes(a) && !friendListEnabled){return;}
-    }catch(err){}
-
     getstatus = new XMLHttpRequest();getstatus.open("GET", ' https://scratchtools.tk/isonline/api/v1/' + localuser + '/' + key + "/get/" + user, true);getstatus.send();
 
     getstatus.onreadystatechange = function() {
@@ -217,48 +210,20 @@ function isOwn(){
 
 function isOnline() {
     iOlog("Detected that the user is online");
-    var username = (window.location.href).substring(30);
-    console.log(username);
-    if ((username.toLowerCase()=="World_Languages/".toLowerCase())||(username.toLowerCase()=="PackersRuleGoPack/".toLowerCase())||(username.toLowerCase()=="chooper100/".toLowerCase())||(username.toLowerCase()=="jokebookservice1/".toLowerCase())) {
-        
-        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/online.svg" height="12" width="12"> <span id="iOstatustext" style="color:green">' + "isOnline Dev" + '</span>' ;
-    }
-    else {
-        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/online.svg" height="12" width="12"> <span id="iOstatustext" style="color:green">' + chrome.i18n.getMessage("online") + '</span>' ;
-    }
-}
+    document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/online.svg" height="12" width="12"> <span id="iOstatustext" style="color:green">' + chrome.i18n.getMessage("online") + '</span>' ;}
 
 function probablyOnline() {
     iOlog("Detected that the user is probably online");
-    var username = (window.location.href).substring(30);
-    if ((username.toLowerCase()=="World_Languages/".toLowerCase())||(username.toLowerCase()=="PackersRuleGoPack/".toLowerCase())||(username.toLowerCase()=="chooper100/".toLowerCase())||(username.toLowerCase()=="jokebookservice1/".toLowerCase())) {
-        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/online.svg" height="12" width="12"> <span id="iOstatustext" style="color:green">' + "isOnline Dev" + '</span>' ;
-    }
-    else {
-        
-        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/online.svg" height="12" width="12"> <span id="iOstatustext" style="color:green">' + chrome.i18n.getMessage("probablyonline") + '</span>' + " <small><div id=\"statushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("probablyonlinehelp")+"\">ℹ️<\/div><\/small>";
-    }
-}
+    document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/online.svg" height="12" width="12"> <span id="iOstatustext" style="color:green">' + chrome.i18n.getMessage("probablyonline") + '</span>' + " <small><div id=\"statushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("probablyonlinehelp")+"\">ℹ️<\/div><\/small>";}
+
 function isOffline() {
     iOlog("Detected that the user is offline");
-    var username = (window.location.href).substring(30);
-    if ((username.toLowerCase()=="World_Languages/".toLowerCase())||(username.toLowerCase()=="PackersRuleGoPack/".toLowerCase())||(username.toLowerCase()=="chooper100/".toLowerCase())||(username.toLowerCase()=="jokebookservice1/".toLowerCase())) {
-        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/offline.svg" height="12" width="12"> <span id="iOstatustext" style="color:red">' + "isOnline Dev" + '</span>' ;    
-    }
-    else {
-        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/offline.svg" height="12" width="12"> <span id="iOstatustext" style="color:red">' + chrome.i18n.getMessage("offline") + '</span>' ;
-    }
-}
+    document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/offline.svg" height="12" width="12"> <span id="iOstatustext" style="color:red">' + chrome.i18n.getMessage("offline") + '</span>' ;}
+
 function isAbsent() {
     iOlog("Detected that the user is away");
-    var username = (window.location.href).substring(30);
-    if ((username.toLowerCase()=="World_Languages/".toLowerCase())||(username.toLowerCase()=="PackersRuleGoPack/".toLowerCase())||(username.toLowerCase()=="chooper100/".toLowerCase())||(username.toLowerCase()=="jokebookservice1/".toLowerCase())) {
-        document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/absent.svg" height="12" width="12"> <span id="iOstatustext" style="color:orange">' + "isOnline Dev" + '</span>' ;
-    }
-else {
-    document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/absent.svg" height="12" width="12"> <span id="iOstatustext" style="color:orange">' + chrome.i18n.getMessage("absent") + '</span>'+ " <small><div id=\"statushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("absenthelp")+"\">ℹ️<\/div><\/small>";
-    }
-}
+    document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/absent.svg" height="12" width="12"> <span id="iOstatustext" style="color:orange">' + chrome.i18n.getMessage("absent") + '</span>'+ " <small><div id=\"statushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("absenthelp")+"\">ℹ️<\/div><\/small>";}
+
 function isUnknown() {
     iOlog("Detected that the user status is unknown");
     document.getElementById("iOstatus").innerHTML = chrome.i18n.getMessage("unknown") + " <small><div id=\"statushelp\" style=\"display:inline\" title=\""+chrome.i18n.getMessage("unknownhelp")+"\">ℹ️<\/div><\/small>";}
@@ -456,7 +421,8 @@ function scratchwwwgetuser() {
 }
 
 function friendListButtons() {
-    console.log(friendListEnabled);
+	devs=["jokebookservice1","World_Languages","chooper100","PackersRuleGoPack"];
+	if(devs.findIndex(item => user.toLowerCase() === item.toLowerCase())!=-1){document.getElementById("iOstatustext").innerHTML += " | isOnline dev";}
     if (!friendListEnabled){return;}
     try {x = friendList.findIndex(item => user.toLowerCase() === item.toLowerCase());}catch(err){x=-2;}
     console.log(x);
