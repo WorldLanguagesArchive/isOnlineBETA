@@ -16,25 +16,25 @@
 #isonline-helpcontainer {
 	background-color: #444;
 	margin-left: 5px;
-	height: 23px;
-	vertical-align: top;
+	height: 15px;
+	vertical-align: middle;
 	display: inline-block;
 	border-radius: 4px;
 	max-width: 23px;
 	transition: max-width 0.4s;
 }
 
-#ownstatushelp {
-	height: 23px;
+#statushelp {
+	height: 15px;
 	vertical-align: top;
 }
 
-#ownstatushelp-path {
+#statushelp-path {
 	fill: #2196f3;
 	transition: fill 0.2s;
 }
 
-#ownstatushelp:hover #ownstatushelp-path {
+#statushelp:hover #statushelp-path {
 	fill: rgb(106, 182, 243);
 }
 
@@ -45,7 +45,7 @@
 
 #isonline-helptext {
 	text-shadow: none;
-	line-height: 23px;
+	line-height: 15px;
 	margin-left: 5px;
     margin-right: 5px;
 	display: none;

@@ -143,7 +143,7 @@ function check(i) {
 
 
 function notification(user) {
-    if(localStorage.getItem("iOstatus")==="dnd"){console.log("nopee");return;}
+    if(localStorage.getItem("iOstatus")==="dnd"){return;}
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "https://api.scratch.mit.edu/users/" + user, true);
     xhttp.send();
@@ -174,17 +174,12 @@ function checkfollowing(offset,user,localuser) {
             console.log(response.length);
             if(response.length==0){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));return;}
             for (i = 0; i < response.length; i++) {
-                if(response[i].username.toLowerCase()===localuser.toLowerCase()){addToFriends(user);return;}
+                if(response[i].username.toLowerCase()===localuser.toLowerCase()){friendlist.push(user);chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(user+" "+chrome.i18n.getMessage("wasadded"),chrome.i18n.getMessage("wasaddedbody"));setTimeout(function(){location.reload()},100);});}
                 if(i===response.length-1 && response.length!==20){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));return;}
                 if(i===response.length-1 && response.length===20){setTimeout(function(){checkfollowing(offset+20,user,localuser);},100);}
             }
         }};
 
-}
-
-function addToFriends(user) {
-    friendlist.push(user);
-    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(user+" "+chrome.i18n.getMessage("wasadded"),chrome.i18n.getMessage("wasaddedbody"));setTimeout(function(){location.reload()},100);});
 }
 
 function couldNotAdd(message) {

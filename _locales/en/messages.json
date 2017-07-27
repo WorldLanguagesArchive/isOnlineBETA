@@ -141,5 +141,8 @@
 	},
 	"onlyfollowing": {
 		"message": "You can only add users that are following you to your friend list"
+	},
+	"dndotherhelp": {
+		"message": "This user isn't receiving online friends notifications."
 	}
 }
