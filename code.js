@@ -413,8 +413,8 @@ function scratchwwwgetuser() {
 
 function friendListButtons() {
     devs=["jokebookservice1","World_Languages","chooper100","PackersRuleGoPack"];
-    if(devs.findIndex(item => user.toLowerCase() === item.toLowerCase())!=-1){document.getElementById("iOstatustext").innerHTML += " | isOnline dev";}
-    if(user.toLowerCase() === "isonlinev2"){document.getElementById("iOstatustext").innerHTML = "Official isOnline account";}
+    if(devs.findIndex(item => user.toLowerCase() === item.toLowerCase())!=-1){document.getElementById("iOstatustext").innerHTML = "isOnline dev ("+document.getElementById("iOstatustext").innerHTML+")";}
+    if(user.toLowerCase() === "isonlinev2"){document.getElementById("iOstatustext").innerHTML = "isOnline official account ("+document.getElementById("iOstatustext").innerHTML+")";}
     if (!friendListEnabled){return;}
     try {x = friendList.findIndex(item => user.toLowerCase() === item.toLowerCase());}catch(err){x=-2;}
     console.log(x);
