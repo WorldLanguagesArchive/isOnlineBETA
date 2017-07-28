@@ -13,10 +13,7 @@ chrome.storage.sync.get(["iOaccounts","iOfriendlist","iOfriendsenabled"], functi
     friendList = data.iOfriendlist;
     friendListEnabled = data.iOfriendsenabled==1;
     try{chrome.runtime.sendMessage({setuninstallurl: registeredUsers[0]});}catch(err){}
-    start();
-});
-
-if(location.href == "https://scratch.mit.edu/isonline-extension/update") {
+	if(location.href == "https://scratch.mit.edu/isonline-extension/update") {
     document.documentElement.innerHTML = "<!DOCTYPE html><html><head><style>body{background: #f0f0f0;margin: 0;}#vcenter{position: absolute;top: 50%;width: 100%;margin-top: -100px;}h1{text-align: center;font-family: trebuchet ms, courier new, sans-serif;font-size: 2em;}#loader,#loader:before,#loader:after{border-radius: 50%;width: 2.5em;height: 2.5em;-webkit-animation-fill-mode: both;animation-fill-mode: both;-webkit-animation: load7 1.8s infinite ease-in-out;animation: load7 1.8s infinite ease-in-out;}#loader{color: #098e8b;font-size: 10px;margin: 80px auto;position: relative;text-indent: -9999em;-webkit-transform: translateZ(0);-ms-transform: translateZ(0);transform: translateZ(0);-webkit-animation-delay: -0.16s;animation-delay: -0.16s;}#loader:before,#loader:after{content: '';position: absolute;top: 0;}#loader:before{left: -3.5em;-webkit-animation-delay: -0.32s;animation-delay: -0.32s;}#loader:after{left: 3.5em;}@-webkit-keyframes load7{0%,80%,100%{box-shadow: 0 2.5em 0 -1.3em;}40%{box-shadow: 0 2.5em 0 0;}}@keyframes load7{0%,80%,100%{box-shadow: 0 2.5em 0 -1.3em;}40%{box-shadow: 0 2.5em 0 0;}}</style></head><body><div id='vcenter'><h1 id='header'>Redirecting to isOnline update page... <br>(please don't close this tab)</h1><div id='loader'></div></div></body></html>";
     if (localStorage.getItem("iOaccounts") !== null) {
         LSaccounts = JSON.parse(localStorage.getItem("iOaccounts"));
@@ -24,6 +21,8 @@ if(location.href == "https://scratch.mit.edu/isonline-extension/update") {
     } else{
         window.location="https://isonlineupdate.blogspot.com";}
 } // Update
+    else{start();}
+});
 
 if(location.href.startsWith("https://scratch.mit.edu/studios/4100062/comments/")){
 
@@ -223,7 +222,6 @@ function isDND() {
     document.getElementById("iOstatus").innerHTML = '<img src="https://scratchtools.tk/isonline/assets/dnd.svg" height="12" width="12"> <span id="iOstatustext" style="color:gray">' + "Do Not Disturb" + "</span> " + getInfoHTML(chrome.i18n.getMessage("dndotherhelp"));}
 
 function noiO() {
-    console.log("noio");
     iOlog("Detected that the user didn't install isOnline");
     document.getElementById("iOstatus").innerHTML = chrome.i18n.getMessage("notiouser") + " " + getInfoHTML(chrome.i18n.getMessage("noiohelp"));}
 
@@ -269,7 +267,7 @@ function isBot() { try{
     document.getElementById("alert-view").innerHTML="<div class='alert fade in alert-success' style='display: block;'><span class='close' onclick='document.getElementById(\"alert-view\").style.display=\"none\";'>×</span>" + chrome.i18n.getMessage("isbot") + "</div>";}catch(err){}}
 
 function iOlog(x) {
-    console.log("isOnline log @ " + new Date().toLocaleTimeString() + ": " + x);}
+    /*console.log("isOnline log @ " + new Date().toLocaleTimeString() + ": " + x);*/}
 
 function setOnline() {
     iOlog("Sent online request");
@@ -417,13 +415,11 @@ function friendListButtons() {
     if(user.toLowerCase() === "isonlinev2"){document.getElementById("iOstatustext").innerHTML = "isOnline official account ("+document.getElementById("iOstatustext").innerHTML+")";}
     if (!friendListEnabled){return;}
     try {x = friendList.findIndex(item => user.toLowerCase() === item.toLowerCase());}catch(err){x=-2;}
-    console.log(x);
     if(x===-2 || x===-1) {
         document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].style.display="inline";
         document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].outerHTML += ' <a id="addfriend" style="display:inline;vertical-align:middle;"><small>+ '+chrome.i18n.getMessage("friends")+'</small></a>';        
         document.getElementById("addfriend").onclick = function(){
             chrome.runtime.sendMessage({addfriend: [user,localuser]}, function (response){
-                console.log(response);
                 if(response.result=="ok") {document.getElementById("addfriend").remove();}
             });
         };
@@ -433,7 +429,6 @@ function friendListButtons() {
         document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].outerHTML += ' <a id="removefriend" style="display:inline;vertical-align:middle;"><small>x '+chrome.i18n.getMessage("friends")+'</small></a>';        
         document.getElementById("removefriend").onclick = function(){
             chrome.runtime.sendMessage({removefriend: user}, function (response){
-                console.log(response);
                 if(response.result=="ok") {document.getElementById("removefriend").remove();}
             });
         };
