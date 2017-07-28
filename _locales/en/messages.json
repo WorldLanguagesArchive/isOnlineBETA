@@ -144,5 +144,11 @@
 	},
 	"dndotherhelp": {
 		"message": "This user isn't receiving online friends notifications."
+	},
+	"isnowonline": {
+		"message": "is now Online"
+	},
+	"isnowonlinebody": {
+		"message": "Click to go to profile."
 	}
 }

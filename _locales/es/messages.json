@@ -145,4 +145,10 @@
 	"dndotherhelp": {
 		"message": "Este usuario no esta reciviendo notificaciones de amigos Online."
 	}
+	"isnowonline": {
+		"message": "ahora está Online"
+	},
+	"isnowonlinebody": {
+		"message": "Clickear para ir a su perfil."
+	}
 }
