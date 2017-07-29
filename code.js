@@ -2,7 +2,7 @@ iOlog("isOnline started");
 
 stop = 0;
 
-/* Discuss button */if (localStorage.getItem("iOdiscuss") == "1") {try {try {nav = document.getElementsByClassName("site-nav")[0].innerHTML;document.getElementsByClassName("site-nav")[0].innerHTML = nav.replace('<li class="last">', '<li><a href="/discuss">Discuss</a></li><li class="last">');} catch (err) {document.getElementsByClassName("link tips")[0].outerHTML += '<li class="link about"><a href="/discuss"><span>Discuss</span></a></li>';}} catch (err) {}}if (window.location.href.substring(30,100).substring(0, window.location.href.substring(30,100).indexOf('/')).toLowerCase() == "discussbutton") {document.getElementsByClassName("box slider-carousel-container prevent-select")[2].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[1].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[0].remove();document.getElementsByClassName("group")[0].innerText="isOnline extra option";stop = "Discuss button page";if (localStorage.getItem("iOdiscuss") != "1") {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Enable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.setItem("iOdiscuss", "1");location.reload();};} else {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Disable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.removeItem("iOdiscuss");location.reload();};}}
+/* Discuss button */if (localStorage.getItem("iOdiscuss") == "1") {try {try {nav = document.getElementsByClassName("site-nav")[0].innerHTML;document.getElementsByClassName("site-nav")[0].innerHTML = nav.replace('<li class="last">', '<li><a href="/discuss">Discuss</a></li><li class="last">');} catch (err) {document.getElementsByClassName("link tips")[0].outerHTML += '<li class="link about"><a href="/discuss"><span>Discuss</span></a></li>';}} catch (err) {}}if (window.location.href.substring(30,100).substring(0, window.location.href.substring(30,100).indexOf('/')).toLowerCase() == "discussbutton" && (location.href.match(/\//g) || []).length == 5) {document.getElementsByClassName("box slider-carousel-container prevent-select")[2].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[1].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[0].remove();document.getElementsByClassName("group")[0].innerText="isOnline extra option";stop = "Discuss button page";if (localStorage.getItem("iOdiscuss") != "1") {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Enable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.setItem("iOdiscuss", "1");location.reload();};} else {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Disable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.removeItem("iOdiscuss");location.reload();};}}
 
 /* Easter egg */      if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
 
@@ -58,7 +58,6 @@ function main() {
 
     if (registeredUsers.findIndex(user => user.name === localuser) === -1 && registeredUsers.length !== 0) {
         stop = "User validated another account.";
-        try{document.getElementsByClassName("location")[0].innerHTML += ' | <small><a href="https://scratchtools.tk/isonline/register/" target="_blank">'+chrome.i18n.getMessage("validateprofilelink")+'</small>';}catch(err){}
         unvalidatedAcc();}
 
     try{key = registeredUsers.find(user => user.name === localuser).key;
@@ -236,6 +235,7 @@ function didntValidate() {
 
 function unvalidatedAcc() {
     if (location.href.toLowerCase() == "https://scratch.mit.edu/users/discussbutton/") {return;}
+	try{document.getElementsByClassName("location")[0].innerHTML += ' | <small><a href="https://scratchtools.tk/isonline/register/" target="_blank">'+chrome.i18n.getMessage("validateprofilelink")+'</small>';}catch(err){}
     if (time()-localStorage.getItem("iObanner") < 86400) {return;}
     if(window.location.href.includes("users")){
         document.getElementById("alert-view").innerHTML="<div class='alert fade in alert-success' style='display: block;'><span class='close' onclick='document.getElementById(\"alert-view\").style.display=\"none\";localStorage.setItem(\"iObanner\"," + time() + ")'>×</span>" + chrome.i18n.getMessage("unvalidatedacc") + "</div>";}}
