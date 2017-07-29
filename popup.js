@@ -1,14 +1,14 @@
 window.onload = function() {
+	
+	// Localization
+	
+	document.getElementById("help").innerHTML=chrome.i18n.getMessage("help");
+	document.getElementById("friendlist").innerHTML=chrome.i18n.getMessage("friendlist");
+	document.getElementById("friendsettings").innerHTML=chrome.i18n.getMessage("friendsettings");
+	document.getElementById("notifyawayonline").innerHTML=chrome.i18n.getMessage("notifyawayonline");
+	document.getElementById("soundnotiftext").innerHTML=chrome.i18n.getMessage("soundnotiftext");
 
-    // Localization
-
-    document.getElementById("help").innerHTML=chrome.i18n.getMessage("help");
-    document.getElementById("friendlist").innerHTML=chrome.i18n.getMessage("friendlist");
-    document.getElementById("friendsettings").innerHTML=chrome.i18n.getMessage("friendsettings");
-    document.getElementById("notifyawayonline").innerHTML=chrome.i18n.getMessage("notifyawayonline");
-    document.getElementById("soundnotiftext").innerHTML=chrome.i18n.getMessage("soundnotiftext");
-
-    //
+	//
 
     document.getElementById("enablefriendlist").onclick = function() {
         chrome.permissions.contains({
@@ -20,7 +20,7 @@ window.onload = function() {
                 else {
                     chrome.browserAction.getBadgeText({}, function(result) {if(result!==" "){chrome.browserAction.setBadgeText({text: ""});}});localStorage.setItem("iOfriendlistenabled",0);chrome.storage.sync.set({iOfriendsenabled : "0"},function(){chrome.runtime.sendMessage({friendlist: "refresh"});location.reload();});}
             } else { // If there's no permission
-                chrome.runtime.sendMessage({friendlist: "enable"});
+			    chrome.runtime.sendMessage({friendlist: "enable"});
                 chrome.permissions.request({
                     permissions: ['notifications'],
                 });
@@ -41,7 +41,7 @@ window.onload = function() {
     document.getElementById("awaytoonline").onclick = function(){
         localStorage.setItem("iOfriendsawaytoonline", document.getElementById("awaytoonline").checked ? 1 : 0);};
 
-    if(localStorage.getItem("iOfriendlistsound")!=="0") {
+    if(localStorage.getItem("iOfriendlistsound")!=0) {
         document.getElementById("soundnotif").checked = true;
     }
 
@@ -50,7 +50,7 @@ window.onload = function() {
     }
     else{document.getElementById("settings").remove();document.getElementById("friendstatuseslist").remove();document.getElementById("anote").innerHTML="<small>"+chrome.i18n.getMessage("friendlistdescription")+"</small>";document.getElementById("newlines").remove();return;}
 
-    if(localStorage.getItem("iOfriendsempty")!=="0"){document.getElementById("divonlinefriends").innerHTML+='<b>'+chrome.i18n.getMessage("nofriendshelp")+'</b>';return;}
+    if(localStorage.getItem("iOfriendsempty")!=0){document.getElementById("divonlinefriends").innerHTML+='<b>'+chrome.i18n.getMessage("nofriendshelp")+'</b>';return;}
 
     onlineresponse = {"thelist":"0"};
     awayresponse = {"thelist":"0"};
@@ -105,7 +105,7 @@ window.onload = function() {
                 };
                 xhttp.open("GET", "https://api.scratch.mit.edu/users/" +response.thelist[i], true);
                 xhttp.send();
-            }
+            };
         });
 
         chrome.runtime.sendMessage({getfriendsbystatus: "Offline"}, function (response){

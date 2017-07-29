@@ -136,10 +136,6 @@ function check(i) {
                     else{location.reload();}
                 });
             }
-            if (getstatus.status === 404) {
-                friendlist.splice(friendlist.indexOf(friendlist[i]), 1);
-                chrome.storage.sync.set({iOfriendlist : friendlist}, function(){location.reload();});
-            }
             setTimeout(docheck, interval);}
     };
 

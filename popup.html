@@ -1,4 +1,6 @@
-<html><head>
+<!DOCTYPE html>
+<html>
+<head>
 <script src="popup.js"></script>
    <style type="text/css">
 	  ::-webkit-scrollbar{
@@ -120,22 +122,22 @@ input:checked + .slider:before {
        }
 </style>
     
-<link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Exo' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet'>
 </head>
 <body>
-    <center><h1 id="title"><img id="logo" src="isOnlineLogo.png" height="60" width="150"></h1>
+    <center><h1 id="title"><img id="logo" src="isOnlineLogo.png" height="60" width="150"></img></h1>
 	<small><span id="help">Need help or have questions? Comment on</span> <a href="https://scratch.mit.edu/users/isOnlineV2" target="_blank">@isOnlineV2</a>!</small></center>
     <hr>
     <div class="a">
-    <label style="display:inline;vertical-align:top;" class="switch">
-  <input type="checkbox" id="enablefriendlist">
+    <label style="display:inline;vertical-align:top;"class="switch">
+  <input type="checkbox"  id="enablefriendlist" ></input>
   <span class="slider round"></span>
 </label>
 
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="friendlist">isOnline friends &amp; online notifications</span></p></div><p></p>
-    
-<div id="anote"><small></small><div id="friendsnote"><small>Note: You can disable notifications temporarily while keeping friends by setting your status to "Do Not Disturb" on your profile.</small></div></div>
+    <p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="friendlist">isOnline friends & online notifications</div></p>
+    </div>
+<div id="anote"><small><div id="friendsnote">Note: You can disable notifications temporarily while keeping friends by setting your status to "Do Not Disturb" on your profile.</span></small></div></div>
 
 <div id="friendstatuseslist">
 <hr>
@@ -149,18 +151,20 @@ input:checked + .slider:before {
     </div>
 
 <div id="divawayfriends">
-    <div id="titleawayfriends"><img id="iostatusimage" src="absent.svg" height="16" width="16"> <span id="iOstatustext" style="color:orange;font-size:18px;">Away (1)</span><hr style="border: 1px solid orange;"></div>
-    <ul id="awayfriends"><li class="awayfriends"><img style="vertical-align:middle;" height="15" width="15" id="22019010" src="https://cdn2.scratch.mit.edu/get_image/user/22019010_60x60.png">&nbsp;<a class="linktouser" href="https://scratch.mit.edu/users/isOnlineV2/" target="_blank">isOnlineV2</a></li><hr style="border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))"></ul>
+    <div id="titleawayfriends"></div>
+    <ul id="awayfriends"></ul>
     </div>
 
-<div id="divofflinefriends" style="display: block;">
+<div id="divofflinefriends">
     <div id="titleofflinefriends"></div>
-    <details id="offlinefriends"><hr style="border: 1px solid red;"><summary id="iOstatustext" style="color:red;font-size:18px;"><img id="iostatusimage" src="offline.svg" height="16" width="16"> Offline (2)</summary><li class="offlinefriends">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style="vertical-align:middle;" height="15" width="15" id="15680424" src="https://cdn2.scratch.mit.edu/get_image/user/15680424_60x60.png">&nbsp;<a class="linktouser" href="https://scratch.mit.edu/users/miniepicness/" target="_blank">miniepicness</a><hr align="right" width="88%" style="border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))"></li><li class="offlinefriends">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style="vertical-align:middle;" height="15" width="15" id="7680480" src="https://cdn2.scratch.mit.edu/get_image/user/7680480_60x60.png">&nbsp;<a class="linktouser" href="https://scratch.mit.edu/users/PackersRuleGoPack/" target="_blank">PackersRuleGoPack</a><hr align="right" width="88%" style="border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))"></li></details>
+    <details id="offlinefriends">
+    </details>
     </div>
 
 <div id="divunknownfriends">
     <div id="titleunknownfriends"></div>
-    <ul id="unknownfriends"></ul>
+    <ul id="unknownfriends">
+    </ul>
     </div>
 
 
@@ -168,28 +172,27 @@ input:checked + .slider:before {
 
 <div id="newlines"><br><br></div>
 
-<details id="settings" open="">
+<details id="settings" open>
 <summary><span id="friendsettings">Friend list settings</span></summary>
 <hr>    
     <div class="a">
-    <label style="display:inline;vertical-align:top;" class="switch">
-  <input type="checkbox" id="awaytoonline">
+    <label style="display:inline;vertical-align:top;"class="switch">
+  <input type="checkbox"  id="awaytoonline" ></input>
   <span class="slider round"></span>
 </label>
 
     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="notifyawayonline">Notify if a friend is Away and becomes Online</span></p>
     </div>
 <div class="a">
-    <label style="display:inline;vertical-align:top;" class="switch">
-  <input type="checkbox" id="soundnotif">
+    <label style="display:inline;vertical-align:top;"class="switch">
+  <input type="checkbox"  id="soundnotif" ></input>
   <span class="slider round"></span>
 </label>
 
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="soundnotiftext">Sound Notification</span></p>
+    <p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="soundnotiftext">Sound Notification</span></p>
     </div>
 </details>
 <hr>
-<small style="font-size:10px;">isOnline is developed and maintained by: <a href="https://scratch.mit.edu/users/world_languages" target="_blank">@World_Languages</a>, <a href="https://scratch.mit.edu/users/PackersRuleGoPack" target="_blank">@PackersRuleGoPack</a>, <a href="https://scratch.mit.edu/users/chooper100" target="_blank">@chooper100</a> &amp; <a href="https://scratch.mit.edu/users/jokebookservice1" target="_blank">@jokebookservice1</a></small>
-
-
-</body></html>
+<small style="font-size:9px;">isOnline is developed and maintained by: <a href="https://scratch.mit.edu/users/world_languages" target="_blank">@World_Languages</a>, <a href="https://scratch.mit.edu/users/PackersRuleGoPack" target="_blank">@PackersRuleGoPack</a>, <a href="https://scratch.mit.edu/users/chooper100" target="_blank">@chooper100</a>, <a href="https://scratch.mit.edu/users/jokebookservice1" target="_blank">@jokebookservice1</a></small>
+</body>
+</html>
