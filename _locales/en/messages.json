@@ -140,13 +140,13 @@
 		"message": "You'll now receive notifications when they get online."
 	},
 	"onlyfollowing": {
-		"message": "You can only add users that are following you to your friend list"
+		"message": "You can only add users that are following you to your friend list."
 	},
 	"dndotherhelp": {
 		"message": "This user isn't receiving online friends notifications."
 	},
 	"isnowonline": {
-		"message": "is now Online"
+		"message": "is now online"
 	},
 	"isnowonlinebody": {
 		"message": "Click to go to profile."

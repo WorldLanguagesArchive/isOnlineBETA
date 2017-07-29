@@ -60,7 +60,6 @@ window.onload = function() {
 
     function getStatuses(){
         chrome.runtime.sendMessage({getfriendsbystatus: "Online"}, function (response){
-            console.log(response);
             if(JSON.stringify(response.thelist)===onlineresponse){console.log("online is same");return;}
             onlineresponse = JSON.stringify(response.thelist);
             if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML=chrome.i18n.getMessage("friendserror");return;}

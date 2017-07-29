@@ -4,7 +4,6 @@ friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.friendlist == "enable") {
-            console.log("enabling...");
             setInterval(function(){check();},1000);
             var check = function(){chrome.permissions.contains({
                 permissions: ['notifications'],
@@ -65,14 +64,14 @@ function friendlistcode() {
             if (scratchopen === false && tabs.length>0){location.reload();}
             if  (firsttime && tabs.length>0){firsttime=false;docheck();}
             scratchopen = tabs.length>0;
-            if(scratchopen===false){friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");chrome.browserAction.getBadgeText({}, function(result) {console.log(result);if(result!==" "){chrome.browserAction.setBadgeText({text: ""});}});}
+            if(scratchopen===false){friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");chrome.browserAction.getBadgeText({}, function(result) {if(result!==" "){chrome.browserAction.setBadgeText({text: ""});}});}
         });
     }, 3000);
 
 }
 
 function docheck(){
-    if(x>max){console.log("x>max");interval=60000/(max+1);x=0;console.log("Interval: "+interval);check(x);}
+    if(x>max){interval=60000/(max+1);x=0;check(x);}
     else{check(x);}
 }
 
@@ -102,7 +101,6 @@ function check(i) {
 
                 if (status == "absent") {
                     if (time() - timestamp < 180) {
-                        if(friendliststatuses[i]=="Offline") {notification(friendlist[i]);}
                         friendliststatuses[i] = "Away";}
                     else{
                         friendliststatuses[i] = "Offline";}}
@@ -113,7 +111,6 @@ function check(i) {
 
                 if (friendliststatuses.toString().match(/Online/g) === null) {
                     chrome.browserAction.getBadgeText({}, function(result) {
-                        console.log(result);
                         if(result!==" "){
                             chrome.browserAction.setBadgeText({text: ""});}
                     });
@@ -164,14 +161,12 @@ function notification(user) {
 }
 
 function checkfollowing(offset,user,localuser) {
-    console.log("checkfollowing");
     var followinglist = new XMLHttpRequest();
     followinglist.open('GET', 'https://api.scratch.mit.edu/users/' + user + "/following?offset=" + offset, true);
     followinglist.send();
     followinglist.onreadystatechange = function() {
         if (followinglist.readyState === 4 && followinglist.status === 200) {
             response = JSON.parse(followinglist.responseText);
-            console.log(response.length);
             if(response.length===0){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));return;}
             for (i = 0; i < response.length; i++) {
                 if(response[i].username.toLowerCase()===localuser.toLowerCase()){addToFriends(user);return;}
