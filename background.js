@@ -8,7 +8,6 @@ chrome.runtime.onInstalled.addListener(function(details){
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-		console.log(request);
         if (request.action == "reload") {
             location.reload();}
 		if (request.setuninstallurl != null) {
