@@ -95,18 +95,14 @@ function main() {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 		if(request.ctxmenu) {
-			if(request.content) {
-				targetForContext.getElementsByClassName("iOV2CTXMENURESULT")[0].innerHTML = request.content;
-			} else {
-				targetForContext.innerHTML += " <span class='iOV2CTXMENURESULT'>[ Loading ... ]</span>";
-			}
+			if(!targetForContext.getElementsByClassName("iOV2CTXMENURESULT").length) targetForContext.innerHTML +=  " <span class='iOV2CTXMENURESULT'></span>";
+			
+			targetForContext.getElementsByClassName("iOV2CTXMENURESULT")[0].innerHTML = request.content || "[ Loading ... ]";
 		}
 });
 
 document.addEventListener("contextmenu", function(e){
-	if(e.path[0].tagName === "A" && e.path[0].href.toLowerCase().replace("http://", "https://").startsWith("https://scratch.mit.edu/users/")){
-		targetForContext = e.path[0]
-	}
+	targetForContext = e.path.find(el => el.tagName === "A" && el.href.toLowerCase().replace("http://", "https://").startsWith("https://scratch.mit.edu/users/")) || targetForContext;
 })
 
 
