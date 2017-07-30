@@ -58,6 +58,7 @@ chrome.contextMenus.removeAll(() => {
 		title: "Load status of this user",
 		contexts: ["link"],
 		targetUrlPatterns: ["*://scratch.mit.edu/users/*"],
+		documentUrlPatterns: ["*://scratch.mit.edu/*"],
 		onclick: function(info, tab){
 			let username = info.linkUrl.replace(/.+\/users\//, "").replace(/[^a-zA-Z0-9_-].*/, "");
 			let internet = new XMLHttpRequest();
@@ -71,13 +72,11 @@ chrome.contextMenus.removeAll(() => {
 								if(new Date().valueOf() / 1000 - result.timestamp < 300){
 									chrome.tabs.sendMessage(tab.id, {
 										ctxmenu: true,
-										url: info.linkUrl,
 										content: "<img src='https://scratchtools.tk/isonline/assets/online.svg' height='12' width='12'/>"
 									});									
 								} else {
 									chrome.tabs.sendMessage(tab.id, {
 										ctxmenu: true,
-										url: info.linkUrl,
 										content: "<img src='https://scratchtools.tk/isonline/assets/offline.svg' height='12' width='12'/>"
 									});
 								}
@@ -86,13 +85,11 @@ chrome.contextMenus.removeAll(() => {
 								if(new Date().valueOf() / 1000 - result.timestamp < 180){
 									chrome.tabs.sendMessage(tab.id, {
 										ctxmenu: true,
-										url: info.linkUrl,
 										content: "<img src='https://scratchtools.tk/isonline/assets/absent.svg' height='12' width='12'/>"
 									});									
 								} else {
 									chrome.tabs.sendMessage(tab.id, {
 										ctxmenu: true,
-										url: info.linkUrl,
 										content: "<img src='https://scratchtools.tk/isonline/assets/offline.svg' height='12' width='12''/>"
 									});
 								}
@@ -101,13 +98,11 @@ chrome.contextMenus.removeAll(() => {
 								if(new Date().valueOf() / 1000 - result.timestamp < 180){
 									chrome.tabs.sendMessage(tab.id, {
 										ctxmenu: true,
-										url: info.linkUrl,
 										content: "<img src='https://scratchtools.tk/isonline/assets/dnd.svg' height='12' width='12'/>"
 									});									
 								} else {
 									chrome.tabs.sendMessage(tab.id, {
 										ctxmenu: true,
-										url: info.linkUrl,
 										content: "<img src='https://scratchtools.tk/isonline/assets/offline.svg' height='12' width='12'/>"
 									});
 								}
@@ -119,13 +114,11 @@ chrome.contextMenus.removeAll(() => {
 							try {
 								chrome.tabs.sendMessage(tab.id, {
 									ctxmenu: true,
-									url: info.linkUrl,
 									content: "<span style='color: red;'>[ Not iO User ]</span>"
 								});	
 							} catch (e) {
 								chrome.tabs.sendMessage(tab.id, {
 									ctxmenu: true,
-									url: info.linkUrl,
 									content: "<span style='color: red;'>[ Error ]</span>"
 								});									
 							}
