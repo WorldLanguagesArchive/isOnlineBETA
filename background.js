@@ -33,8 +33,9 @@ chrome.runtime.onMessage.addListener(
             badge("#FF0000");}
 		
 		if(request.keyinfo){
-			key = request.keyinfo.key;
-			user = request.keyinfo.localuser;
+			console.log(request.keyinfo);
+			keyctx = request.keyinfo.key;
+			localuserctx = request.keyinfo.localuser;
 		}
     });
 	
@@ -62,7 +63,7 @@ chrome.contextMenus.removeAll(() => {
 		onclick: function(info, tab){
 			let username = info.linkUrl.replace(/.+\/users\//, "").replace(/[^a-zA-Z0-9_-].*/, "");
 			let internet = new XMLHttpRequest();
-			internet.open("GET", "https://scratchtools.tk/isonline/api/v1/" + user + "/" + key + "/get/" + username + "/");
+			internet.open("GET", "https://scratchtools.tk/isonline/api/v1/" + localuserctx + "/" + keyctx + "/get/" + username + "/");
 			internet.onreadystatechange = function(){
 				if(internet.readyState === 4){
 					if(internet.status === 200) {
