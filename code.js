@@ -97,7 +97,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 		if(request.ctxmenu) {
 			if(!targetForContext.getElementsByClassName("iOV2CTXMENURESULT").length) targetForContext.innerHTML +=  " <span class='iOV2CTXMENURESULT'></span>";
 			
-			targetForContext.getElementsByClassName("iOV2CTXMENURESULT")[0].innerHTML = request.content || "[ Loading ... ]";
+			targetForContext.getElementsByClassName("iOV2CTXMENURESULT")[0].innerHTML = request.content || "<span style='color: green;'>[ "+chrome.i18n.getMessage("loadingstatus")+" ]</span>";
 		}
 });
 
