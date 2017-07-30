@@ -55,7 +55,7 @@ function badge(thecolor) {
 
 chrome.contextMenus.removeAll(() => {
 	chrome.contextMenus.create({
-		title: "Load status of this user",
+		title: chrome.i18n.getMessage("clickforstatus"),
 		contexts: ["link"],
 		targetUrlPatterns: ["*://scratch.mit.edu/users/*"],
 		documentUrlPatterns: ["*://scratch.mit.edu/*"],
@@ -114,12 +114,12 @@ chrome.contextMenus.removeAll(() => {
 							try {
 								chrome.tabs.sendMessage(tab.id, {
 									ctxmenu: true,
-									content: "<span style='color: red;'>[ Not iO User ]</span>"
+									content: "<span style='color: red;'>[ "+chrome.i18n.getMessage("notiouser")+" ]</span>"
 								});	
 							} catch (e) {
 								chrome.tabs.sendMessage(tab.id, {
 									ctxmenu: true,
-									content: "<span style='color: red;'>[ Error ]</span>"
+									content: "<span style='color: red;'>[ "+chrome.i18n.getMessage("error")+" ]</span>"
 								});									
 							}
 						}
@@ -127,7 +127,7 @@ chrome.contextMenus.removeAll(() => {
 						chrome.tabs.sendMessage(tab.id, {
 							ctxmenu: true,
 							url: info.linkUrl,
-							content: "<span style='color: red;'>[ Error ]</span>"
+							content: "<span style='color: red;'>[ "+chrome.i18n.getMessage("error")+" ]</span>"
 						});	
 					}
 				}
