@@ -95,17 +95,66 @@ function main() {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 		if(request.ctxmenu) {
-			if(!targetForContext.getElementsByClassName("iOV2CTXMENURESULT").length) targetForContext.innerHTML +=  " <span class='iOV2CTXMENURESULT'></span>";
 			
-			targetForContext.getElementsByClassName("iOV2CTXMENURESULT")[0].innerHTML = request.content || "<span style='color: green;'>[ "+chrome.i18n.getMessage("loadingstatus")+" ]</span>";
+			iONotify[request.call](request.user, request.content, request.color);
 		}
 });
 
-document.addEventListener("contextmenu", function(e){
-	targetForContext = e.path.find(el => el.tagName === "A" && el.href.toLowerCase().replace("http://", "https://").startsWith("https://scratch.mit.edu/users/")) || targetForContext;
-})
+let iONotify = {
+    setup: function() {
+        document.body.appendChild(this.element = document.createElement("DIV"));
+        this.element.style.cssText = `
+            position: fixed;
+            bottom: 50px;
+            right: 0px;
+            background-color: white;
+            padding: 25px;
+            color: black;
+            text-shadow: none;
+            box-shadow: 0px 0px 3px #333;
+            z-index: 1000;
+            font-size: 30px;
+            font-family: Arial;
+        `;
+        this.user = ""; // Who are we trying to access?
+        this.element.style.display = "none"; // no content .. no notification!
+    },
+    alert: function(user, text, color, autoClose = false) {
+        if(this.user) {
+            this.close();
+        }
+        this.element.style.display = "block";
+        this.element.innerHTML = "<span style='color: grey;'>" + user + "</span> " + text;
+        this.user = user;
+        if(autoClose) {
+                setTimeout(() => {
+                    if(this.user === user) {
+                        this.close();
+                    }
+                }, 10e3);
+        }
+    },
+    update: function(user, text, color, autoClose = true) {
+        if(user !== this.user) return; // Do not update a notification about another user.
+        this.element.style.display = "block";
+        this.element.innerHTML = user + " <span style='color: " + color + ";'>" + text + "</span>";
+        this.user = user;
+        if(autoClose) {
+                setTimeout(() => {
+                    if(this.user === user) {
+                        this.close();
+                    }
+                }, 10e3);
+        }
+    },
+    close: function(){
+        this.user = "";
+        this.element.innerHTML = "";
+        this.element.style.display = "none";
+    }
+};
 
-
+iONotify.setup();
 
 
 

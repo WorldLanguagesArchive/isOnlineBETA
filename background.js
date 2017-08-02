@@ -61,6 +61,7 @@ chrome.contextMenus.removeAll(() => {
 		targetUrlPatterns: ["*://scratch.mit.edu/users/*"],
 		documentUrlPatterns: ["*://scratch.mit.edu/*"],
 		onclick: function(info, tab){
+			let offlineMsg = "<img src='https://scratchtools.tk/isonline/assets/offline.svg' height='20' width='20'/> " + chrome.i18n.getMessage("offline");
 			let username = info.linkUrl.replace(/.+\/users\//, "").replace(/[^a-zA-Z0-9_-].*/, "");
 			let internet = new XMLHttpRequest();
 			internet.open("GET", "https://scratchtools.tk/isonline/api/v1/" + localuserctx + "/" + keyctx + "/get/" + username + "/");
@@ -73,12 +74,18 @@ chrome.contextMenus.removeAll(() => {
 								if(new Date().valueOf() / 1000 - result.timestamp < 300){
 									chrome.tabs.sendMessage(tab.id, {
 										ctxmenu: true,
-										content: "<img src='https://scratchtools.tk/isonline/assets/online.svg' height='12' width='12'/>"
+										call: "update",
+										user: username,
+										content: "<img src='https://scratchtools.tk/isonline/assets/online.svg' height='20' width='20'/> " + chrome.i18n.getMessage("online"),
+										color: "green"
 									});									
 								} else {
 									chrome.tabs.sendMessage(tab.id, {
 										ctxmenu: true,
-										content: "<img src='https://scratchtools.tk/isonline/assets/offline.svg' height='12' width='12'/>"
+										call: "update",
+										user: username,
+										content: offlineMsg,
+										color: "red"
 									});
 								}
 								break;
@@ -86,12 +93,18 @@ chrome.contextMenus.removeAll(() => {
 								if(new Date().valueOf() / 1000 - result.timestamp < 180){
 									chrome.tabs.sendMessage(tab.id, {
 										ctxmenu: true,
-										content: "<img src='https://scratchtools.tk/isonline/assets/absent.svg' height='12' width='12'/>"
+										call: "update",
+										user: username,
+										content: "<img src='https://scratchtools.tk/isonline/assets/absent.svg' height='20' width='20'/> " + chrome.i18n.getMessage("absent"),
+										color: "orange"
 									});									
 								} else {
 									chrome.tabs.sendMessage(tab.id, {
 										ctxmenu: true,
-										content: "<img src='https://scratchtools.tk/isonline/assets/offline.svg' height='12' width='12''/>"
+										call: "update",
+										user: username,
+										content: offlineMsg,
+										color: "red"
 									});
 								}
 								break;
@@ -99,12 +112,18 @@ chrome.contextMenus.removeAll(() => {
 								if(new Date().valueOf() / 1000 - result.timestamp < 180){
 									chrome.tabs.sendMessage(tab.id, {
 										ctxmenu: true,
-										content: "<img src='https://scratchtools.tk/isonline/assets/dnd.svg' height='12' width='12'/>"
+										call: "update",
+										user: username,
+										content: "<img src='https://scratchtools.tk/isonline/assets/dnd.svg' height='20' width='20'/> " + chrome.i18n.getMessage("dnd"),
+										color: "grey"
 									});									
 								} else {
 									chrome.tabs.sendMessage(tab.id, {
 										ctxmenu: true,
-										content: "<img src='https://scratchtools.tk/isonline/assets/offline.svg' height='12' width='12'/>"
+										call: "update",
+										user: username,
+										content: offlineMsg,
+										color: "red"
 									});
 								}
 								break;
@@ -115,25 +134,33 @@ chrome.contextMenus.removeAll(() => {
 							try {
 								chrome.tabs.sendMessage(tab.id, {
 									ctxmenu: true,
-									content: "<span style='color: red;'>[ "+chrome.i18n.getMessage("notiouser")+" ]</span>"
+									call: "update",
+									user: username,
+									content: chrome.i18n.getMessage("notiouser"),
+									color: "red"
 								});	
 							} catch (e) {
 								chrome.tabs.sendMessage(tab.id, {
 									ctxmenu: true,
-									content: "<span style='color: red;'>[ "+chrome.i18n.getMessage("error")+" ]</span>"
+									call: "update",
+									user: username,
+									content: chrome.i18n.getMessage("error"),
+									color: "red"
 								});									
 							}
 						}
 					} else {
 						chrome.tabs.sendMessage(tab.id, {
 							ctxmenu: true,
-							url: info.linkUrl,
-							content: "<span style='color: red;'>[ "+chrome.i18n.getMessage("error")+" ]</span>"
+							call: "update",
+							user: username,
+							content: chrome.i18n.getMessage("error"),
+							color: "red"
 						});	
 					}
 				}
 			};
-			chrome.tabs.sendMessage(tab.id, {ctxmenu: true, url: info.linkUrl});
+			chrome.tabs.sendMessage(tab.id, {ctxmenu: true, call: "alert", user: username, content: "Loading...", color: "blue"});
 			internet.send();
 		}
 	})
