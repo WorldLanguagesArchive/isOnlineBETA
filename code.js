@@ -95,7 +95,6 @@ function main() {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 		if(request.ctxmenu) {
-			
 			iONotify[request.call](request.user, request.content, request.color);
 		}
 });

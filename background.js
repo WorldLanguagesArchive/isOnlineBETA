@@ -160,7 +160,7 @@ chrome.contextMenus.removeAll(() => {
 					}
 				}
 			};
-			chrome.tabs.sendMessage(tab.id, {ctxmenu: true, call: "alert", user: username, content: "Loading...", color: "blue"});
+			chrome.tabs.sendMessage(tab.id, {ctxmenu: true, call: "alert", user: username, content: chrome.i18n.getMessage("loadingstatus"), color: "blue"});
 			internet.send();
 		}
 	})
