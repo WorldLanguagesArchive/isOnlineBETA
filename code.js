@@ -130,7 +130,7 @@ let iONotify = {
                     if(this.user === user) {
                         this.close();
                     }
-                }, 10e3);
+                }, 4e3);
         }
     },
     update: function(user, text, color, autoClose = true) {
@@ -143,7 +143,7 @@ let iONotify = {
                     if(this.user === user) {
                         this.close();
                     }
-                }, 10e3);
+                }, 4e3);
         }
     },
     close: function(){
