@@ -298,7 +298,7 @@ function didntValidate() {
     try{ document.getElementById("alert-view").innerHTML="<div class='alert fade in alert-success' style='display: block;'><span class='close' onclick='document.getElementById(\"alert-view\").style.display=\"none\";'>×</span>" + chrome.i18n.getMessage("didnotvalidate") + "</div>";}catch(err){}}
 
 function unvalidatedAcc() {
-    if (location.href.toLowerCase() == "https://scratch.mit.edu/users/discussbutton/") {return;}
+    if (window.location.href.substring(30,100).substring(0, window.location.href.substring(30,100).indexOf('/')).toLowerCase() == "discussbutton" && (location.href.match(/\//g) || []).length == 5) {return;}
 	try{document.getElementsByClassName("location")[0].innerHTML += ' | <small><a href="https://scratchtools.tk/isonline/register/" target="_blank">'+chrome.i18n.getMessage("validateprofilelink")+'</small>';}catch(err){}
     if (time()-localStorage.getItem("iObanner") < 86400) {return;}
     if(window.location.href.includes("users")){
