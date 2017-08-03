@@ -148,7 +148,7 @@ function notification(user) {
         if (this.readyState == 4 && this.status == 200) {
             response = JSON.parse(xhttp.responseText);
             id = response.id;
-            if(localStorage.getItem("iOfriendlistsound")!==0){audio.play();}
+            if(localStorage.getItem("iOfriendlistsound")!=0){audio.play();}
             var notification = new Notification(user+" "+chrome.i18n.getMessage("isnowonline"), {
                 icon: "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_90x90.png?"+Math.round(new Date().getTime()/1000),
                 body: chrome.i18n.getMessage("isnowonlinebody"),
