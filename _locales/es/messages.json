@@ -68,11 +68,6 @@
 	"noiohelp": {
 		"message": "Este usuario tiene que instalar isOnline para ver su estado."
 	},
-	
-	
-	
-	
-	
 	"ownstatushelp": {
 		"message": "Elige un estado manualmente o usa el modo automático."
 	},

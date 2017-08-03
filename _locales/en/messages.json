@@ -68,11 +68,6 @@
 	"noiohelp": {
 		"message": "This user has to install isOnline in order to show their status."
 	},
-	
-	
-	
-	
-	
 	"ownstatushelp": {
 		"message": "Set your status manually, or leave it on automatic."
 	},
