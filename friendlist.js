@@ -71,7 +71,7 @@ function friendlistcode() {
 }
 
 function docheck(){
-    if(x>max){interval=60000/(max+1);x=0;check(x);}
+    if(x>max){interval=180000/(max+1);x=0;check(x);}
     else{check(x);}
 }
 
