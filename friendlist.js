@@ -56,7 +56,7 @@ function friendlistcode() {
     x = 0;
     firsttime = true;
     max = friendlist.length-1;
-    interval = 1000;
+    interval = 2000;
     scratchopen = true;
 
     setInterval(function(){
