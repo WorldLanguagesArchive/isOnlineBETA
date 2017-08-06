@@ -145,5 +145,8 @@
 	},
 	"isnowonlinebody": {
 		"message": "Clickear para ir a su perfil."
+	},
+	"friendsnotcompatible": {
+	"message": "Solo puedes usar amigos en Chrome 17+ y Firefox 55+"
 	}
 }

@@ -7,8 +7,15 @@ window.onload = function() {
 	document.getElementById("friendsettings").innerHTML=chrome.i18n.getMessage("friendsettings");
 	document.getElementById("notifyawayonline").innerHTML=chrome.i18n.getMessage("notifyawayonline");
 	document.getElementById("soundnotiftext").innerHTML=chrome.i18n.getMessage("soundnotiftext");
+	document.getElementById("friendsnote").innerHTML=chrome.i18n.getMessage("friendsnote");
 
 	//
+	
+	if(chrome.permissions===undefined){
+	document.getElementsByClassName("a")[0].remove();
+	document.getElementById("friendsnote").innerHTML=chrome.i18n.getMessage("friendsnotcompatible");
+	return;
+}
 
     document.getElementById("enablefriendlist").onclick = function() {
         chrome.permissions.contains({
@@ -48,7 +55,7 @@ window.onload = function() {
     if(localStorage.getItem("iOfriendlistenabled")==1) {
         document.getElementById("enablefriendlist").checked = true;
     }
-    else{document.getElementById("settings").remove();document.getElementById("friendstatuseslist").remove();document.getElementById("anote").innerHTML="<small>"+chrome.i18n.getMessage("friendlistdescription")+"</small>";document.getElementById("newlines").remove();return;}
+    else{document.getElementById("settings").remove();document.getElementById("friendstatuseslist").remove();document.getElementById("friendsnote").innerHTML=chrome.i18n.getMessage("friendlistdescription");document.getElementById("newlines").remove();return;}
 
     if(localStorage.getItem("iOfriendsempty")!=0){document.getElementById("divonlinefriends").innerHTML+='<b>'+chrome.i18n.getMessage("nofriendshelp")+'</b>';return;}
 
@@ -60,7 +67,7 @@ window.onload = function() {
 
     function getStatuses(){
         chrome.runtime.sendMessage({getfriendsbystatus: "Online"}, function (response){
-            if(JSON.stringify(response.thelist)===onlineresponse){console.log("online is same");return;}
+            if(JSON.stringify(response.thelist)===onlineresponse){return;}
             onlineresponse = JSON.stringify(response.thelist);
             if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML=chrome.i18n.getMessage("friendserror");return;}
             document.getElementById("onlinefriends").innerHTML = "";
@@ -84,7 +91,7 @@ window.onload = function() {
         });
 
         chrome.runtime.sendMessage({getfriendsbystatus: "Away"}, function (response){
-            if(JSON.stringify(response.thelist)===awayresponse){console.log("same");return;}
+            if(JSON.stringify(response.thelist)===awayresponse){return;}
             awayresponse = JSON.stringify(response.thelist);
             if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML=chrome.i18n.getMessage("friendserror");return;}
             document.getElementById("awayfriends").innerHTML = "";
@@ -108,7 +115,7 @@ window.onload = function() {
         });
 
         chrome.runtime.sendMessage({getfriendsbystatus: "Offline"}, function (response){
-            if(JSON.stringify(response.thelist)===offlineresponse){console.log("same");return;}
+            if(JSON.stringify(response.thelist)===offlineresponse){return;}
             offlineresponse = JSON.stringify(response.thelist);
             if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML=chrome.i18n.getMessage("friendserror");return;}
             document.getElementById("offlinefriends").innerHTML = '<hr style="border: 1px solid red;">';
@@ -135,7 +142,7 @@ window.onload = function() {
         });
 
         chrome.runtime.sendMessage({getfriendsbystatus: "Unknown"}, function (response){
-            if(JSON.stringify(response.thelist)===unknownresponse){console.log("same");return;}
+            if(JSON.stringify(response.thelist)===unknownresponse){return;}
             unknownresponse = JSON.stringify(response.thelist);
             if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML=chrome.i18n.getMessage("friendserror");return;}
             document.getElementById("unknownfriends").innerHTML = "";

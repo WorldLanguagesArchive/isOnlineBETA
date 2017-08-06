@@ -145,5 +145,8 @@
 	},
 	"isnowonlinebody": {
 		"message": "Click to go to profile."
+	},
+	"friendsnotcompatible": {
+		"message": "isOnline friends only works in Chrome 17+ & Firefox 55+"
 	}
 }
