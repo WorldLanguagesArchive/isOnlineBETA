@@ -120,7 +120,7 @@
 		"message": "Reached maximum amount of friends (10). You can remove friends by going to their profiles."
 	},
 	"removedfromfriends": {
-		"message": "Removed from of friend list"
+		"message": "Removed from friends"
 	},
 	"removedfromfriendsbody": {
 		"message": "You won't receive notifications when they get online anymore."
@@ -129,7 +129,7 @@
 		"message": "Could not add to friend list"
 	},
 	"wasadded": {
-		"message": "was added to friend list"
+		"message": "was added to friends"
 	},
 	"wasaddedbody": {
 		"message": "You'll now receive notifications when they get online."

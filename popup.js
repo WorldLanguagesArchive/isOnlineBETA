@@ -11,6 +11,9 @@ window.onload = function() {
 
 	//
 	
+	protips = ['Right click the link to a profile and select "click to get status" to get the status without having to go to the user\'s profile!', "tip2"];
+	document.getElementById("protiptext").innerText=protips[Math.floor(Math.random() * 2)];
+	
 	if(chrome.permissions===undefined){
 	document.getElementsByClassName("a")[0].remove();
 	document.getElementById("friendsnote").innerHTML=chrome.i18n.getMessage("friendsnotcompatible");
@@ -81,7 +84,7 @@ window.onload = function() {
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
                         if(document.getElementById("titleonlinefriends").innerHTML === ""){document.getElementById("titleonlinefriends").innerHTML = '<img id="iostatusimage" src="online.svg" height="16" width="16"> <span id="iOstatustext" style="color:green;font-size:18px;">'+chrome.i18n.getMessage("online")+' ('+response.thelist.length+')</span><hr  style="border: 1px solid green;">';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("onlinefriends").innerHTML += "<li class='onlinefriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'>";
+                        document.getElementById("onlinefriends").innerHTML += "<li class='onlinefriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/?comments' target='blank'><img height='14' src='commenticon.png' title='Go to profile comments'></a>&nbsp;&nbsp;<a href='chrome-extension://ppjcakcflnifpeconbppobmjgffdkcad/removefromfriends.html#"+username+"' target='blank'><img src='removeicon.png' height='14' title='Remove from friends'></a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'>";
                         document.getElementById(id).src=image;
                     }
                 };
@@ -105,7 +108,7 @@ window.onload = function() {
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
                         if(document.getElementById("titleawayfriends").innerHTML === ""){document.getElementById("titleawayfriends").innerHTML = '<img id="iostatusimage" src="absent.svg" height="16" width="16"> <span id="iOstatustext" style="color:orange;font-size:18px;">'+chrome.i18n.getMessage("absent")+' ('+response.thelist.length+')</span><hr style="border: 1px solid orange;">';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("awayfriends").innerHTML += "<li class='awayfriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/' target='_blank'>"+username+"</a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'>";
+                        document.getElementById("awayfriends").innerHTML += "<li class='onlinefriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/?comments' target='blank'><img height='14' src='commenticon.png' title='Go to profile comments'></a>&nbsp;&nbsp;<a href='chrome-extension://ppjcakcflnifpeconbppobmjgffdkcad/removefromfriends.html#"+username+"' target='blank'><img src='removeicon.png' height='14' title='Remove from friends'></a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'>";
                         document.getElementById(id).src=image;
                     }
                 };
@@ -131,7 +134,7 @@ window.onload = function() {
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
                         if(document.getElementById("offlinefriends").innerHTML == '<hr style="border: 1px solid red;">'){document.getElementById("offlinefriends").innerHTML += '<summary id="iOstatustext" style="color:red;font-size:18px;"><img id="iostatusimage" src="offline.svg" height="16" width="16"> '+chrome.i18n.getMessage("offline")+' ('+response.thelist.length+')</summary>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("offlinefriends").innerHTML += "<li class='offlinefriends'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style='vertical-align:middle;'height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a><hr align='right' width='88%' style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'></li>";
+                        document.getElementById("offlinefriends").innerHTML += "<li class='onlinefriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/?comments' target='blank'><img height='14' src='commenticon.png' title='Go to profile comments'></a>&nbsp;&nbsp;<a href='chrome-extension://ppjcakcflnifpeconbppobmjgffdkcad/removefromfriends.html#"+username+"' target='blank'><img src='removeicon.png' height='14' title='Remove from friends'></a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'>";
                         document.getElementById(id).src=image;
                     }
                 };
@@ -156,7 +159,7 @@ window.onload = function() {
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
                         if(document.getElementById("titleunknownfriends").innerHTML === ""){document.getElementById("titleunknownfriends").innerHTML = '<br><span id="iOstatustext" style="color:gray;font-size:18px;">'+chrome.i18n.getMessage("loadingstatusesfrom")+'</span><hr>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-                        document.getElementById("unknownfriends").innerHTML += "<li class='unknownfriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'>";
+                        document.getElementById("unknownfriends").innerHTML += "<li class='onlinefriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='https://scratch.mit.edu/users/"+username+"/?comments' target='blank'><img height='14' src='commenticon.png' title='Go to profile comments'></a>&nbsp;&nbsp;<a href='chrome-extension://ppjcakcflnifpeconbppobmjgffdkcad/removefromfriends.html#"+username+"' target='blank'><img src='removeicon.png' height='14' title='Remove from friends'></a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'>";
                         document.getElementById(id).src=image;
                     }
                 };
