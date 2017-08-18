@@ -20,15 +20,15 @@ chrome.runtime.onMessage.addListener(
                 sendResponse({thelist: "error"});}
         }
         if (request.addfriend) {
-            if(friendlist.length==10){sendResponse({result: "ok"});couldNotAdd(chrome.i18n.getMessage("maxreached"));} 
+            if(friendlist.length==10){sendResponse({result: "ok"});couldNotAdd(chrome.i18n.getMessage("maxreached"));}
             else {
                 sendResponse({result: "ok"});
                 checkfollowing(0,request.addfriend[0],request.addfriend[1]);}
         }
         if (request.removefriend) {
             sendResponse({result: "ok"});
-            friendlist.splice(friendlist.findIndex(item => request.removefriend.toLowerCase() === item.toLowerCase()), 1);
-            chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(chrome.i18n.getMessage("removedfromfriends"),chrome.i18n.getMessage("removedfromfriendsbody"));setTimeout(function(){location.reload();},100);});
+			anynotification(chrome.i18n.getMessage("removedfromfriends"),chrome.i18n.getMessage("removedfromfriendsbody"));
+            removeFromFriends(request.removefriend);
         }
     });
 
@@ -133,6 +133,10 @@ function check(i) {
                     else{location.reload();}
                 });
             }
+            if (getstatus.status === 404) {
+                console.log("404");
+            removeFromFriends(friendlist[i]);
+            }
             setTimeout(docheck, interval);}
     };
 
@@ -182,6 +186,12 @@ function checkfollowing(offset,user,localuser) {
 function addToFriends(user) {
     friendlist.push(user);
     chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(user+" "+chrome.i18n.getMessage("wasadded"),chrome.i18n.getMessage("wasaddedbody"));setTimeout(function(){location.reload();},100);});
+}
+
+function removeFromFriends(user){
+    friendlist.splice(friendlist.findIndex(item => user.toLowerCase() === item.toLowerCase()), 1);
+    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){location.reload();});
+
 }
 
 function couldNotAdd(message) {
