@@ -68,8 +68,6 @@ function main() {
     if(stop!==0){console.error("isOnline was stopped: "+stop);return;}
 
     url = window.location.href;
-    user = window.location.href.substring(30,100).substring(0, window.location.href.substring(30,100).indexOf('/'));
-    iOlog("Profile: " + user);
     iOlog("Local username: " + localuser);
 
     if (time()-localStorage.getItem("iOlastOn") > 10 && localstatus() == "online") {setOnline();}
@@ -78,6 +76,7 @@ function main() {
 
     if (url.substring(24,29) == 'users' && (url.match(/\//g) || []).length == 5) {
         iOlog("Detected user is in a profile");
+		user = document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].innerText;
         /* Add status box next to location */ document.getElementsByClassName("location")[0].innerHTML += ' | <span style="display:inline" id="iOstatus"></span>';
         if (localuser.toUpperCase() == user.toUpperCase()) {iOlog("Detected user is their own profile");isOwn();} else {
             iOcrown();

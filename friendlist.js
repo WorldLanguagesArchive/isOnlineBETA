@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener(
         }
         if (request.removefriend) {
             sendResponse({result: "ok"});
-            friendlist.splice(friendlist.indexOf(request.removefriend), 1);
+            friendlist.splice(friendlist.findIndex(item => request.removefriend.toLowerCase() === item.toLowerCase()), 1);
             chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(chrome.i18n.getMessage("removedfromfriends"),chrome.i18n.getMessage("removedfromfriendsbody"));setTimeout(function(){location.reload();},100);});
         }
     });
@@ -148,7 +148,6 @@ function notification(user) {
         if (this.readyState == 4 && this.status == 200) {
             response = JSON.parse(xhttp.responseText);
             id = response.id;
-            if(localStorage.getItem("iOfriendlistsound")!=0){audio.play();}
             var notification = new Notification(user+" "+chrome.i18n.getMessage("isnowonline"), {
                 icon: "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_90x90.png?"+Math.round(new Date().getTime()/1000),
                 body: chrome.i18n.getMessage("isnowonlinebody"),
@@ -157,6 +156,9 @@ function notification(user) {
             setTimeout(function () {
                 notification.close();
             }, 10000);
+            notification.onshow = function(){
+                if(localStorage.getItem("iOfriendlistsound")!=="0"){audio.play();}
+            };
         }};
 }
 

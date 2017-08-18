@@ -9,7 +9,7 @@
 		"message": "Successfully validated your Scratch account.<br>isOnline is now working. <br>You can close this tab."
 	},
 	"verifyerror": {
-		"message": "An error occured. Please contact <a href='https://scratch.mit.edu/users/chooper100#comments'>@chooper100</a> if you come from isOnline account validation."
+		"message": "An error occured. Please contact <a href='https://scratch.mit.edu/users/isOnlineV2#comments'>@isOnlineV2</a> if you come from isOnline account validation."
 	},
 	"validateprofilelink": {
 		"message": "Validate this account </a> to use isOnline on it"
@@ -54,7 +54,7 @@
 		"message": "Whoops! isOnline isn't working with this Scratch account because you used it on another computer. <a href='http://ison.ga/sync' target='_blank'>Synchronize your computers</a> to avoid this error permanently or <a href='https://scratch.mit.edu/isonline-extension/register' target='blank'>re-validate</a> to temporarily fix it."
 	},
 	"isbot": {
-		"message": "Whoops! It looks like you've been marked as a bot by the isOnline server. isOnline isn't working. Please contact <a href='https://scratch.mit.edu/users/chooper100/#comments' target='blank'>chooper100</a> to unblock your account."
+		"message": "Whoops! It looks like you've been marked as a bot by the isOnline server. isOnline isn't working. Please contact <a href='https://scratch.mit.edu/users/isOnlineV2/#comments' target='blank'>isOnlineV2</a> to unblock your account."
 	},
 	"probablyonlinehelp": {
 		"message": "This user shows activity on their What I've been doing from the last 5 minutes."
