@@ -10,6 +10,8 @@ let targetForContext = null;
 
 /* Account redirect */ if(location.href.toLowerCase()==="https://scratch.mit.edu/users/isonline/"){window.location = "https://scratch.mit.edu/users/isOnlineV2/";}
 
+/* */	if(location.href.substring(location.href.indexOf('?')+1)==="comments#iOc"){location.href=location.href.substring(0, location.href.length - 4);}
+
 chrome.storage.sync.get(["iOaccounts","iOfriendlist","iOfriendsenabled"], function (data) {
     registeredUsers = data.iOaccounts === undefined ? [] : JSON.parse(data.iOaccounts);
     friendList = data.iOfriendlist;
@@ -179,8 +181,8 @@ function main() {
             iOcrown();
             if(location.href.substring(location.href.indexOf('?')+1)==="comments"){
                 document.getElementsByClassName("box slider-carousel-container prevent-select")[document.getElementsByClassName("box slider-carousel-container prevent-select").length-1].innerHTML += "<div id='iOc'></div>";
-				document.getElementsByName("content")[0].focus();
-                if(document.getElementsByClassName("comment ").length>0){location.hash="iOc";}else{location.hash="comments";}
+				console.log("test");
+                if(document.getElementsByClassName("comment ").length>0){location.hash="iOc";document.getElementsByName("content")[0].focus();}else{location.hash="comments";}
             }
             if(time()-localStorage.getItem("iOlastprofile")>3){status();}else{
                 document.getElementById("iOstatus").innerHTML = "<a id='clickforstatus'>"+chrome.i18n.getMessage("clickforstatus")+"</a>";
