@@ -112,7 +112,7 @@ let emojis = {
 let trustedDevTeam = ["jokebookservice1","World_Languages","chooper100","PackersRuleGoPack", "isOnlineV2"];
 
 let handleEmojis = () => {
-    Array.from(comments.querySelectorAll(".comment > .info > .content")).forEach(comment => Object.keys(emojis).forEach(emoji => comment.innerHTML = comment.innerHTML.replace(new RegExp("\\b_" + emoji + "_", "g"), `<img src='${emojis[emoji]}' alt='_${emoji}_' title='_${emoji}_' class='easter-egg'/>`)));
+    Array.from(comments.querySelectorAll(".comment > .info > .content")).forEach(comment => Object.keys(emojis).forEach(emoji => comment.innerHTML = comment.innerHTML.replace(new RegExp("(\\s|^)_" + emoji + "_", "g"), `$1<img src='${emojis[emoji]}' alt='_${emoji}_' title='_${emoji}_' class='easter-egg'/>`)));
     Array.from(comments.querySelectorAll(".comment > .info > .name > a")).filter(user => trustedDevTeam.includes(user.innerHTML)).forEach(user => {
         if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlinev2/") && user.children.length === 0) {
             let devProof = document.createElement("SPAN");
