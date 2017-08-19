@@ -43,6 +43,46 @@ if(location.href.startsWith("https://scratch.mit.edu/studios/4100062/comments/")
 
 }
 
+let comments = document.getElementById("comments");
+let emojis = {
+    "online": "https://scratchtools.tk/isonline/assets/online.svg",
+    "offline": "https://scratchtools.tk/isonline/assets/offline.svg",
+    "dnd": "https://scratchtools.tk/isonline/assets/dnd.svg",
+    "away": "https://scratchtools.tk/isonline/assets/absent.svg",
+    "isonline": "https://scratchtools.tk/isonline/isonline-logo.png"
+};
+
+let trustedDevTeam = ["jokebookservice1","World_Languages","chooper100","PackersRuleGoPack", "isOnlineV2"];
+
+let handleEmojis = () => {
+    Array.from(comments.querySelectorAll(".comment > .info > .content")).forEach(comment => Object.keys(emojis).forEach(emoji => comment.innerHTML = comment.innerHTML.replace(new RegExp("\\b_" + emoji + "_", "g"), `<img src='${emojis[emoji]}' alt='_${emoji}_' title='_${emoji}_' height='20' width='20' />`)));
+    Array.from(comments.querySelectorAll(".comment > .info > .name > a")).filter(user => trustedDevTeam.includes(user.innerHTML)).forEach(user => {
+       if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlinev2/") && user.children.length === 0) {
+           let devProof = document.createElement("SPAN");
+           devProof.innerHTML = "iO DEV";
+           devProof.style.backgroundColor = "green";
+           devProof.style.textShadow = "none";
+           devProof.style.color = "white";
+           devProof.style.padding = "2px";
+           devProof.style.borderRadius = "3px";
+           devProof.style.marginLeft = "4px";
+           user.appendChild(devProof);
+       }
+    });
+};
+let domChange = function(records){
+        if(records.filter(record => record.target.tagName === "UL" && (record.target.className === "comments" || record.target.className === "replies") && record.addedNodes).length){
+            handleEmojis();
+        }
+};
+
+if(comments) {
+    let listenToComments = new MutationObserver(domChange);
+
+    listenToComments.observe(comments, {subtree: true, childList: true});
+}
+handleEmojis();
+
 function main() {
 
     /* Data for helping page*/ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/isonline-extension/helpdata")) {stop="On data page";document.documentElement.innerHTML = "<center><h2><b>ONLY give this information to the official isOnline account, @isOnlineV2.</b></h2></center><br><br><small>" + JSON.stringify(localStorage)+ " / " + JSON.stringify(registeredUsers)+ " / " + navigator.userAgent + " / Version: "+JSON.stringify(chrome.runtime.getManifest().version) + "</small>";}
