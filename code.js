@@ -26,6 +26,53 @@ chrome.storage.sync.get(["iOaccounts","iOfriendlist","iOfriendsenabled"], functi
     else{start();}
 });
 
+if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlinev2/")) {
+    if(document.getElementById("comments")) {
+        let faq = document.getElementById("comments").parentElement.parentElement.children[0];
+        let faqEl = document.createElement("DIV");
+        faqEl.innerHTML = "Hi, welcome to the isOnlineV2 comments section. Here, you can ask for help about the extension. Before commenting, though, please could you read through this brief FAQ section to ensure your question hasn't been previously addressed. Just click one of the questions below for an expanded answers. Thanks for choosing isOnline! (If your question isn't answered below, please do ask in the comments!)";
+        faqEl.style.backgroundColor = "#00aaff";
+        faqEl.style.textShadow = "none";
+        faqEl.style.color = "white";
+        faqEl.style.padding = "10px";
+        faqEl.style.borderRadius = "10px";
+        faq.appendChild(faqEl);
+        let faqQuestions = {
+            "Is isOnline a virus?" : "No, it isn't. The Scratch Team has looked through its source code to make sure it's okay. As well as this, the source code is publically available <a href='https://github.com/WorldLanguages/isOnlinev2/'>here</a>, so you can review it yourself if you know how! On top of this, the Chrome and Firefox webstores review extensions before publishing them. That means there can't be anything malicious inside. Finally, extensions can't actually damage your computer, only your browsing experience.",
+            "How do I get a  👑 or a 🍪 next to my username on my profile?" : "To get a  👑 next to your username on your profile, you will need to advertise isOnline using a special link, http://isonline.tk. You need to put that link either in your 'About Me' or 'What I'm working on' section of your profile. To get the 🍪, you need to include #lovecookies, again, either in your 'About Me' or your 'What I'm working on' section. These icons are only visible to other isOnline users.",
+            "What are the isOnline emojis?" : "The isOnline emojis are _online_, _offline_, _away_, _dnd_, and _isonline_. They are only visible to other isOnline users, and they only work in the comments section.",
+            "How do I find out when my friends come online / What's the 'Friend list'" : "The friend list feature of isOnline allows you to keep track of up to 10 friends. It sends you a browser notification whenever a user goes from Offline to either Away or Do Not Disturb. You can choose if you want to get notified when a friend goes from Away to Online as well. To enable the friend list, <ol><li>Click on the isOnline icon in the top-right corner.</li><li>There should be a slider titled 'isOnline friends & notifications'. Click on the slider</li><li>It should turn from grey to blue</li><li>Allow the extension to send you notifications, when prompted.</li></ol> If you use Firefox, you may experience some issues with the friend list, and we're working to resolve them. To friend a user, go to their profile and click '+ friend'. The user has to be following you for the friend list to work, otherwise famous Scratchers would get tons of spam as soon as they came online! To unfriend a user, click on the 'x friends' button on their profile, or click on the isOnline icon in the top-right again, and find their name and click on the red 'X' button next to them. <em>The friend list won't work when there aren't any Scratch tabs open.</em>",
+            "What does the Do Not Disturb status do?" : "The status displays as a normal status, but from the friend list menu, other people seeing you will think you are Offline. Nobody will get friend list notifications about you when you are on Do Not Disturb",
+            "How do I find out what a status means?" : "Hover over the 'i' icon next to it",
+            "Can I get the status of somebody when I'm not on their profile?" : "Yes, you can. Right click a link to their profile anywhere on the page, and click 'Click to get status'",
+            "I don't want people knowing when I'm online!" : "You can visit your profile, and next to your location you will see a dropdown menu added by isOnline. Choose your status to be 'Offline' and nobody will find out that you're actually online!",
+            "I don't want isOnline anymore, how do I get rid of it?" : "We're sorry to see you go. You can uninstall the extension by right clicking on its icon in the top-right corner of the screen and clicking the option that says 'Remove'"
+        };
+        let qSelected = null;
+        Object.keys(faqQuestions).forEach(question => {
+            let qEl = document.createElement("DIV");
+            qEl.innerHTML = question;
+            qEl.style.padding = "7px";
+            qEl.style.backgroundColor = "cadetblue";
+            qEl.style.color = "white";
+            qEl.style.textShadow = "none";
+            qEl.style.margin = "2px";
+            qEl.style.borderRadius = "10px";
+            qEl.style.fontWeight = "bold";
+            let answer = document.createElement("DIV");
+            answer.className = "answer";
+            answer.style.fontWeight = "normal";
+            faq.appendChild(qEl);
+            qEl.addEventListener("click", function(){
+                if(qSelected) qSelected.querySelector(".answer").innerHTML = "";
+                qEl.querySelector(".answer").innerHTML = faqQuestions[question];
+                qSelected = qEl;
+            });
+            qEl.appendChild(answer);
+        });
+    }
+}
+
 if(location.href.startsWith("https://scratch.mit.edu/studios/4100062/comments/")){
 
     var code = location.href.substring(location.href.indexOf('?')+1);
