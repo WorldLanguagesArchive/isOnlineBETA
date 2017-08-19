@@ -11,6 +11,18 @@ window.onload = function() {
 
 	//
 	
+	protips = ['Easily get someone\'s status by right-clicking their profile link/picture and choosing "click to get status".', '<a href="http://ison.ga/sync" target="_blank">Sync your computers</a> to avoid reverifying.', 'Add the discuss button to the nav bar on <a href="https://scratch.mit.edu/users/DiscussButton" target="_blank">@DiscussButton</a>', 'Want to know more about something? Hover the info icon!', 'Don\'t want people to know you\'re online? Use the ghost status', 'Friend notifications won\'t disturb you if you aren\'t on Scratch', 'Have any suggestion for isOnline? Post it <a href="http://scratch.mit.edu/discuss/topic/253147" target="_blank">here</a>', 'Want a crown in your profile? Check <a href="https://scratch.mit.edu/projects/158291459/" target="_blank">how</a>'];
+  	document.getElementById("protiptext").innerHTML=protips[Math.floor(Math.random() * protips.length)];
+  	
+  	getmessage = new XMLHttpRequest();
+  	getmessage.open("GET", "https://scratchtools.tk/api/getmessage.php", true);
+  	getmessage.send();
+  	getmessage.onreadystatechange = function() {if (getmessage.readyState === 4){
+      if (getmessage.status === 200) {
+  	if(JSON.parse(getmessage.responseText).message){
+  	document.getElementById("getmessage").innerText = JSON.parse(getmessage.responseText).message;}
+      }}};
+	
 	if(chrome.permissions===undefined){
 	document.getElementsByClassName("a")[0].remove();
 	document.getElementById("friendsnote").innerHTML=chrome.i18n.getMessage("friendsnotcompatible");
