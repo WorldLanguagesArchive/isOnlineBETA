@@ -4,9 +4,9 @@ stop = 0;
 
 let targetForContext = null;
 
-/* Discuss button */if (localStorage.getItem("iOdiscuss") == "1") {try {try {nav = document.getElementsByClassName("site-nav")[0].innerHTML;document.getElementsByClassName("site-nav")[0].innerHTML = nav.replace('<li class="last">', '<li><a href="/discuss">Discuss</a></li><li class="last">');} catch (err) {document.getElementsByClassName("link tips")[0].outerHTML += '<li class="link about"><a href="/discuss"><span>Discuss</span></a></li>';}} catch (err) {}}if (window.location.href.substring(30,100).substring(0, window.location.href.substring(30,100).indexOf('/')).toLowerCase() == "discussbutton" && (location.href.match(/\//g) || []).length == 5) {document.getElementsByClassName("box slider-carousel-container prevent-select")[2].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[1].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[0].remove();document.getElementsByClassName("group")[0].innerText="Scratcher (isOnline extra option)";stop = "Discuss button page";if (localStorage.getItem("iOdiscuss") != "1") {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Enable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.setItem("iOdiscuss", "1");location.reload();};} else {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Disable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.removeItem("iOdiscuss");location.reload();};}}
+/* Discuss button */   if (localStorage.getItem("iOdiscuss") == "1") {try {try {nav = document.getElementsByClassName("site-nav")[0].innerHTML;document.getElementsByClassName("site-nav")[0].innerHTML = nav.replace('<li class="last">', '<li><a href="/discuss">Discuss</a></li><li class="last">');} catch (err) {document.getElementsByClassName("link tips")[0].outerHTML += '<li class="link about"><a href="/discuss"><span>Discuss</span></a></li>';}} catch (err) {}}if (window.location.href.substring(30,100).substring(0, window.location.href.substring(30,100).indexOf('/')).toLowerCase() == "discussbutton" && (location.href.match(/\//g) || []).length == 5) {document.getElementsByClassName("box slider-carousel-container prevent-select")[2].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[1].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[0].remove();document.getElementsByClassName("group")[0].innerText="Scratcher (isOnline extra option)";stop = "Discuss button page";if (localStorage.getItem("iOdiscuss") != "1") {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Enable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.setItem("iOdiscuss", "1");location.reload();};} else {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Disable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.removeItem("iOdiscuss");location.reload();};}}
 
-/* Easter egg */      if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
+/* Easter egg */       if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
 
 /* Account redirect */ if(location.href.toLowerCase()==="https://scratch.mit.edu/users/isonline/"){window.location = "https://scratch.mit.edu/users/isOnlineV2/";}
 
@@ -57,23 +57,23 @@ let trustedDevTeam = ["jokebookservice1","World_Languages","chooper100","Packers
 let handleEmojis = () => {
     Array.from(comments.querySelectorAll(".comment > .info > .content")).forEach(comment => Object.keys(emojis).forEach(emoji => comment.innerHTML = comment.innerHTML.replace(new RegExp("\\b_" + emoji + "_", "g"), `<img src='${emojis[emoji]}' alt='_${emoji}_' title='_${emoji}_' class='easter-egg'/>`)));
     Array.from(comments.querySelectorAll(".comment > .info > .name > a")).filter(user => trustedDevTeam.includes(user.innerHTML)).forEach(user => {
-       if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlinev2/") && user.children.length === 0) {
-           let devProof = document.createElement("SPAN");
-           devProof.innerHTML = "iO DEV";
-           devProof.style.backgroundColor = "green";
-           devProof.style.textShadow = "none";
-           devProof.style.color = "white";
-           devProof.style.padding = "2px";
-           devProof.style.borderRadius = "3px";
-           devProof.style.marginLeft = "4px";
-           user.appendChild(devProof);
-       }
+        if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlinev2/") && user.children.length === 0) {
+            let devProof = document.createElement("SPAN");
+            devProof.innerHTML = "iO DEV";
+            devProof.style.backgroundColor = "green";
+            devProof.style.textShadow = "none";
+            devProof.style.color = "white";
+            devProof.style.padding = "2px";
+            devProof.style.borderRadius = "3px";
+            devProof.style.marginLeft = "4px";
+            user.appendChild(devProof);
+        }
     });
 };
 let domChange = function(records){
-        if(records.filter(record => record.target.tagName === "UL" && (record.target.className === "comments" || record.target.className === "replies") && record.addedNodes).length){
-            handleEmojis();
-        }
+    if(records.filter(record => record.target.tagName === "UL" && (record.target.className === "comments" || record.target.className === "replies") && record.addedNodes).length){
+        handleEmojis();
+    }
 };
 
 if(comments) {
@@ -120,10 +120,10 @@ function main() {
         /* Add status box next to location */ document.getElementsByClassName("location")[0].innerHTML += ' | <span style="display:inline" id="iOstatus"></span>';
         if (localuser.toUpperCase() == user.toUpperCase()) {iOlog("Detected user is their own profile");isOwn();} else {
             iOcrown();
-			if(location.href.substring(location.href.indexOf('?')+1)==="comments"){
-			document.getElementsByClassName("box slider-carousel-container prevent-select")[document.getElementsByClassName("box slider-carousel-container prevent-select").length-1].innerHTML += "<div id='iOc'></div>";
-			location.hash="iOc";
-			}
+            if(location.href.substring(location.href.indexOf('?')+1)==="comments"){
+                document.getElementsByClassName("box slider-carousel-container prevent-select")[document.getElementsByClassName("box slider-carousel-container prevent-select").length-1].innerHTML += "<div id='iOc'></div>";
+                if(document.getElementsByClassName("comment ").length>0){location.hash="iOc";}else{location.hash="comments";}
+            }
             if(time()-localStorage.getItem("iOlastprofile")>3){status();}else{
                 document.getElementById("iOstatus").innerHTML = "<a id='clickforstatus'>"+chrome.i18n.getMessage("clickforstatus")+"</a>";
                 document.getElementById("clickforstatus").onclick = status;}
