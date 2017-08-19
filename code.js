@@ -38,7 +38,7 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
         faqEl.style.borderRadius = "10px";
         faq.appendChild(faqEl);
         let faqQuestions = {
-            "Is isOnline a virus?" : "No, it isn't. The Scratch Team has looked through its source code to make sure it's okay. As well as this, the source code is publically available <a href='https://github.com/WorldLanguages/isOnlinev2/'>here</a>, so you can review it yourself if you know how! On top of this, the Chrome and Firefox webstores review extensions before publishing them. That means there can't be anything malicious inside. Finally, extensions can't actually damage your computer, only your browsing experience.",
+            "Is isOnline a virus?" : "No, it isn't. The Scratch Team has looked through its source code to make sure it's okay. As well as this, the source code is publically available <a href='https://github.com/WorldLanguages/isOnlinev2/' style='color: pink; font-weight: bold;'>here</a>, so you can review it yourself if you know how! On top of this, the Chrome and Firefox webstores review extensions before publishing them. That means there can't be anything malicious inside. Finally, extensions can't actually damage your computer, only your browsing experience.",
             "How do I get a  👑 or a 🍪 next to my username on my profile?" : "To get a  👑 next to your username on your profile, you will need to advertise isOnline using a special link, http://isonline.tk. You need to put that link either in your 'About Me' or 'What I'm working on' section of your profile. To get the 🍪, you need to include #lovecookies, again, either in your 'About Me' or your 'What I'm working on' section. These icons are only visible to other isOnline users.",
             "What are the isOnline emojis?" : "The isOnline emojis are _online_, _offline_, _away_, _dnd_, and _isonline_. They are only visible to other isOnline users, and they only work in the comments section.",
             "How do I find out when my friends come online / What's the 'Friend list'" : "The friend list feature of isOnline allows you to keep track of up to 10 friends. It sends you a browser notification whenever a user goes from Offline to either Away or Do Not Disturb. You can choose if you want to get notified when a friend goes from Away to Online as well. To enable the friend list, <ol><li>Click on the isOnline icon in the top-right corner.</li><li>There should be a slider titled 'isOnline friends & notifications'. Click on the slider</li><li>It should turn from grey to blue</li><li>Allow the extension to send you notifications, when prompted.</li></ol> If you use Firefox, you may experience some issues with the friend list, and we're working to resolve them. To friend a user, go to their profile and click '+ friend'. The user has to be following you for the friend list to work, otherwise famous Scratchers would get tons of spam as soon as they came online! To unfriend a user, click on the 'x friends' button on their profile, or click on the isOnline icon in the top-right again, and find their name and click on the red 'X' button next to them. <em>The friend list won't work when there aren't any Scratch tabs open.</em>",
@@ -65,6 +65,10 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
             faq.appendChild(qEl);
             qEl.addEventListener("click", function(){
                 if(qSelected) qSelected.querySelector(".answer").innerHTML = "";
+				if(qSelected && qSelected === qEl) {
+					qSelected = null;
+					return;
+				}
                 qEl.querySelector(".answer").innerHTML = faqQuestions[question];
                 qSelected = qEl;
             });
