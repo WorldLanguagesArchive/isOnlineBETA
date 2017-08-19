@@ -179,6 +179,7 @@ function main() {
             iOcrown();
             if(location.href.substring(location.href.indexOf('?')+1)==="comments"){
                 document.getElementsByClassName("box slider-carousel-container prevent-select")[document.getElementsByClassName("box slider-carousel-container prevent-select").length-1].innerHTML += "<div id='iOc'></div>";
+				document.getElementsByName("content")[0].focus();
                 if(document.getElementsByClassName("comment ").length>0){location.hash="iOc";}else{location.hash="comments";}
             }
             if(time()-localStorage.getItem("iOlastprofile")>3){status();}else{
