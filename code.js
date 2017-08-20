@@ -184,8 +184,9 @@ if(comments) {
     let listenToComments = new MutationObserver(domChange);
 
     listenToComments.observe(comments, {subtree: true, childList: true});
+	
+	handleEmojis();
 }
-handleEmojis();
 
 function main() {
 
