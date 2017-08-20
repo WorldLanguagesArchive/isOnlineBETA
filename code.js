@@ -4,13 +4,58 @@ stop = 0;
 
 let targetForContext = null;
 
-/* Discuss button */   if (localStorage.getItem("iOdiscuss") == "1") {try {try {nav = document.getElementsByClassName("site-nav")[0].innerHTML;document.getElementsByClassName("site-nav")[0].innerHTML = nav.replace('<li class="last">', '<li><a href="/discuss">Discuss</a></li><li class="last">');} catch (err) {document.getElementsByClassName("link tips")[0].outerHTML += '<li class="link about"><a href="/discuss"><span>Discuss</span></a></li>';}} catch (err) {}}if (window.location.href.substring(30,100).substring(0, window.location.href.substring(30,100).indexOf('/')).toLowerCase() == "discussbutton" && (location.href.match(/\//g) || []).length == 5) {document.getElementsByClassName("box slider-carousel-container prevent-select")[2].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[1].remove(); document.getElementsByClassName("box slider-carousel-container prevent-select")[0].remove();document.getElementsByClassName("group")[0].innerText="Scratcher (isOnline extra option)";stop = "Discuss button page";if (localStorage.getItem("iOdiscuss") != "1") {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Enable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.setItem("iOdiscuss", "1");location.reload();};} else {document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Disable</a>";document.getElementById("discussbutton").onclick = function() {localStorage.removeItem("iOdiscuss");location.reload();};}}
+// Discuss button button and profile 
+if (localStorage.getItem("iOdiscuss") === "1") {
+    try {
+        try {
+            nav = document.getElementsByClassName("site-nav")[0].innerHTML;
+            document.getElementsByClassName("site-nav")[0].innerHTML = nav.replace('<li class="last">', '<li><a href="/discuss">Discuss</a></li><li class="last">');
+        } catch (err) {
+            document.getElementsByClassName("link tips")[0].outerHTML += '<li class="link about"><a href="/discuss"><span>Discuss</span></a></li>';
+        }
+    } catch (err) {}
+}
+if (window.location.href.substring(30, 100).substring(0, window.location.href.substring(30, 100).indexOf('/')).toLowerCase() == "discussbutton" && (location.href.match(/\//g) || []).length == 5) {
+    document.getElementsByClassName("box slider-carousel-container prevent-select")[2].remove();
+    document.getElementsByClassName("box slider-carousel-container prevent-select")[1].remove();
+    document.getElementsByClassName("box slider-carousel-container prevent-select")[0].remove();
+    document.getElementsByClassName("group")[0].innerText = "Scratcher (isOnline extra option)";
+    stop = "Discuss button page";
+    if (localStorage.getItem("iOdiscuss") !== "1") {
+        document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Enable</a>";
+        document.getElementById("discussbutton").onclick = function() {
+            localStorage.setItem("iOdiscuss", "1");
+            location.reload();
+        };
+    } else {
+        document.getElementsByClassName("location")[0].innerHTML += " | <a id='discussbutton'>Disable</a>";
+        document.getElementById("discussbutton").onclick = function() {
+            localStorage.removeItem("iOdiscuss");
+            location.reload();
+        };
+    }
+    if (localStorage.getItem("iOnavbar") !== "1") {
+        document.getElementsByClassName("doing")[0].innerHTML="<center><h3>New navbar</h3></center>Want a front-page like navbar everywhere?<br><br><center><a onclick='localStorage.setItem(\"iOnavbar\",\"1\");location.reload();'>Enable navbar design</a></center><br>Credit to <a href=\"https://scratch.mit.edu/users/iwotastic/\">@iwotastic</a> for the navbar design.";
+    } else {
+        document.getElementsByClassName("doing")[0].innerHTML="<center><h3>New navbar</h3></center>Want a front-page like navbar everywhere?<br><br><center><a onclick='localStorage.setItem(\"iOnavbar\",\"0\");location.reload();'>Disable navbar design</a></center><br>Credit to <a href=\"https://scratch.mit.edu/users/iwotastic/\">@iwotastic</a> for the navbar design.";
+    }
+    if (localStorage.getItem("iOsearchforums") !== "1") {
+        document.getElementsByClassName("doing")[0].innerHTML+="<br><br><center><h3>Forum search</h3></center>Want Scratch search on projects, studios <b>and forums</b>? Click below!<br><br><center><a onclick='localStorage.setItem(\"iOsearchforums\",\"1\");location.reload();'>Enable forum search</a></center>";
+    } else {
+        document.getElementsByClassName("doing")[0].innerHTML+="<br><br><center><h3>Forum search</h3></center>Want Scratch search on projects, studios <b>and forums</b>? Click below!<br><br><center><a onclick='localStorage.setItem(\"iOsearchforums\",\"0\");location.reload();'>Disable forum search</a></center>";
+    }
+}
+//
 
-/* Easter egg */       if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
+/* New navbar design */ if (localStorage.getItem("iOnavbar") === "1" && document.getElementById("project-create")) {x=document.createElement("style");x.id="iOnavbar";document.getElementsByTagName("head")[0].appendChild(x);document.getElementById("iOnavbar").innerHTML='#topnav > .innerwrap { background: #25aff4 !important; overflow: hide !important; height: 49px !important; } #topnav > .innerwrap > div > ul > li { border-left: 0 !important; border-right: 0 !important; font-weight: bold !important; padding-bottom: 7px !important; padding-top: 7px !important; } #topnav > .innerwrap > div > ul > li:hover { background: rgba(0, 0, 0, 0.1) !important; } #topnav > .innerwrap > div > .logo { padding-top: 7px !important; } #topnav > .innerwrap > div > .search > input[type=text] { background: rgba(0, 0, 0, 0.1) !important; border-radius: 5px !important; padding-top: 12px !important; padding-bottom: 12px !important; padding-left: 45px !important; transition: background 0.15s !important; box-shadow: none; color: #fff !important; width: calc(100% - 20px) !important; } #topnav > .innerwrap > div > .search > input[type=text]:focus { background: rgba(0, 0, 0, 0.2) !important; } #topnav > .innerwrap > div > .search > input[type=text]::placeholder { color: #fff !important; } #topnav > .innerwrap > div > .search > input[type=submit] { background-image: url("/images/nav-search-glass.png") !important; position: absolute !important; box-shadow: none !important; background-color: transparent !important; background-image: url("https://scratch.mit.edu/images/nav-search-glass.png") !important; background-repeat: no-repeat !important; background-position: 50% !important; background-size: 14px 14px !important; width: 40px !important; height: 40px !important; border-right: 0 !important; } body:not(.editor) > #pagewrapper > #content { margin-top: 10px !important; } div.dropdown-menu.blue { background: #25aff4 !important; box-shadow: none !important; border: 0 !important; top: 40px !important; } .logout.divider#logout input[type=submit] { background-color: transparent !important; } .messages-icon { background-image: url("https://scratch.mit.edu/images/nav-notifications.png") !important; background-position: 50% !important; background-size: 45% !important; } .mystuff-icon { background-image: url("https://scratch.mit.edu/images/mystuff.png") !important; background-position: 50% !important; background-size: 45% !important; } #topnav .user-name.dropdown-toggle { padding-top: 7px !important; padding-bottom: 7px !important; } #topnav .user-name.dropdown-toggle .user-icon { border-radius: 3px !important; border: none !important; } body[class] { background: #fcfcfc !important; }';}
+
+/* Forum search */ if (localStorage.getItem("iOsearchforums") === "1" && location.href.startsWith("https://scratch.mit.edu/search")) {document.getElementsByClassName("sub-nav tabs")[0].innerHTML += '<a href="https://google.com/search?q=site:scratch.mit.edu/discuss ' + document.getElementsByName("q")[0].value + '"><li><img src="https://scratch.mit.edu/images/tips/question-icon.svg" class="tab-icon studios"><span>Forums</span></li></a>';document.getElementsByClassName("sub-nav tabs")[0].innerHTML += '<a href="https://google.com/search?q=site:scratch.mit.edu/discuss/topic ' + document.getElementsByName("q")[0].value + '"><li><img src="https://scratch.mit.edu/images/tips/question-icon.svg" class="tab-icon studios"><span>Forum topics</span></li></a>';}
+
+/* 'The best extension' easter egg */       if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
 
 /* Account redirect */ if(location.href.toLowerCase()==="https://scratch.mit.edu/users/isonline/"){window.location = "https://scratch.mit.edu/users/isOnlineV2/";}
 
-/* */	if(location.href.substring(location.href.indexOf('?')+1)==="comments#iOc"){location.href=location.href.substring(0, location.href.length - 4);}
+/* Redirect to comments*/	if(location.href.substring(location.href.indexOf('?')+1)==="comments#iOc"){location.href=location.href.substring(0, location.href.length - 4);}
 
 chrome.storage.sync.get(["iOaccounts","iOfriendlist","iOfriendsenabled"], function (data) {
     registeredUsers = data.iOaccounts === undefined ? [] : JSON.parse(data.iOaccounts);
