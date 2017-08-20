@@ -117,7 +117,12 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
             answer.style.fontWeight = "normal";
             faq.appendChild(qEl);
             qEl.addEventListener("click", function(){
-                if(qSelected) qSelected.querySelector(".answer").innerHTML = "";
+                if(qSelected){
+                    qSelected.querySelector(".answer").innerHTML = "";
+                    answer.style.backgroundColor = "";
+                    answer.style.padding = "";
+                    answer.style.borderRadius = "";
+                }
 				if(qSelected && qSelected === qEl) {
 					qSelected = null;
 					return;
