@@ -124,6 +124,9 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
 				}
                 qEl.querySelector(".answer").innerHTML = faqQuestions[question];
                 qSelected = qEl;
+                answer.style.backgroundColor = "hsl(182, 25%, 43%)";
+                answer.style.padding = "4px";
+                answer.style.borderRadius = "10px";
             });
             qEl.appendChild(answer);
         });
