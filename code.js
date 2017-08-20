@@ -103,8 +103,12 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
 			};
         let qSelected = null;
         Object.keys(faqQuestions).forEach(question => {
+            
             let qEl = document.createElement("DIV");
-            qEl.innerHTML = question;
+            let div = document.createElement("DIV");
+            div.innerHTML = question;
+            div.id = "question";
+            qEl.appendChild(div);
             qEl.style.padding = "7px";
             qEl.style.backgroundColor = "cadetblue";
             qEl.style.color = "white";
@@ -122,6 +126,7 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
                     answer.style.backgroundColor = "";
                     answer.style.padding = "";
                     answer.style.borderRadius = "";
+                    
                 }
 				if(qSelected && qSelected === qEl) {
 					qSelected = null;
@@ -132,6 +137,7 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
                 answer.style.backgroundColor = "hsl(182, 25%, 43%)";
                 answer.style.padding = "4px";
                 answer.style.borderRadius = "10px";
+                
             });
             qEl.appendChild(answer);
         });
