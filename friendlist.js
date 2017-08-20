@@ -55,7 +55,6 @@ function friendlistcode() {
 
     x = 0;
     firsttime = true;
-    max = friendlist.length-1;
     interval = 2000;
     scratchopen = true;
 
@@ -71,6 +70,7 @@ function friendlistcode() {
 }
 
 function docheck(){
+    max = friendlist.length-1;
     if(x>max){interval=180000/(max+1);x=0;check(x);}
     else{check(x);}
 }
@@ -185,12 +185,15 @@ function checkfollowing(offset,user,localuser) {
 
 function addToFriends(user) {
     friendlist.push(user);
-    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(user+" "+chrome.i18n.getMessage("wasadded"),chrome.i18n.getMessage("wasaddedbody"));setTimeout(function(){location.reload();},100);});
+	check(friendlist.length-1);
+    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(user+" "+chrome.i18n.getMessage("wasadded"),chrome.i18n.getMessage("wasaddedbody"));if(friendlist.length===0){location.reload();}});
 }
 
 function removeFromFriends(user){
-    friendlist.splice(friendlist.findIndex(item => user.toLowerCase() === item.toLowerCase()), 1);
-    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){location.reload();});
+	finditem = friendlist.findIndex(item => user.toLowerCase() === item.toLowerCase());
+    friendlist.splice(finditem, 1);
+    friendliststatuses.splice(finditem, 1);
+    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){/*location.reload();*/});
 
 }
 
