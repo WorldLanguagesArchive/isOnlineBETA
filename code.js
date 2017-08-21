@@ -34,7 +34,6 @@ if (window.location.href.substring(30, 100).substring(0, window.location.href.su
             location.reload();
         };
     }
-    document.getElementsByClassName("user-content")[0].innerHTML += '<div class="player"><h3 class="featured-project-heading">Change Scratch Font</h3><div class="stage" style="width: 282px;"><p>Want to change the main font of scratch? </p><p style="display:inline;"> Choose an option here:</p><select id="font"><option value=\'inherit\'>Default</option><option value=\'-webkit-body\'>Times New Roman</option><option value=\'monospace\'>Consolas</option><option value=\'cursive\'>Comic Sans</option><option value=\'fantasy\'>Impact</option><option value=\'Calibri\'>Calibri</option></select><br><a onclick="localStorage.setItem(\'iOfont\', document.getElementById(\'font\').options[document.getElementById(\'font\').selectedIndex].value);location.reload();">Apply</a></div>'
     if (localStorage.getItem("iOnavbar") !== "1") {
         document.getElementsByClassName("doing")[0].innerHTML="<center><h3>New navbar</h3></center>Want a front-page like navbar everywhere?<br><br><center><a onclick='localStorage.setItem(\"iOnavbar\",\"1\");location.reload();'>Enable navbar design</a></center><br>Credit to <a href=\"https://scratch.mit.edu/users/iwotastic/\">@iwotastic</a> for the navbar design.";
     } else {
@@ -52,9 +51,6 @@ if (window.location.href.substring(30, 100).substring(0, window.location.href.su
 
 /* Forum search */ if (localStorage.getItem("iOsearchforums") === "1" && location.href.startsWith("https://scratch.mit.edu/search")) {document.getElementsByClassName("sub-nav tabs")[0].innerHTML += '<a href="https://google.com/search?q=site:scratch.mit.edu/discuss ' + document.getElementsByName("q")[0].value + '"><li><img src="https://scratch.mit.edu/images/tips/question-icon.svg" class="tab-icon studios"><span>Forums</span></li></a>';document.getElementsByClassName("sub-nav tabs")[0].innerHTML += '<a href="https://google.com/search?q=site:scratch.mit.edu/discuss/topic ' + document.getElementsByName("q")[0].value + '"><li><img src="https://scratch.mit.edu/images/tips/question-icon.svg" class="tab-icon studios"><span>Forum topics</span></li></a>';}
 
-/* Font */ if (localStorage.getItem("iOfont")!="null") {
-    document.getElementsByTagName("body")[0].style.fontFamily = localStorage.getItem("iOfont");
-}
 
 /* 'The best extension' easter egg */       if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
 
@@ -181,7 +177,7 @@ let trustedDevTeam = ["jokebookservice1","World_Languages","chooper100","Packers
 let handleEmojis = () => {
     Array.from(comments.querySelectorAll(".comment > .info > .content")).forEach(comment => Object.keys(emojis).forEach(emoji => comment.innerHTML = comment.innerHTML.replace(new RegExp("(\\s|^)_" + emoji + "_", "g"), `$1<img src='${emojis[emoji]}' alt='_${emoji}_' title='_${emoji}_' class='easter-egg'/>`)));
     Array.from(comments.querySelectorAll(".comment > .info > .name > a")).filter(user => trustedDevTeam.includes(user.innerHTML)).forEach(user => {
-        if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/isOnlineV2/") && user.children.length === 0) {
+        if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlinev2") && user.children.length === 0) {
             let devProof = document.createElement("SPAN");
             devProof.innerHTML = "iO DEV";
             devProof.style.backgroundColor = "green";
