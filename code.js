@@ -113,41 +113,24 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
             
             let qEl = document.createElement("DIV");
             let div = document.createElement("DIV");
-            div.style.cursor = "pointer";
             div.innerHTML = question;
-            div.id = "question";
+			div.className = "faq-question";
+			qEl.className = "faq-both";
             qEl.appendChild(div);
-            qEl.style.padding = "7px";
-            qEl.style.backgroundColor = "cadetblue";
-            qEl.style.color = "white";
-            qEl.style.textShadow = "none";
-            qEl.style.margin = "2px";
-            qEl.style.borderRadius = "10px";
-            qEl.style.fontWeight = "bold";
-            let answer = document.createElement("DIV");
-            answer.className = "answer";
-            answer.style.fontWeight = "normal";
             faq.appendChild(qEl);
-            qEl.addEventListener("click", function(){
-                if(qSelected){
-                    qSelected.querySelector(".answer").innerHTML = "";
-                    answer.style.backgroundColor = "";
-                    answer.style.padding = "";
-                    answer.style.borderRadius = "";
-                    
-                }
+            qEl.addEventListener("click", function(e){
+				if(e.path[0].className === "faq-answer") return;
+                if(qSelected) qSelected.querySelector(".faq-answer").remove();
 				if(qSelected && qSelected === qEl) {
 					qSelected = null;
 					return;
 				}
-                qEl.querySelector(".answer").innerHTML = faqQuestions[question];
+				let answer = document.createElement("DIV");
+				answer.className = "faq-answer";
+				answer.innerHTML = faqQuestions[question];
+                qEl.appendChild(answer);
                 qSelected = qEl;
-                answer.style.backgroundColor = "hsl(182, 25%, 43%)";
-                answer.style.padding = "4px";
-                answer.style.borderRadius = "10px";
-                
             });
-            qEl.appendChild(answer);
         });
     }
 }
