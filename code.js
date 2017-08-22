@@ -56,6 +56,8 @@ if (window.location.href.substring(30, 100).substring(0, window.location.href.su
 
 /* Account redirect */ if(location.href.toLowerCase()==="https://scratch.mit.edu/users/isonline/"){window.location = "https://scratch.mit.edu/users/isOnlineV2/";}
 
+/* Account redirect 2 */ if(location.href.toLowerCase()==="https://scratch.mit.edu/users/isonline2/"){window.location = "https://scratch.mit.edu/users/isOnlineV2/";}
+
 /* Redirect to comments*/	if(location.href.substring(location.href.indexOf('?')+1)==="comments#iOc"){location.href=location.href.substring(0, location.href.length - 4);}
 
 chrome.storage.sync.get(["iOaccounts","iOfriendlist","iOfriendsenabled"], function (data) {
