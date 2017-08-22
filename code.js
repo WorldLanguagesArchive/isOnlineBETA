@@ -50,9 +50,13 @@ if (window.location.href.substring(30, 100).substring(0, window.location.href.su
 /* New navbar design */ if (localStorage.getItem("iOnavbar") === "1" && document.getElementById("project-create")) {x=document.createElement("style");x.id="iOnavbar";document.getElementsByTagName("head")[0].appendChild(x);document.getElementById("iOnavbar").innerHTML='#topnav > .innerwrap { background: #25aff4 !important; overflow: hide !important; height: 49px !important; } #topnav > .innerwrap > div > ul > li { border-left: 0 !important; border-right: 0 !important; font-weight: bold !important; padding-bottom: 7px !important; padding-top: 7px !important; } #topnav > .innerwrap > div > ul > li:hover { background: rgba(0, 0, 0, 0.1) !important; } #topnav > .innerwrap > div > .logo { padding-top: 7px !important; } #topnav > .innerwrap > div > .search > input[type=text] { background: rgba(0, 0, 0, 0.1) !important; border-radius: 5px !important; padding-top: 12px !important; padding-bottom: 12px !important; padding-left: 45px !important; transition: background 0.15s !important; box-shadow: none; color: #fff !important; width: calc(100% - 20px) !important; } #topnav > .innerwrap > div > .search > input[type=text]:focus { background: rgba(0, 0, 0, 0.2) !important; } #topnav > .innerwrap > div > .search > input[type=text]::placeholder { color: #fff !important; } #topnav > .innerwrap > div > .search > input[type=submit] { background-image: url("/images/nav-search-glass.png") !important; position: absolute !important; box-shadow: none !important; background-color: transparent !important; background-image: url("https://scratch.mit.edu/images/nav-search-glass.png") !important; background-repeat: no-repeat !important; background-position: 50% !important; background-size: 14px 14px !important; width: 40px !important; height: 40px !important; border-right: 0 !important; } body:not(.editor) > #pagewrapper > #content { margin-top: 10px !important; } div.dropdown-menu.blue { background: #25aff4 !important; box-shadow: none !important; border: 0 !important; top: 40px !important; } .logout.divider#logout input[type=submit] { background-color: transparent !important; } .messages-icon { background-image: url("https://scratch.mit.edu/images/nav-notifications.png") !important; background-position: 50% !important; background-size: 45% !important; } .mystuff-icon { background-image: url("https://scratch.mit.edu/images/mystuff.png") !important; background-position: 50% !important; background-size: 45% !important; } #topnav .user-name.dropdown-toggle { padding-top: 7px !important; padding-bottom: 7px !important; } #topnav .user-name.dropdown-toggle .user-icon { border-radius: 3px !important; border: none !important; } body[class] { background: #fcfcfc !important; }';}
 
 /* Forum search */ if (localStorage.getItem("iOsearchforums") === "1" && location.href.startsWith("https://scratch.mit.edu/search")) {document.getElementsByClassName("sub-nav tabs")[0].innerHTML += '<a href="https://google.com/search?q=site:scratch.mit.edu/discuss ' + document.getElementsByName("q")[0].value + '"><li><img src="https://scratch.mit.edu/images/tips/question-icon.svg" class="tab-icon studios"><span>Forums</span></li></a>';document.getElementsByClassName("sub-nav tabs")[0].innerHTML += '<a href="https://google.com/search?q=site:scratch.mit.edu/discuss/topic ' + document.getElementsByName("q")[0].value + '"><li><img src="https://scratch.mit.edu/images/tips/question-icon.svg" class="tab-icon studios"><span>Forum topics</span></li></a>';}
+
+
 /* 'The best extension' easter egg */       if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
 
 /* Account redirect */ if(location.href.toLowerCase()==="https://scratch.mit.edu/users/isonline/"){window.location = "https://scratch.mit.edu/users/isOnlineV2/";}
+
+/* Account redirect 2 */ if(location.href.toLowerCase()==="https://scratch.mit.edu/users/isonline2/"){window.location = "https://scratch.mit.edu/users/isOnlineV2/";}
 
 /* Redirect to comments*/	if(location.href.substring(location.href.indexOf('?')+1)==="comments#iOc"){location.href=location.href.substring(0, location.href.length - 4);}
 
@@ -98,7 +102,11 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
             "How do I find out what a status means?" : "Hover over the 'i' icon next to it.",
             "Can I get the status of somebody when I'm not on their profile?" : "Yes, you can. Right click a link to their profile anywhere on the page, and click 'Click to get status'",
             "I don't want people knowing when I'm online!" : "You can visit your profile, and next to your location you will see a dropdown menu added by isOnline. Choose your status to be 'Offline' and nobody will find out that you're actually online!",
-            "I don't want isOnline anymore, how do I get rid of it?" : "We're sorry to see you go. You can uninstall the extension by right clicking on its icon in the top-right corner of the screen and clicking the option that says 'Remove'. You may get a popup asking if you're sure. Click remove."
+            "I don't want isOnline anymore, how do I get rid of it?" : "We're sorry to see you go. You can uninstall the extension by right clicking on its icon in the top-right corner of the screen and clicking the option that says 'Remove'. You may get a popup asking if you're sure. Click remove.",
+            "Can I join the isOnline team?" : "Currently we are not looking for anymore developers. However, if you do have something extra that you believe you can bring to the team, please comment below. Be sure to include the following information: <ul><li>Your GitHub username.</li><li>Your knowledge of HTML, CSS, JavaScript, JQuery, and MySQL on a scale of 1-10.</li><li>Examples of your work in programming.</li><li>What you can bring to our team.</li> Remember, applying does not guarentee that you will be chosen. After you apply, you will recieve a comment on your profile from one of the current isOnline Developers informing you if you are approved.<b> If you get rejected, remember you cannot re-apply for 2 months.</b> If you are approved, an isOnline Developer will continue to talk about the next steps on your profile.</ul>",
+            "Why is this account named isOnlineV2, when the current version is isOnline v1.5?" : "When we first started isOnline, we were not able to get access to the account isOnline. So we started using the account isOnlineV2. When we did end up getting access to the account isOnline, many people already had followed isOnlineV2 so we decided to have just use isOnlineV2 as our main.",
+            "How do I enable the Discuss Button?" : "You can enable the Discuss button, and a few other features on <a href='https://scratch.mit.edu/users/DiscussButton'>@DiscussButton</a>.",
+            "Who runs the account isOnlineV2?" : "Although World_Languages owns the account, any user with the label \"iO Dev\" can answer your questions."
 			};
         let qSelected = null;
         Object.keys(faqQuestions).forEach(question => {
@@ -106,39 +114,23 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
             let qEl = document.createElement("DIV");
             let div = document.createElement("DIV");
             div.innerHTML = question;
-            div.id = "question";
+			div.className = "faq-question";
+			qEl.className = "faq-both";
             qEl.appendChild(div);
-            qEl.style.padding = "7px";
-            qEl.style.backgroundColor = "cadetblue";
-            qEl.style.color = "white";
-            qEl.style.textShadow = "none";
-            qEl.style.margin = "2px";
-            qEl.style.borderRadius = "10px";
-            qEl.style.fontWeight = "bold";
-            let answer = document.createElement("DIV");
-            answer.className = "answer";
-            answer.style.fontWeight = "normal";
             faq.appendChild(qEl);
-            qEl.addEventListener("click", function(){
-                if(qSelected){
-                    qSelected.querySelector(".answer").innerHTML = "";
-                    answer.style.backgroundColor = "";
-                    answer.style.padding = "";
-                    answer.style.borderRadius = "";
-                    
-                }
+            qEl.addEventListener("click", function(e){
+				if(e.path[0].className === "faq-answer") return;
+                if(qSelected) qSelected.querySelector(".faq-answer").remove();
 				if(qSelected && qSelected === qEl) {
 					qSelected = null;
 					return;
 				}
-                qEl.querySelector(".answer").innerHTML = faqQuestions[question];
+				let answer = document.createElement("DIV");
+				answer.className = "faq-answer";
+				answer.innerHTML = faqQuestions[question];
+                qEl.appendChild(answer);
                 qSelected = qEl;
-                answer.style.backgroundColor = "hsl(182, 25%, 43%)";
-                answer.style.padding = "4px";
-                answer.style.borderRadius = "10px";
-                
             });
-            qEl.appendChild(answer);
         });
     }
 }
@@ -174,7 +166,7 @@ let trustedDevTeam = ["jokebookservice1","World_Languages","chooper100","Packers
 let handleEmojis = () => {
     Array.from(comments.querySelectorAll(".comment > .info > .content")).forEach(comment => Object.keys(emojis).forEach(emoji => comment.innerHTML = comment.innerHTML.replace(new RegExp("(\\s|^)_" + emoji + "_", "g"), `$1<img src='${emojis[emoji]}' alt='_${emoji}_' title='_${emoji}_' class='easter-egg'/>`)));
     Array.from(comments.querySelectorAll(".comment > .info > .name > a")).filter(user => trustedDevTeam.includes(user.innerHTML)).forEach(user => {
-        if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlinev2/") && user.children.length === 0) {
+        if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlinev2") && user.children.length === 0) {
             let devProof = document.createElement("SPAN");
             devProof.innerHTML = "iO DEV";
             devProof.style.backgroundColor = "green";
