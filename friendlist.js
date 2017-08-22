@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener(
             if(friendlist.length==10){sendResponse({result: "ok"});couldNotAdd(chrome.i18n.getMessage("maxreached"));}
             else {
                 sendResponse({result: "ok"});
-                checkfollowing(0,request.addfriend[0],request.addfriend[1],true);}
+                checkfollowing(0,request.addfriend[0],request.addfriend[1]);}
         }
         if (request.removefriend) {
             sendResponse({result: "ok"});
@@ -166,17 +166,7 @@ function notification(user) {
         }};
 }
 
-function checkfollowing(offset,user,localuser,adding) {
-	
-	if(adding){
-	var iffolowing = function(){addToFriends(user);};
-	var ifnotfollowing = function(){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));};
-	}
-	else{
-	var iffolowing = function(){};
-	var ifnotfollowing = function(){removeFromFriends(user);}
-	}
-	
+function checkfollowing(offset,user,localuser) {
     var followinglist = new XMLHttpRequest();
     followinglist.open('GET', 'https://api.scratch.mit.edu/users/' + user + "/following?offset=" + offset, true);
     followinglist.send();
@@ -185,9 +175,9 @@ function checkfollowing(offset,user,localuser,adding) {
             response = JSON.parse(followinglist.responseText);
             if(response.length===0){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));return;}
             for (i = 0; i < response.length; i++) {
-                if(response[i].username.toLowerCase()===localuser.toLowerCase()){iffolowing();return;}
-                if(i===response.length-1 && response.length!==20){ifnotfollowing();return;}
-                if(i===response.length-1 && response.length===20){setTimeout(function(){checkfollowing(offset+20,user,localuser,adding);},100);}
+                if(response[i].username.toLowerCase()===localuser.toLowerCase()){addToFriends(user);return;}
+                if(i===response.length-1 && response.length!==20){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));return;}
+                if(i===response.length-1 && response.length===20){setTimeout(function(){checkfollowing(offset+20,user,localuser);},100);}
             }
         }};
 
@@ -203,7 +193,7 @@ function removeFromFriends(user){
 	finditem = friendlist.findIndex(item => user.toLowerCase() === item.toLowerCase());
     friendlist.splice(finditem, 1);
     friendliststatuses.splice(finditem, 1);
-    chrome.storage.sync.set({iOfriendlist : friendlist});
+    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){/*location.reload();*/});
 
 }
 
