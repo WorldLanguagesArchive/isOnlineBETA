@@ -1,5 +1,5 @@
 audio = new Audio('sound.mp3');
-friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");
+var friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
