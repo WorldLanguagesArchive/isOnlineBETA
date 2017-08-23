@@ -77,3 +77,21 @@
 #removefriend {
     color: maroon;
 }
+.faq-question {
+	cursor: pointer;
+}
+.faq-both {
+	padding: 7px;
+	background-color: cadetblue;
+	color: white;
+	text-shadow: none;
+	margin: 2px;
+	border-radius: 10px;
+	font-weight: bold;
+}
+.faq-answer {
+	font-weight: normal;
+	background-color: hsl(182, 25%, 43%);
+	padding: 6px;
+	border-radius: 10px;
+}
