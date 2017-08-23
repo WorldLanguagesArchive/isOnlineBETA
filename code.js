@@ -51,9 +51,12 @@ if (window.location.href.substring(30, 100).substring(0, window.location.href.su
 
 /* Forum search */ if (localStorage.getItem("iOsearchforums") === "1" && location.href.startsWith("https://scratch.mit.edu/search")) {document.getElementsByClassName("sub-nav tabs")[0].innerHTML += '<a href="https://google.com/search?q=site:scratch.mit.edu/discuss ' + document.getElementsByName("q")[0].value + '"><li><img src="https://scratch.mit.edu/images/tips/question-icon.svg" class="tab-icon studios"><span>Forums</span></li></a>';document.getElementsByClassName("sub-nav tabs")[0].innerHTML += '<a href="https://google.com/search?q=site:scratch.mit.edu/discuss/topic ' + document.getElementsByName("q")[0].value + '"><li><img src="https://scratch.mit.edu/images/tips/question-icon.svg" class="tab-icon studios"><span>Forum topics</span></li></a>';}
 
+
 /* 'The best extension' easter egg */       if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/search/") && /\?q=the(%20|\+)best\1extension/i.test(location.search)) window.location = "https://scratch.mit.edu/users/isOnlineV2/";
 
 /* Account redirect */ if(location.href.toLowerCase()==="https://scratch.mit.edu/users/isonline/"){window.location = "https://scratch.mit.edu/users/isOnlineV2/";}
+
+/* Account redirect 2 */ if(location.href.toLowerCase()==="https://scratch.mit.edu/users/isonline2/"){window.location = "https://scratch.mit.edu/users/isOnlineV2/";}
 
 /* Redirect to comments*/	if(location.href.substring(location.href.indexOf('?')+1)==="comments#iOc"){location.href=location.href.substring(0, location.href.length - 4);}
 
@@ -91,7 +94,7 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
 		let br3 = document.createElement("BR");
         faq.appendChild(br3);
         let faqQuestions = {
-            "How do I get a  👑 next to my username on my profile?" : "To get a  👑 next to your username on your profile, you will need to advertise isOnline using a special link, http://isonline.tk. You need to put that link either in your 'About Me' or 'What I'm working on' section of your profile.",
+            "How do I get a  👑 next to my username on my profile?" : "To get a  👑 next to your username on your profile, you will need to advertise isOnline using a special link, http://isonline.tk. You need to put that link either in your 'About Me' or 'What I'm working on' section of your profile. Please note that the crown is automatically added. That means it has to be spelled correctly for it to work. You may need to reload the page to show the crown.",
             "What are the isOnline emojis?" : "The isOnline emojis are _online_, _offline_, _away_, _dnd_, and _isonline_. They are only visible to other isOnline users, and they only work in the comments section.",
             "How do I find out when my friends come online?" : "The friends feature of isOnline allows you to keep track of up to 10 friends. You can also make it send you a browser notification whenever a freind goes from Offline to Online. You can choose if you want to get notified when a friend goes from Away to Online as well. To enable the friends, <ol><li>Click on the isOnline icon in the top-right corner.</li><li>There should be a slider titled 'isOnline friends'. Click on the slider.</li><li>It should turn from grey to blue</li><li>Allow the extension to send you notifications, when prompted.</li></ol> <em>The friend list won't work when there aren't any Scratch tabs open.</em>",
 			"How do you add users to my friends?" :  "To friend a user, go to their profile and click '+ friend'. The user has to be following you for the friend list to work, otherwise famous Scratchers would get tons of spam as soon as they came online! To unfriend a user, click on the 'x friends' button on their profile, or click on the isOnline icon in the top-right again, and find their name and click on the red 'X' button next to them.",
@@ -99,33 +102,35 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
             "How do I find out what a status means?" : "Hover over the 'i' icon next to it.",
             "Can I get the status of somebody when I'm not on their profile?" : "Yes, you can. Right click a link to their profile anywhere on the page, and click 'Click to get status'",
             "I don't want people knowing when I'm online!" : "You can visit your profile, and next to your location you will see a dropdown menu added by isOnline. Choose your status to be 'Offline' and nobody will find out that you're actually online!",
-            "I don't want isOnline anymore, how do I get rid of it?" : "We're sorry to see you go. You can uninstall the extension by right clicking on its icon in the top-right corner of the screen and clicking the option that says 'Remove'"
+            "I don't want isOnline anymore, how do I get rid of it?" : "We're sorry to see you go. You can uninstall the extension by right clicking on its icon in the top-right corner of the screen and clicking the option that says 'Remove'. You may get a popup asking if you're sure. Click remove.",
+            "Can I join the isOnline team?" : "Currently we are not looking for anymore developers. However, if you do have something extra that you believe you can bring to the team, please comment below. Be sure to include the following information: <ul><li>Your GitHub username.</li><li>Your knowledge of HTML, CSS, JavaScript, JQuery, and MySQL on a scale of 1-10.</li><li>Examples of your work in programming.</li><li>What you can bring to our team.</li> Remember, applying does not guarentee that you will be chosen. After you apply, you will recieve a comment on your profile from one of the current isOnline Developers informing you if you are approved.<b> If you get rejected, remember you cannot re-apply for 2 months.</b> If you are approved, an isOnline Developer will continue to talk about the next steps on your profile.</ul>",
+            "Why is this account named isOnlineV2, when the current version is isOnline v1.5?" : "When we first started isOnline, we were not able to get access to the account isOnline. So we started using the account isOnlineV2. When we did end up getting access to the account isOnline, many people already had followed isOnlineV2 so we decided to have just use isOnlineV2 as our main.",
+            "How do I enable the Discuss Button?" : "You can enable the Discuss button, and a few other features on <a href='https://scratch.mit.edu/users/DiscussButton'>@DiscussButton</a>.",
+            "Who runs the account isOnlineV2?" : "Although World_Languages owns the account, any user with the label \"iO Dev\" can answer your questions."
 			};
         let qSelected = null;
         Object.keys(faqQuestions).forEach(question => {
+            
             let qEl = document.createElement("DIV");
-            qEl.innerHTML = question;
-            qEl.style.padding = "7px";
-            qEl.style.backgroundColor = "cadetblue";
-            qEl.style.color = "white";
-            qEl.style.textShadow = "none";
-            qEl.style.margin = "2px";
-            qEl.style.borderRadius = "10px";
-            qEl.style.fontWeight = "bold";
-            let answer = document.createElement("DIV");
-            answer.className = "answer";
-            answer.style.fontWeight = "normal";
+            let div = document.createElement("DIV");
+            div.innerHTML = question;
+			div.className = "faq-question";
+			qEl.className = "faq-both";
+            qEl.appendChild(div);
             faq.appendChild(qEl);
-            qEl.addEventListener("click", function(){
-                if(qSelected) qSelected.querySelector(".answer").innerHTML = "";
+            qEl.addEventListener("click", function(e){
+				if(e.path[0].className === "faq-answer") return;
+                if(qSelected) qSelected.querySelector(".faq-answer").remove();
 				if(qSelected && qSelected === qEl) {
 					qSelected = null;
 					return;
 				}
-                qEl.querySelector(".answer").innerHTML = faqQuestions[question];
+				let answer = document.createElement("DIV");
+				answer.className = "faq-answer";
+				answer.innerHTML = faqQuestions[question];
+                qEl.appendChild(answer);
                 qSelected = qEl;
             });
-            qEl.appendChild(answer);
         });
     }
 }
@@ -161,7 +166,7 @@ let trustedDevTeam = ["jokebookservice1","World_Languages","chooper100","Packers
 let handleEmojis = () => {
     Array.from(comments.querySelectorAll(".comment > .info > .content")).forEach(comment => Object.keys(emojis).forEach(emoji => comment.innerHTML = comment.innerHTML.replace(new RegExp("(\\s|^)_" + emoji + "_", "g"), `$1<img src='${emojis[emoji]}' alt='_${emoji}_' title='_${emoji}_' class='easter-egg'/>`)));
     Array.from(comments.querySelectorAll(".comment > .info > .name > a")).filter(user => trustedDevTeam.includes(user.innerHTML)).forEach(user => {
-        if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlinev2/") && user.children.length === 0) {
+        if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlinev2") && user.children.length === 0) {
             let devProof = document.createElement("SPAN");
             devProof.innerHTML = "iO DEV";
             devProof.style.backgroundColor = "green";
