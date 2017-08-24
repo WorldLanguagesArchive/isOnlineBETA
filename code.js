@@ -85,7 +85,7 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
         faq.appendChild(br2);
         let faqEl = document.createElement("DIV");
         faqEl.innerHTML = "<center>Hello, welcome to the isOnlineV2 comments section! :D Here, you can ask for help about the extension. Before commenting, please read through this brief FAQ section to ensure your question hasn't been previously addressed. Just click one of the questions below for an expanded answer. <br><br><b>If your question isn't answered below, please do ask in the comments!</b></center>";
-        faqEl.style.backgroundColor = "#00aaff";
+        faqEl.style.backgroundColor = "#068dd1";
         faqEl.style.textShadow = "none";
         faqEl.style.color = "white";
         faqEl.style.padding = "10px";
