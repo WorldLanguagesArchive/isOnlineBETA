@@ -1,5 +1,5 @@
 audio = new Audio('sound.mp3');
-var friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");
+friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
@@ -20,15 +20,15 @@ chrome.runtime.onMessage.addListener(
                 sendResponse({thelist: "error"});}
         }
         if (request.addfriend) {
-            if(friendlist.length==10){sendResponse({result: "ok"});couldNotAdd(chrome.i18n.getMessage("maxreached"));}
+            if(friendlist.length==10){sendResponse({result: "ok"});couldNotAdd(chrome.i18n.getMessage("maxreached"));} 
             else {
                 sendResponse({result: "ok"});
-                checkfollowing(0,request.addfriend[0],request.addfriend[1],true);}
+                checkfollowing(0,request.addfriend[0],request.addfriend[1]);}
         }
         if (request.removefriend) {
             sendResponse({result: "ok"});
-			anynotification(chrome.i18n.getMessage("removedfromfriends"),chrome.i18n.getMessage("removedfromfriendsbody"));
-            removeFromFriends(request.removefriend);
+            friendlist.splice(friendlist.indexOf(request.removefriend), 1);
+            chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(chrome.i18n.getMessage("removedfromfriends"),chrome.i18n.getMessage("removedfromfriendsbody"));setTimeout(function(){location.reload();},100);});
         }
     });
 
@@ -55,6 +55,7 @@ function friendlistcode() {
 
     x = 0;
     firsttime = true;
+    max = friendlist.length-1;
     interval = 2000;
     scratchopen = true;
 
@@ -70,7 +71,6 @@ function friendlistcode() {
 }
 
 function docheck(){
-    max = friendlist.length-1;
     if(x>max){interval=180000/(max+1);x=0;check(x);}
     else{check(x);}
 }
@@ -133,10 +133,6 @@ function check(i) {
                     else{location.reload();}
                 });
             }
-            if (getstatus.status === 404) {
-                console.log("404");
-            removeFromFriends(friendlist[i]);
-            }
             setTimeout(docheck, interval);}
     };
 
@@ -152,31 +148,19 @@ function notification(user) {
         if (this.readyState == 4 && this.status == 200) {
             response = JSON.parse(xhttp.responseText);
             id = response.id;
+            if(localStorage.getItem("iOfriendlistsound")!=0){audio.play();}
             var notification = new Notification(user+" "+chrome.i18n.getMessage("isnowonline"), {
                 icon: "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_90x90.png?"+Math.round(new Date().getTime()/1000),
                 body: chrome.i18n.getMessage("isnowonlinebody"),
             });
-            notification.onclick = function(){notification.close();window.open("https://scratch.mit.edu/users/"+user+"/?comments");};
+            notification.onclick = function(){notification.close();window.open("https://scratch.mit.edu/users/"+user+"/");};
             setTimeout(function () {
                 notification.close();
             }, 10000);
-            notification.onshow = function(){
-                if(localStorage.getItem("iOfriendlistsound")!=="0"){audio.play();}
-            };
         }};
 }
 
-function checkfollowing(offset,user,localuser,adding) {
-	
-	if(adding){
-	var iffolowing = function(){addToFriends(user);};
-	var ifnotfollowing = function(){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));};
-	}
-	else{
-	var iffolowing = function(){};
-	var ifnotfollowing = function(){removeFromFriends(user);}
-	}
-	
+function checkfollowing(offset,user,localuser) {
     var followinglist = new XMLHttpRequest();
     followinglist.open('GET', 'https://api.scratch.mit.edu/users/' + user + "/following?offset=" + offset, true);
     followinglist.send();
@@ -185,9 +169,9 @@ function checkfollowing(offset,user,localuser,adding) {
             response = JSON.parse(followinglist.responseText);
             if(response.length===0){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));return;}
             for (i = 0; i < response.length; i++) {
-                if(response[i].username.toLowerCase()===localuser.toLowerCase()){iffolowing();return;}
-                if(i===response.length-1 && response.length!==20){ifnotfollowing();return;}
-                if(i===response.length-1 && response.length===20){setTimeout(function(){checkfollowing(offset+20,user,localuser,adding);},100);}
+                if(response[i].username.toLowerCase()===localuser.toLowerCase()){addToFriends(user);return;}
+                if(i===response.length-1 && response.length!==20){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));return;}
+                if(i===response.length-1 && response.length===20){setTimeout(function(){checkfollowing(offset+20,user,localuser);},100);}
             }
         }};
 
@@ -195,16 +179,7 @@ function checkfollowing(offset,user,localuser,adding) {
 
 function addToFriends(user) {
     friendlist.push(user);
-	check(friendlist.length-1);
-    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(user+" "+chrome.i18n.getMessage("wasadded"),chrome.i18n.getMessage("wasaddedbody"));if(friendlist.length===0){location.reload();}});
-}
-
-function removeFromFriends(user){
-	finditem = friendlist.findIndex(item => user.toLowerCase() === item.toLowerCase());
-    friendlist.splice(finditem, 1);
-    friendliststatuses.splice(finditem, 1);
-    chrome.storage.sync.set({iOfriendlist : friendlist});
-
+    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(user+" "+chrome.i18n.getMessage("wasadded"),chrome.i18n.getMessage("wasaddedbody"));setTimeout(function(){location.reload();},100);});
 }
 
 function couldNotAdd(message) {
