@@ -78,10 +78,11 @@
     color: maroon;
 }
 .faq-question {
+	padding: 7px;
 	cursor: pointer;
 }
 .faq-both {
-	padding: 7px;
+	padding: 0px;
 	background-color: cadetblue;
 	color: white;
 	text-shadow: none;
