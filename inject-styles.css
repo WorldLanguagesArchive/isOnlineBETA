@@ -95,6 +95,8 @@
 	background-color: hsl(182, 25%, 43%);
 	padding: 6px;
 	border-radius: 10px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px
 }
 .faq-answer > a{
 	color: white;
