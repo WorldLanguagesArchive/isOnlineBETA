@@ -95,3 +95,8 @@
 	padding: 6px;
 	border-radius: 10px;
 }
+.faq-answer > a{
+	color: white;
+	font-weight: bold;
+	text-decoration: underline;
+}
