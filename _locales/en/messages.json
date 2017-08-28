@@ -45,16 +45,16 @@
 		"message": "Error"
 	},
 	"didnotvalidate": {
-		"message": "Whoops! Looks like you didn't validate your account on isOnline. isOnline won't work until you <a href='https://scratch.mit.edu/isonline-extension/register' target='blank' >validate your account</a>. It takes around 20 seconds."
+		"message": "Whoops! Looks like you didn't validate your account on isOnline. isOnline won't work until you <a href='https://scratch.mit.edu/isonline-extension/register' target='_blank' >validate your account</a>. It takes around 20 seconds."
 	},
 	"unvalidatedacc": {
-		"message": "Whoops! isOnline isn't working on this Scratch account because it isn't validated. Want to use isOnline on this account too? <a href='https://scratch.mit.edu/isonline-extension/register' target='blank' >Validate an additional user</a>."
+		"message": "Whoops! isOnline isn't working on this Scratch account because it isn't validated. Want to use isOnline on this account too? <a href='https://scratch.mit.edu/isonline-extension/register' target='_blank' >Validate an additional user</a>."
 	},
 	"keywaschanged": {
-		"message": "Whoops! isOnline isn't working with this Scratch account because you used it on another computer. <a href='http://ison.ga/sync' target='_blank'>Synchronize your computers</a> to avoid this error permanently or <a href='https://scratch.mit.edu/isonline-extension/register' target='blank'>re-validate</a> to temporarily fix it."
+		"message": "Whoops! isOnline isn't working with this Scratch account because you used it on another computer. <a href='http://ison.ga/sync' target='_blank'>Synchronize your computers</a> to avoid this error permanently or <a href='https://scratch.mit.edu/isonline-extension/register' target='_blank'>re-validate</a> to temporarily fix it."
 	},
 	"isbot": {
-		"message": "Whoops! It looks like you've been marked as a bot by the isOnline server. isOnline isn't working. Please contact <a href='https://scratch.mit.edu/users/isOnlineV2/#comments' target='blank'>isOnlineV2</a> to unblock your account."
+		"message": "Whoops! It looks like you've been marked as a bot by the isOnline server. isOnline isn't working. Please contact <a href='https://scratch.mit.edu/users/isOnlineV2/#comments' target='_blank'>isOnlineV2</a> to unblock your account."
 	},
 	"probablyonlinehelp": {
 		"message": "This user shows activity on their What I've been doing from the last 5 minutes."

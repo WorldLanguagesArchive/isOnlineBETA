@@ -45,16 +45,16 @@
 		"message": "Error"
 	},
 	"didnotvalidate": {
-		"message": "Whoops! Parece que no verificaste la cuenta con isOnline. isOnline no funcionará hasta que <a href='https://scratch.mit.edu/isonline-extension/register' target='blank' >verifiques tu cuenta</a>. Toma alrededor de 20 segunso."
+		"message": "Whoops! Parece que no verificaste la cuenta con isOnline. isOnline no funcionará hasta que <a href='https://scratch.mit.edu/isonline-extension/register' target='_blank' >verifiques tu cuenta</a>. Toma alrededor de 20 segunso."
 	},
 	"unvalidatedacc": {
-		"message": "Whoops! isOnline no esta funcionando en esta cuenta porque no está verificada. ¿Quieres usar isOnline en esta cuenta también? <a href='https://scratch.mit.edu/isonline-extension/register' target='blank' >Verifica un usuario adicional</a>."
+		"message": "Whoops! isOnline no esta funcionando en esta cuenta porque no está verificada. ¿Quieres usar isOnline en esta cuenta también? <a href='https://scratch.mit.edu/isonline-extension/register' target='_blank' >Verifica un usuario adicional</a>."
 	},
 	"keywaschanged": {
-		"message": "Whoops! isOnline no está funcionando con esta cuenta porque la has usado en otra computadora. <a href='http://ison.ga/sync' target='_blank'>Sincroniza tus computadoras</a> para evitar este error permanentemente o <a href='https://scratch.mit.edu/isonline-extension/register' target='blank'>re-verifica</a> para resolverlo temporalmente."
+		"message": "Whoops! isOnline no está funcionando con esta cuenta porque la has usado en otra computadora. <a href='http://ison.ga/sync' target='_blank'>Sincroniza tus computadoras</a> para evitar este error permanentemente o <a href='https://scratch.mit.edu/isonline-extension/register' target='_blank'>re-verifica</a> para resolverlo temporalmente."
 	},
 	"isbot": {
-		"message": "Whoops! Parece que los servidores de isOnline piensan que eres un bot. isOnline no está funcionando. Por favor pídele a <a href='https://scratch.mit.edu/users/chooper100/#comments' target='blank'>chooper100</a> que deesbloquee tu cuenta."
+		"message": "Whoops! Parece que los servidores de isOnline piensan que eres un bot. isOnline no está funcionando. Por favor pídele a <a href='https://scratch.mit.edu/users/chooper100/#comments' target='_blank'>chooper100</a> que deesbloquee tu cuenta."
 	},
 	"probablyonlinehelp": {
 		"message": "[not needed]"

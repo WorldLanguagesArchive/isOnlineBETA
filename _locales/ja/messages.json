@@ -45,16 +45,16 @@
         "message": "エラー"
     },
     "didnotvalidate": {
-        "message": "おっと!あなたはまだアカウントを認証してないようです。<a href='https://scratch.mit.edu/isonline-extension/register' target='blank' >認証</a>はたった約20秒で完了します。"
+        "message": "おっと!あなたはまだアカウントを認証してないようです。<a href='https://scratch.mit.edu/isonline-extension/register' target='_blank' >認証</a>はたった約20秒で完了します。"
     },
     "unvalidatedacc": {
-        "message": "おっと! まだこのアカウントでは認証が済んでいないようです。このアカウントでもisOnlineを使う場合は、<a href='https://scratch.mit.edu/isonline-extension/register' target='blank' >サブアカウントとして認証してください。</a>"
+        "message": "おっと! まだこのアカウントでは認証が済んでいないようです。このアカウントでもisOnlineを使う場合は、<a href='https://scratch.mit.edu/isonline-extension/register' target='_blank' >サブアカウントとして認証してください。</a>"
     },
     "keywaschanged": {
         "message": "おっと!このコンピューターではisOnlineは動作していません。<a href='http://ison.ga/sync' target='_blank'>アカウントを同期して永久的にエラーを回避する</a>か、<a href='https://scratch.mit.edu/isonline-extension/register' target='_blank'>一時的に再認証してください。</a>"
     },
     "isbot": {
-        "message": ": おっと!残念ながらあなたはIsOnlineのサーバーによってBotとしてマークされてしまっているようです。<a href='https://scratch.mit.edu/users/chooper100/#comments' target='blank'>chooper100</a> に連絡してください。"
+        "message": ": おっと!残念ながらあなたはIsOnlineのサーバーによってBotとしてマークされてしまっているようです。<a href='https://scratch.mit.edu/users/chooper100/#comments' target='_blank'>chooper100</a> に連絡してください。"
     },
     "probablyonlinehelp": {
         "message": "5分以内にユーザーの活動がありました。"

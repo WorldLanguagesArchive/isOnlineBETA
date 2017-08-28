@@ -45,16 +45,16 @@
       "message":"Erreur"
    },
    "didnotvalidate":{
-      "message":"Ooups! On dirait que vous n'avez pas validé votre compte isOnline. isOnline ne marchera pas tant que vous ne <a href='https://scratch.mit.edu/isonline-extension/register' target='blank' >validerez pas votre compte</a>. Ça prend juste 20 secondes."
+      "message":"Ooups! On dirait que vous n'avez pas validé votre compte isOnline. isOnline ne marchera pas tant que vous ne <a href='https://scratch.mit.edu/isonline-extension/register' target='_blank' >validerez pas votre compte</a>. Ça prend juste 20 secondes."
    },
    "unvalidatedacc":{
-      "message":"Ooups! On dirait que isOnline ne marche pas sur ce compte Scratch car il n'est pas validé. Voulez vous également utilser isOnline sur ce compte? <a href='https://scratch.mit.edu/isonline-extension/register' target='blank' >Valider un compte supplémentaire</a>."
+      "message":"Ooups! On dirait que isOnline ne marche pas sur ce compte Scratch car il n'est pas validé. Voulez vous également utilser isOnline sur ce compte? <a href='https://scratch.mit.edu/isonline-extension/register' target='_blank' >Valider un compte supplémentaire</a>."
    },
    "keywaschanged":{
-      "message":"Ooups! isOnline ne marche pas avec ce compte Scratch car vous l'avez utilsé sur un autre ordinateur. <a href='http://ison.ga/sync' target='_blank'>Synchronizez vos ordinateurs</a> pour éviter cette erreur durablement ou <a href='https://scratch.mit.edu/isonline-extension/register' target='blank'>re-validez le compte</a> pour réparer ça temporairement."
+      "message":"Ooups! isOnline ne marche pas avec ce compte Scratch car vous l'avez utilsé sur un autre ordinateur. <a href='http://ison.ga/sync' target='_blank'>Synchronizez vos ordinateurs</a> pour éviter cette erreur durablement ou <a href='https://scratch.mit.edu/isonline-extension/register' target='_blank'>re-validez le compte</a> pour réparer ça temporairement."
    },
    "isbot":{
-      "message":"Ooups! On dirait que vous avez été identifié comme un robot par le serveur isOnline. isOnline ne marche pas. Contactez <a href='https://scratch.mit.edu/users/chooper100/#comments' target='blank'>chooper100</a> pour débloquer votre compte."
+      "message":"Ooups! On dirait que vous avez été identifié comme un robot par le serveur isOnline. isOnline ne marche pas. Contactez <a href='https://scratch.mit.edu/users/chooper100/#comments' target='_blank'>chooper100</a> pour débloquer votre compte."
    },
 	"probablyonlinehelp": {
 		"message": "Cet utilisateur montre une activité récente."
