@@ -1,4 +1,5 @@
-audio = new Audio('sound.mp3');
+
+  audio = new Audio('sound.mp3');
 friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");
 
 chrome.runtime.onMessage.addListener(
@@ -20,7 +21,7 @@ chrome.runtime.onMessage.addListener(
                 sendResponse({thelist: "error"});}
         }
         if (request.addfriend) {
-            if(friendlist.length==10){sendResponse({result: "ok"});couldNotAdd(chrome.i18n.getMessage("maxreached"));} 
+            if(friendlist.length==10){sendResponse({result: "ok"});couldNotAdd(chrome.i18n.getMessage("maxreached"));}
             else {
                 sendResponse({result: "ok"});
                 checkfollowing(0,request.addfriend[0],request.addfriend[1]);}
