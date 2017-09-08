@@ -134,7 +134,6 @@ function check(i) {
                 });
             }
             if (getstatus.status === 404) {
-                console.log("404");
             removeFromFriends(friendlist[i]);
             }
             setTimeout(docheck, interval);}
