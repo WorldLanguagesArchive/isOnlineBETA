@@ -57,7 +57,7 @@ window.onload = function() {
 			location.reload();}
     };
 
-    if(localStorage.getItem("iOnotifications")==1) {
+    if(localStorage.getItem("iOnotifications")!=="0") {
         document.getElementById("offlinetoonline").checked = true;
 		document.getElementById("awaytoonlinediv").style.display = 'block';
     }

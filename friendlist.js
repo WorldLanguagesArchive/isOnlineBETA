@@ -144,7 +144,7 @@ function check(i) {
 
 
 function notification(user) {
-    if(localStorage.getItem("iOstatus")==="dnd" || localStorage.getItem("iOnotifications")!=="1"){return;}
+    if(localStorage.getItem("iOstatus")==="dnd" || localStorage.getItem("iOnotifications")==="0"){return;}
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "https://api.scratch.mit.edu/users/" + user, true);
     xhttp.send();
