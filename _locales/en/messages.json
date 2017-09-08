@@ -75,7 +75,7 @@
 		"message": "Need help or have questions? Comment on"
 	},
 	"friendlist": {
-		"message": "isOnline friends & online notifications"
+		"message": "isOnline friends"
 	},
 	"friendsnote": {
 		"message": "Note: You can disable notifications temporarily while keeping friends by setting your status to \"Do Not Disturb\" on your profile."
@@ -84,7 +84,7 @@
 		"message": "Friend list settings"
 	},
 	"notifyawayonline": {
-		"message": "Notify if a friend is Away and becomes Online"
+		"message": "Notify if an Away friend goes Online"
 	},
 	"soundnotiftext": {
 		"message": "Sound Notification"
@@ -148,5 +148,8 @@
 	},
 	"friendsnotcompatible": {
 		"message": "isOnline friends only works in Chrome 17+ & Firefox 55+"
+	},
+	"notifyofflineonline": {
+		"message": "Notify if an Offline friend goes Online"
 	}
 }

@@ -136,7 +136,7 @@
 
     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="friendlist">isOnline friends & online notifications</span></p></div>
     </div>
-<div id="anote"><small><span id="friendsnote">Note: You can disable notifications temporarily while keeping friends by setting your status to "Do Not Disturb" on your profile.</span></small></div>
+<div id="anote"><small><span id="friendsnote"></span></small></div>
 
 <div id="friendstatuseslist">
 <hr>
@@ -174,13 +174,21 @@
 <details id="settings" open>
 <summary><span id="friendsettings">Friend list settings</span></summary>
 <hr>
-    <div class="a">
+<div class="a">
+    <label style="display:inline;vertical-align:top;"class="switch">
+  <input type="checkbox"  id="offlinetoonline" ></input>
+  <span class="slider round"></span>
+</label>
+
+    <p style="color:DarkGreen;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="notifyofflineonline">Notify if a friend is Offline and becomes Online</span></p>
+    </div>
+    <div class="a" id="awaytoonlinediv" style="display:none;">
     <label style="display:inline;vertical-align:top;"class="switch">
   <input type="checkbox"  id="awaytoonline" ></input>
   <span class="slider round"></span>
 </label>
 
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="notifyawayonline">Notify if a friend is Away and becomes Online</span></p>
+    <p style="color:OrangeRed;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="notifyawayonline">Notify if a friend is Away and becomes Online</span></p>
     </div>
 <div class="a">
     <label style="display:inline;vertical-align:top;"class="switch">
@@ -188,7 +196,7 @@
   <span class="slider round"></span>
 </label>
 
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="soundnotiftext">Sound Notification</span></p>
+    <p style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="soundnotiftext">Sound Notification</span></p>
     </div>
 </details>
 <hr>

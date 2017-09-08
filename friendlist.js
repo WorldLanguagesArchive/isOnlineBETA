@@ -94,7 +94,7 @@ function check(i) {
 
                 if (status == "online") {
                     if (time() - timestamp < 300) {
-                        if(friendliststatuses[i]=="Offline" || (localStorage.getItem("iOfriendsawaytoonline")==1 ? friendliststatuses[i]=="Away" : false)) {notification(friendlist[i]);}
+                        if(friendliststatuses[i]=="Offline" || (localStorage.getItem("iOfriendsawaytoonline")==="1" ? friendliststatuses[i]=="Away" : false)) {notification(friendlist[i]);}
                         friendliststatuses[i] = "Online";
                     } else{
                         friendliststatuses[i] = "Offline";}}
@@ -144,7 +144,7 @@ function check(i) {
 
 
 function notification(user) {
-    if(localStorage.getItem("iOstatus")==="dnd"){return;}
+    if(localStorage.getItem("iOstatus")==="dnd" || localStorage.getItem("iOnotifications")!=="1"){return;}
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "https://api.scratch.mit.edu/users/" + user, true);
     xhttp.send();
@@ -185,8 +185,9 @@ function checkfollowing(offset,user,localuser) {
 
 function addToFriends(user) {
     friendlist.push(user);
-	check(friendlist.length-1);
     chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(user+" "+chrome.i18n.getMessage("wasadded"),chrome.i18n.getMessage("wasaddedbody"));if(friendlist.length===0){location.reload();}});
+	if(friendlist.length===1){setTimeout(function(){location.reload();},100);}
+	else{check(friendlist.length-1);}
 }
 
 function removeFromFriends(user){
@@ -194,7 +195,7 @@ function removeFromFriends(user){
     friendlist.splice(finditem, 1);
     friendliststatuses.splice(finditem, 1);
     chrome.storage.sync.set({iOfriendlist : friendlist}, function(){/*location.reload();*/});
-
+	if(friendlist.length===0){localStorage.setItem("iOfriendsempty","1");}else{localStorage.setItem("iOfriendsempty","0");}
 }
 
 function couldNotAdd(message) {
