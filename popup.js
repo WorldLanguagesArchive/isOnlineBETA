@@ -30,16 +30,28 @@ window.onload = function() {
     }
 
     document.getElementById("enablefriendlist").onclick = function() {
+        if(document.getElementById("enablefriendlist").checked) {
+            localStorage.setItem("iOfriendlistenabled",1);chrome.storage.sync.set({iOfriendsenabled : "1"},function(){chrome.runtime.sendMessage({friendlist: "refresh"});location.reload();});}
+        else {
+            chrome.browserAction.getBadgeText({}, function(result) {if(result!==" "){chrome.browserAction.setBadgeText({text: ""});}});localStorage.setItem("iOfriendlistenabled",0);chrome.storage.sync.set({iOfriendsenabled : "0"},function(){chrome.runtime.sendMessage({friendlist: "refresh"});location.reload();});}
+    };
+
+    document.getElementById("offlinetoonline").onclick = function() {
         chrome.permissions.contains({
             permissions: ['notifications'],
         }, function(result) {
             if (result) {
-                if(document.getElementById("enablefriendlist").checked) {
-                    localStorage.setItem("iOfriendlistenabled",1);chrome.storage.sync.set({iOfriendsenabled : "1"},function(){chrome.runtime.sendMessage({friendlist: "refresh"});location.reload();});}
+                if(document.getElementById("offlinetoonline").checked) {
+                    localStorage.setItem("iOnotifications","1");
+                    document.getElementById("awaytoonlinediv").style.display = 'block';
+                    document.getElementById("soundnotifdiv").style.display = 'block';
+					}
                 else {
-                    chrome.browserAction.getBadgeText({}, function(result) {if(result!==" "){chrome.browserAction.setBadgeText({text: ""});}});localStorage.setItem("iOfriendlistenabled",0);chrome.storage.sync.set({iOfriendsenabled : "0"},function(){chrome.runtime.sendMessage({friendlist: "refresh"});location.reload();});}
+                    localStorage.setItem("iOnotifications","0");
+					document.getElementById("awaytoonlinediv").style.display = 'none';
+                    document.getElementById("soundnotifdiv").style.display = 'none';}
             } else { // If there's no permission
-                chrome.runtime.sendMessage({friendlist: "enable"});
+                chrome.runtime.sendMessage({notifications: "enable"});
                 chrome.permissions.request({
                     permissions: ['notifications'],
                 });
@@ -48,18 +60,10 @@ window.onload = function() {
                                    );
     };
 
-    document.getElementById("offlinetoonline").onclick = function() {
-        if(document.getElementById("offlinetoonline").checked) {
-            localStorage.setItem("iOnotifications","1");
-			location.reload();}
-        else {
-            localStorage.setItem("iOnotifications","0");
-			location.reload();}
-    };
-
-    if(localStorage.getItem("iOnotifications")!=="0") {
+    if(localStorage.getItem("iOnotifications")==="1") {
         document.getElementById("offlinetoonline").checked = true;
-		document.getElementById("awaytoonlinediv").style.display = 'block';
+        document.getElementById("awaytoonlinediv").style.display = 'block';
+		document.getElementById("soundnotifdiv").style.display = 'block';
     }
 
     document.getElementById("soundnotif").onclick = function() {
@@ -73,7 +77,7 @@ window.onload = function() {
     document.getElementById("awaytoonline").onclick = function(){
         localStorage.setItem("iOfriendsawaytoonline", document.getElementById("awaytoonline").checked ? 1 : 0);};
 
-    if(localStorage.getItem("iOfriendlistsound")!=0) {
+    if(localStorage.getItem("iOfriendlistsound")!=="0") {
         document.getElementById("soundnotif").checked = true;
     }
 
@@ -82,7 +86,7 @@ window.onload = function() {
     }
     else{document.getElementById("settings").remove();document.getElementById("friendstatuseslist").remove();document.getElementById("friendsnote").innerHTML=chrome.i18n.getMessage("friendlistdescription");document.getElementById("newlines").remove();return;}
 
-    if(localStorage.getItem("iOfriendsempty")!=0){document.getElementById("divonlinefriends").innerHTML+='<b>'+chrome.i18n.getMessage("nofriendshelp")+'</b>';return;}
+    if(localStorage.getItem("iOfriendsempty")!=="0"){document.getElementById("divonlinefriends").innerHTML+='<b>'+chrome.i18n.getMessage("nofriendshelp")+'</b>';return;}
 
     onlineresponse = {"thelist":"0"};
     awayresponse = {"thelist":"0"};
@@ -106,14 +110,14 @@ window.onload = function() {
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
                         if(document.getElementById("titleonlinefriends").innerHTML === ""){document.getElementById("titleonlinefriends").innerHTML = '<img id="iostatusimage" src="online.svg" height="16" width="16"> <span id="iOstatustext" style="color:green;font-size:18px;">'+chrome.i18n.getMessage("online")+' ('+response.thelist.length+')</span><hr  style="border: 1px solid green;">';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-						var list = document.createElement('span');
-						list.innerHTML = "<li class='onlinefriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a><span id='buttons'><a href='https://scratch.mit.edu/users/"+username+"/?comments' target='blank'><img height='14' src='commenticon.png' title='Go to profile comments'></a>&nbsp;&nbsp;<a &nbsp;&nbsp;<a style='cursor:pointer' id='remove "+username+"'><img src='removeicon.png' height='14' title='Remove from friends'></a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'></span>";
-						document.getElementById('onlinefriends').appendChild(list);
+                        var list = document.createElement('span');
+                        list.innerHTML = "<li class='onlinefriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a><span id='buttons'><a href='https://scratch.mit.edu/users/"+username+"/?comments' target='blank'><img height='14' src='commenticon.png' title='Go to profile comments'></a>&nbsp;&nbsp;<a &nbsp;&nbsp;<a style='cursor:pointer' id='remove "+username+"'><img src='removeicon.png' height='14' title='Remove from friends'></a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'></span>";
+                        document.getElementById('onlinefriends').appendChild(list);
                         document.getElementById(id).src=image;
-						document.getElementById("remove "+username).onclick = function(){
-							chrome.runtime.sendMessage({removefriend: this.id.substring(7)});
-							getStatuses();
-						}
+                        document.getElementById("remove "+username).onclick = function(){
+                            chrome.runtime.sendMessage({removefriend: this.id.substring(7)});
+                            getStatuses();
+                        };
                     }
                 };
                 xhttp.open("GET", "https://api.scratch.mit.edu/users/" +response.thelist[i], true);
@@ -136,25 +140,26 @@ window.onload = function() {
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
                         if(document.getElementById("titleawayfriends").innerHTML === ""){document.getElementById("titleawayfriends").innerHTML = '<img id="iostatusimage" src="absent.svg" height="16" width="16"> <span id="iOstatustext" style="color:orange;font-size:18px;">'+chrome.i18n.getMessage("absent")+' ('+response.thelist.length+')</span><hr style="border: 1px solid orange;">';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-						var list = document.createElement('span');
-						list.innerHTML = "<li class='awayfriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a><span id='buttons'><a href='https://scratch.mit.edu/users/"+username+"/?comments' target='blank'><img height='14' src='commenticon.png' title='Go to profile comments'></a>&nbsp;&nbsp;<a style='cursor:pointer' id='remove "+username+"'><img src='removeicon.png' height='14' title='Remove from friends'></a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'></span>";
-						document.getElementById('awayfriends').appendChild(list);
+                        var list = document.createElement('span');
+                        list.innerHTML = "<li class='awayfriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a><span id='buttons'><a href='https://scratch.mit.edu/users/"+username+"/?comments' target='blank'><img height='14' src='commenticon.png' title='Go to profile comments'></a>&nbsp;&nbsp;<a style='cursor:pointer' id='remove "+username+"'><img src='removeicon.png' height='14' title='Remove from friends'></a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'></span>";
+                        document.getElementById('awayfriends').appendChild(list);
                         document.getElementById(id).src=image;
-						document.getElementById("remove "+username).onclick = function(){
-							chrome.runtime.sendMessage({removefriend: this.id.substring(7)});
-							getStatuses();
-						}
+                        document.getElementById("remove "+username).onclick = function(){
+                            chrome.runtime.sendMessage({removefriend: this.id.substring(7)});
+                            getStatuses();
+                        };
                     }
                 };
                 xhttp.open("GET", "https://api.scratch.mit.edu/users/" +response.thelist[i], true);
                 xhttp.send();
-            };
+            }
         });
 
         chrome.runtime.sendMessage({getfriendsbystatus: "Offline"}, function (response){
             if(JSON.stringify(response.thelist)===offlineresponse){return;}
             offlineresponse = JSON.stringify(response.thelist);
             if(response.thelist==="error"){document.getElementById("errorMessage").innerHTML=chrome.i18n.getMessage("friendserror");return;}
+			document.getElementById("errorMessage").innerHTML="";
             document.getElementById("offlinefriends").innerHTML = '<hr style="border: 1px solid red;">';
             document.getElementById("titleofflinefriends").innerHTML = "";
             document.getElementById("divofflinefriends").style.display = "none";
@@ -168,14 +173,14 @@ window.onload = function() {
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
                         if(document.getElementById("offlinefriends").innerHTML == '<hr style="border: 1px solid red;">'){document.getElementById("offlinefriends").innerHTML += '<summary id="iOstatustext" style="color:red;font-size:18px;"><img id="iostatusimage" src="offline.svg" height="16" width="16"> '+chrome.i18n.getMessage("offline")+' ('+response.thelist.length+')</summary>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-						var list = document.createElement('span');
-						list.innerHTML = "<li class='offlinefriends'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style='vertical-align:middle;'height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a><span id='buttons'><a href='https://scratch.mit.edu/users/"+username+"/?comments' target='blank'><img height='14' src='commenticon.png' title='Go to profile comments'></a>&nbsp;&nbsp;<a style='cursor:pointer' id='remove "+username+"'><img src='removeicon.png' height='14' title='Remove from friends'></a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'></span>";
-						document.getElementById('offlinefriends').appendChild(list);
+                        var list = document.createElement('span');
+                        list.innerHTML = "<li class='offlinefriends'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style='vertical-align:middle;'height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a><span id='buttons'><a href='https://scratch.mit.edu/users/"+username+"/?comments' target='blank'><img height='14' src='commenticon.png' title='Go to profile comments'></a>&nbsp;&nbsp;<a style='cursor:pointer' id='remove "+username+"'><img src='removeicon.png' height='14' title='Remove from friends'></a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'></span>";
+                        document.getElementById('offlinefriends').appendChild(list);
                         document.getElementById(id).src=image;
-						document.getElementById("remove "+username).onclick = function(){
-							chrome.runtime.sendMessage({removefriend: this.id.substring(7)});
-							getStatuses();
-						}
+                        document.getElementById("remove "+username).onclick = function(){
+                            chrome.runtime.sendMessage({removefriend: this.id.substring(7)});
+                            getStatuses();
+                        };
                     }
                 };
                 xhttp.open("GET", "https://api.scratch.mit.edu/users/" +response.thelist[i], true);
@@ -199,14 +204,14 @@ window.onload = function() {
                         username = str.substring(str.indexOf("username")+11,str.indexOf("history")-3);
                         if(document.getElementById("titleunknownfriends").innerHTML === ""){document.getElementById("titleunknownfriends").innerHTML = '<br><span id="iOstatustext" style="color:gray;font-size:18px;">'+chrome.i18n.getMessage("loadingstatusesfrom")+'</span><hr>';}
                         var image = "https://cdn2.scratch.mit.edu/get_image/user/"+id+"_60x60.png";
-						var list = document.createElement('span');
-						list.innerHTML = "<li class='unknownfriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a><span id='buttons'><a href='https://scratch.mit.edu/users/"+username+"/?comments' target='blank'><img height='14' src='commenticon.png' title='Go to profile comments'></a>&nbsp;&nbsp;<a style='cursor:pointer' id='remove "+username+"'><img src='removeicon.png' height='14' title='Remove from friends'></a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'></span>";
-						document.getElementById('offlinefriends').appendChild(list);
-						document.getElementById(id).src=image;
-						document.getElementById("remove "+username).onclick = function(){
-							chrome.runtime.sendMessage({removefriend: this.id.substring(7)});
-							getStatuses();
-						}
+                        var list = document.createElement('span');
+                        list.innerHTML = "<li class='unknownfriends'><img style='vertical-align:middle;' height='15' width='15' id='"+id+"'src='"+image+"'/>&nbsp;<a class='linktouser' href='https://scratch.mit.edu/users/"+username+"/'target='_blank'>"+username+"</a><span id='buttons'><a href='https://scratch.mit.edu/users/"+username+"/?comments' target='blank'><img height='14' src='commenticon.png' title='Go to profile comments'></a>&nbsp;&nbsp;<a style='cursor:pointer' id='remove "+username+"'><img src='removeicon.png' height='14' title='Remove from friends'></a></li><hr style='border: 0;height: 1px;background-image: linear-gradient(to right, rgb(159, 166, 173), rgba(0, 0, 0, 0))'></span>";
+                        document.getElementById('unknownfriends').appendChild(list);
+                        document.getElementById(id).src=image;
+                        document.getElementById("remove "+username).onclick = function(){
+                            chrome.runtime.sendMessage({removefriend: this.id.substring(7)});
+                            getStatuses();
+                        };
                     }
                 };
                 xhttp.open("GET", "https://api.scratch.mit.edu/users/" +response.thelist[i], true);

@@ -3,11 +3,11 @@ friendliststatuses=[0,0,0,0,0,0,0,0,0,0].map(() => "Unknown");
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        if (request.friendlist == "enable") {
-            setInterval(function(){check();},1000);
+        if (request.notifications == "enable") {
+            setInterval(function(){check();},100);
             var check = function(){chrome.permissions.contains({
                 permissions: ['notifications'],
-            }, function(result) {if(result){localStorage.setItem("iOfriendlistenabled",1);chrome.storage.sync.set({iOfriendsenabled : "1"},function(){location.reload();});}});
+            }, function(result) {if(result){localStorage.setItem("iOnotifications",1);}});
                                   };
 
         }
@@ -151,7 +151,7 @@ function check(i) {
 
 
 function notification(user) {
-    if(localStorage.getItem("iOstatus")==="dnd" || localStorage.getItem("iOnotifications")==="0"){return;}
+    if(localStorage.getItem("iOstatus")==="dnd" || localStorage.getItem("iOnotifications")!=="1"){return;}
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "https://api.scratch.mit.edu/users/" + user, true);
     xhttp.send();
@@ -194,7 +194,7 @@ function addToFriends(user) {
 	done = 1;
     friendlist.push(user);
     chrome.storage.sync.set({iOfriendlist : friendlist});
-	if(friendlist.length===1){location.reload();}
+	if(friendlist.length===1){setTimeout(function(){location.reload();},1000);}
 	else{check(friendlist.length-1);}
 }
 

@@ -232,8 +232,8 @@ function main() {
             iOcrown();
             if(location.href.substring(location.href.indexOf('?')+1)==="comments"){
                 document.getElementsByClassName("box slider-carousel-container prevent-select")[document.getElementsByClassName("box slider-carousel-container prevent-select").length-1].innerHTML += "<div id='iOc'></div>";
-                console.log("test");
-                if(document.getElementsByClassName("comment ").length>0){location.hash="iOc";document.getElementsByName("content")[0].focus();}else{location.hash="comments";}
+                var iOcomments = function(){if(document.getElementsByClassName("comment ").length>0){location.hash="iOc";document.getElementsByName("content")[0].focus();}else{setTimeout(iOcomments,100);}};
+				iOcomments();
             }
             if(time()-localStorage.getItem("iOlastprofile")>3){status();}else{
                 document.getElementById("iOstatus").innerHTML = "<a id='clickforstatus'>"+chrome.i18n.getMessage("clickforstatus")+"</a>";
