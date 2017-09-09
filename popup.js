@@ -7,7 +7,6 @@ window.onload = function() {
     document.getElementById("friendsettings").innerHTML=chrome.i18n.getMessage("friendsettings");
     document.getElementById("notifyawayonline").innerHTML=chrome.i18n.getMessage("notifyawayonline");
     document.getElementById("soundnotiftext").innerHTML=chrome.i18n.getMessage("soundnotiftext");
-    document.getElementById("friendsnote").innerHTML=chrome.i18n.getMessage("friendsnote");
     document.getElementById("notifyofflineonline").innerHTML=chrome.i18n.getMessage("notifyofflineonline");
     //
 
