@@ -117,7 +117,7 @@
       "message":"friends"
    },
    "maxreached":{
-      "message":"Reached maximum amount of friends (10). You can remove friends by going to their profiles."
+      "message":"Reached maximum amount of friends (10)."
    },
    "removedfromfriends":{
       "message":"Removed from friends"

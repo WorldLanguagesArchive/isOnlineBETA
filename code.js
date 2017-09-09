@@ -79,9 +79,9 @@ chrome.storage.sync.get(["iOaccounts","iOfriendlist","iOfriendsenabled"], functi
 if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlinev2/")) {
     if(document.getElementById("comments")) {
         let faq = document.getElementById("comments").parentElement.parentElement.children[0];
-		let br = document.createElement("BR");
+        let br = document.createElement("BR");
         faq.appendChild(br);
-		let br2 = document.createElement("BR");
+        let br2 = document.createElement("BR");
         faq.appendChild(br2);
         let faqEl = document.createElement("DIV");
         faqEl.innerHTML = "<center>Hello, welcome to the isOnlineV2 comments section! :D Here, you can ask for help about the extension. Before commenting, please read through this brief FAQ section to ensure your question hasn't been previously addressed. Just click one of the questions below for an expanded answer. <br><br><b>If your question isn't answered below, please do ask in the comments!</b></center>";
@@ -91,13 +91,13 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
         faqEl.style.padding = "10px";
         faqEl.style.borderRadius = "10px";
         faq.appendChild(faqEl);
-		let br3 = document.createElement("BR");
+        let br3 = document.createElement("BR");
         faq.appendChild(br3);
         let faqQuestions = {
             "How do I get a  👑 next to my username on my profile?" : "To get a  👑 next to your username on your profile, you will need to advertise isOnline using a special link, http://isonline.tk. You need to put that link either in your 'About Me' or 'What I'm working on' section of your profile. Please note that the crown is automatically added. That means it has to be spelled correctly for it to work. You may need to reload the page to show the crown.",
             "What are the isOnline emojis?" : "The isOnline emojis are _online_, _offline_, _away_, _dnd_, and _isonline_. They are only visible to other isOnline users, and they only work in the comments section.",
             "How do I find out when my friends come online?" : "The friends feature of isOnline allows you to keep track of up to 10 friends. You can also make it send you a browser notification whenever a freind goes from Offline to Online. You can choose if you want to get notified when a friend goes from Away to Online as well. To enable the friends, <ol><li>Click on the isOnline icon in the top-right corner.</li><li>There should be a slider titled 'isOnline friends'. Click on the slider.</li><li>It should turn from grey to blue</li><li>Allow the extension to send you notifications, when prompted.</li></ol> <em>The friend list won't work when there aren't any Scratch tabs open.</em>",
-			"How do you add users to my friends?" :  "To friend a user, go to their profile and click '+ friend'. The user has to be following you for the friend list to work, otherwise famous Scratchers would get tons of spam as soon as they came online! To unfriend a user, click on the 'x friends' button on their profile, or click on the isOnline icon in the top-right again, and find their name and click on the red 'X' button next to them.",
+            "How do you add users to my friends?" :  "To friend a user, go to their profile and click '+ friend'. The user has to be following you for the friend list to work, otherwise famous Scratchers would get tons of spam as soon as they came online! To unfriend a user, click on the 'x friends' button on their profile, or click on the isOnline icon in the top-right again, and find their name and click on the red 'X' button next to them.",
             "What does the Do Not Disturb status do?" : "The status displays as a normal status, but from the friend list menu, other people seeing you will think you are Offline. Nobody will get friend list notifications about you when you are on Do Not Disturb",
             "How do I find out what a status means?" : "Hover over the 'i' icon next to it.",
             "Can I get the status of somebody when I'm not on their profile?" : "Yes, you can. Right click a link to their profile anywhere on the page, and click 'Click to get status'",
@@ -107,27 +107,27 @@ if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlin
             "Why is this account named isOnlineV2, when the current version is isOnline v1.5?" : "When we first started isOnline, we were not able to get access to the account isOnline. So we started using the account isOnlineV2. When we did end up getting access to the account isOnline, many people already had followed isOnlineV2 so we decided to have just use isOnlineV2 as our main.",
             "How do I enable the Discuss Button?" : "You can enable the Discuss button, and a few other features on <a href='https://scratch.mit.edu/users/DiscussButton'>@DiscussButton</a>.",
             "Who runs the account isOnlineV2?" : "Although World_Languages owns the account, any user with the label \"iO Dev\" can answer your questions."
-			};
+        };
         let qSelected = null;
         Object.keys(faqQuestions).forEach(question => {
-            
+
             let qEl = document.createElement("DIV");
             let div = document.createElement("DIV");
             div.innerHTML = question;
-			div.className = "faq-question";
-			qEl.className = "faq-both";
+            div.className = "faq-question";
+            qEl.className = "faq-both";
             qEl.appendChild(div);
             faq.appendChild(qEl);
             qEl.addEventListener("click", function(e){
-				if(e.path[0].className === "faq-answer") return;
+                if(e.path[0].className === "faq-answer") return;
                 if(qSelected) qSelected.querySelector(".faq-answer").remove();
-				if(qSelected && qSelected === qEl) {
-					qSelected = null;
-					return;
-				}
-				let answer = document.createElement("DIV");
-				answer.className = "faq-answer";
-				answer.innerHTML = faqQuestions[question];
+                if(qSelected && qSelected === qEl) {
+                    qSelected = null;
+                    return;
+                }
+                let answer = document.createElement("DIV");
+                answer.className = "faq-answer";
+                answer.innerHTML = faqQuestions[question];
                 qEl.appendChild(answer);
                 qSelected = qEl;
             });
@@ -189,8 +189,8 @@ if(comments) {
     let listenToComments = new MutationObserver(domChange);
 
     listenToComments.observe(comments, {subtree: true, childList: true});
-	
-	handleEmojis();
+
+    handleEmojis();
 }
 
 function main() {
@@ -232,7 +232,7 @@ function main() {
             iOcrown();
             if(location.href.substring(location.href.indexOf('?')+1)==="comments"){
                 document.getElementsByClassName("box slider-carousel-container prevent-select")[document.getElementsByClassName("box slider-carousel-container prevent-select").length-1].innerHTML += "<div id='iOc'></div>";
-				console.log("test");
+                console.log("test");
                 if(document.getElementsByClassName("comment ").length>0){location.hash="iOc";document.getElementsByName("content")[0].focus();}else{location.hash="comments";}
             }
             if(time()-localStorage.getItem("iOlastprofile")>3){status();}else{
@@ -649,24 +649,36 @@ function friendListButtons() {
     if (!friendListEnabled){return;}
     try {x = friendList.findIndex(item => user.toLowerCase() === item.toLowerCase());}catch(err){x=-2;}
     if(x===-2 || x===-1) {
-        document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].style.display="inline";
-        document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].outerHTML += ' <a id="addfriend" style="display:inline;vertical-align:top;"><small>+ '+chrome.i18n.getMessage("friends")+'</small></a>';        
-        document.getElementById("addfriend").onclick = function(){
-            chrome.runtime.sendMessage({addfriend: [user,localuser]}, function (response){
-                if(response.result=="ok") {document.getElementById("addfriend").remove();}
-            });
-        };
+        addFriendButton();
     }
     if(x!==-1 && x!==-2) {
-        document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].style.display="inline";
-        document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].outerHTML += ' <a id="removefriend" style="display:inline;vertical-align:top;"><small>x '+chrome.i18n.getMessage("friends")+'</small></a>';        
-        document.getElementById("removefriend").onclick = function(){
-            chrome.runtime.sendMessage({removefriend: user}, function (response){
-                if(response.result=="ok") {document.getElementById("removefriend").remove();}
-            });
-        };
+        removeFriendButton();
     }
 
+}
+
+function addFriendButton(){
+    document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].style.display="inline";
+    document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].outerHTML += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="addfrienddiv" style="display:inline;vertical-align:top;"><a id="addfriend"><small>+ '+chrome.i18n.getMessage("friends")+'</small></a></span>';        
+    document.getElementById("addfriend").onclick = function(){
+        document.getElementById("addfrienddiv").innerHTML="Adding...";
+        chrome.runtime.sendMessage({addfriend: [user,localuser]}, function (response){
+			console.log(response);
+            if(response.result=="ok") {document.getElementById("addfrienddiv").remove();removeFriendButton();}
+            if(response.result=="maxreached") {document.getElementById("addfrienddiv").innerHTML=chrome.i18n.getMessage("maxreached");}
+            if(response.result=="onlyfollowing") {document.getElementById("addfrienddiv").innerHTML=chrome.i18n.getMessage("onlyfollowing");}
+        });
+    };
+}
+
+function removeFriendButton() {
+    document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].style.display="inline";
+    document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].outerHTML += '<span id="removefrienddiv" style="display:inline;vertical-align:top;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="removefriend"><small>x '+chrome.i18n.getMessage("friends")+'</small></a></span>';        
+    document.getElementById("removefriend").onclick = function(){
+        chrome.runtime.sendMessage({removefriend: user}, function (response){
+            if(response.result=="ok") {document.getElementById("removefriend").remove();addFriendButton();}
+        });
+    };
 }
 
 function getInfoHTML(string) {

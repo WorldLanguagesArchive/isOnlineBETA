@@ -20,14 +20,22 @@ chrome.runtime.onMessage.addListener(
                 sendResponse({thelist: "error"});}
         }
         if (request.addfriend) {
-            if(friendlist.length==10){sendResponse({result: "ok"});couldNotAdd(chrome.i18n.getMessage("maxreached"));}
+            if(friendlist.length==10){sendResponse({result: "maxreached"});}
             else {
-                sendResponse({result: "ok"});
-                checkfollowing(0,request.addfriend[0],request.addfriend[1]);}
+			done = 0;
+			checkfollowing(0,request.addfriend[0],request.addfriend[1]);
+			function checkifdone(){
+			if(done===1){sendResponse({result: "ok"});}
+			if(done===2){sendResponse({result: "onlyfollowing"});}
+			else{setTimeout(checkifdone,100);}
+			}
+			checkifdone();
+			console.log("noice");
+			return true;
+			}
         }
         if (request.removefriend) {
             sendResponse({result: "ok"});
-			anynotification(chrome.i18n.getMessage("removedfromfriends"),chrome.i18n.getMessage("removedfromfriendsbody"));
             removeFromFriends(request.removefriend);
         }
     });
@@ -172,10 +180,10 @@ function checkfollowing(offset,user,localuser) {
     followinglist.onreadystatechange = function() {
         if (followinglist.readyState === 4 && followinglist.status === 200) {
             response = JSON.parse(followinglist.responseText);
-            if(response.length===0){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));return;}
+            if(response.length===0){done = 2;return;}
             for (i = 0; i < response.length; i++) {
                 if(response[i].username.toLowerCase()===localuser.toLowerCase()){addToFriends(user);return;}
-                if(i===response.length-1 && response.length!==20){couldNotAdd(chrome.i18n.getMessage("onlyfollowing"));return;}
+                if(i===response.length-1 && response.length!==20){done = 2;return;}
                 if(i===response.length-1 && response.length===20){setTimeout(function(){checkfollowing(offset+20,user,localuser);},100);}
             }
         }};
@@ -183,9 +191,10 @@ function checkfollowing(offset,user,localuser) {
 }
 
 function addToFriends(user) {
+	done = 1;
     friendlist.push(user);
-    chrome.storage.sync.set({iOfriendlist : friendlist}, function(){anynotification(user+" "+chrome.i18n.getMessage("wasadded"),chrome.i18n.getMessage("wasaddedbody"));if(friendlist.length===0){location.reload();}});
-	if(friendlist.length===1){setTimeout(function(){location.reload();},100);}
+    chrome.storage.sync.set({iOfriendlist : friendlist});
+	if(friendlist.length===1){location.reload();}
 	else{check(friendlist.length-1);}
 }
 
@@ -195,15 +204,4 @@ function removeFromFriends(user){
     friendliststatuses.splice(finditem, 1);
     chrome.storage.sync.set({iOfriendlist : friendlist}, function(){/*location.reload();*/});
 	if(friendlist.length===0){localStorage.setItem("iOfriendsempty","1");}else{localStorage.setItem("iOfriendsempty","0");}
-}
-
-function couldNotAdd(message) {
-    anynotification(chrome.i18n.getMessage("couldnotadd"),message);
-}
-
-function anynotification(title,body) {
-    var notification = new Notification(title, {
-        icon: "icon.png",
-        body: body,
-    });
 }
