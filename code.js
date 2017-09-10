@@ -159,6 +159,7 @@ let emojis = {
     "dnd": "https://scratchtools.tk/isonline/assets/dnd.svg",
     "away": "https://scratchtools.tk/isonline/assets/absent.svg",
     "isonline": "https://scratchtools.tk/isonline/isonline-logo.png",
+    "crown": "https://emojipedia-us.s3.amazonaws.com/thumbs/120/microsoft/94/crown_1f451.png",
 	"cookie": "https://emojipedia-us.s3.amazonaws.com/thumbs/120/microsoft/94/cookie_1f36a.png"
 };
 
