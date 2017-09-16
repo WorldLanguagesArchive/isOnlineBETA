@@ -129,7 +129,7 @@ if(location.href.startsWith("https://scratch.mit.edu/studios/4100062/comments/")
         if(document.getElementsByClassName("highlighted")[0]===undefined){setTimeout(closetabwhenpost,100);return;}
         window.close();};
 
-    if((code.length===5||code.length===6) && parseInt(code,16).toString(16) === code){
+    if((code.length>-1&&code.length<7) && parseInt(code,16).toString(16) === code){
         document.getElementsByName("content")[0].value=code;
         clickpost();closetabwhenpost();
     }
