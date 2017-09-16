@@ -138,19 +138,19 @@ if(location.href.startsWith("https://scratch.mit.edu/studios/4100062/comments/")
 
 let comments = document.getElementById("comments");
 let emojis = {
-    "online": "https://scratchtools.tk/isonline/assets/online.svg",
-    "offline": "https://scratchtools.tk/isonline/assets/offline.svg",
-    "dnd": "https://scratchtools.tk/isonline/assets/dnd.svg",
-    "away": "https://scratchtools.tk/isonline/assets/absent.svg",
-    "isonline": "https://scratchtools.tk/isonline/isonline-logo.png",
-	"crown": "https://emojipedia-us.s3.amazonaws.com/thumbs/120/microsoft/94/crown_1f451.png",
-	"cookie": "https://emojipedia-us.s3.amazonaws.com/thumbs/120/microsoft/94/cookie_1f36a.png"
+    "online": '<img src="https://scratchtools.tk/isonline/assets/online.svg" alt="_online_" title="_online_" class="easter-egg">',
+    "offline": '<img src="https://scratchtools.tk/isonline/assets/offline.svg" alt="_offline_" title="_offline_" class="easter-egg">',
+    "dnd": '<img src="https://scratchtools.tk/isonline/assets/dnd.svg" alt="_dnd_" title="_dnd_" class="easter-egg">',
+    "away": '<img src="https://scratchtools.tk/isonline/assets/absent.svg" alt="_away_" title="_away_" class="easter-egg">',
+    "isonline": '<img src="https://scratchtools.tk/isonline/isonline-logo.png" alt="_isonline_" title="_isonline_" class="easter-egg">',
+	"crown": '<span class="easter-egg" title="_crown_">&#x1F451;</span>',
+	"cookie": '<span class="easter-egg" title="_cookie_">&#x1F36A;</span>'
 };
 
 let trustedDevTeam = ["jokebookservice1","World_Languages","chooper100","PackersRuleGoPack", "isOnlineV2"];
 
 let handleEmojis = () => {
-    Array.from(comments.querySelectorAll(".comment > .info > .content")).forEach(comment => Object.keys(emojis).forEach(emoji => comment.innerHTML = comment.innerHTML.replace(new RegExp("(\\s|^)_" + emoji + "_", "g"), `$1<img src='${emojis[emoji]}' alt='_${emoji}_' title='_${emoji}_' class='easter-egg'/>`)));
+    Array.from(comments.querySelectorAll(".comment > .info > .content")).forEach(comment => Object.keys(emojis).forEach(emoji => comment.innerHTML = comment.innerHTML.replace(new RegExp("(\\s|^)_" + emoji + "_", "g"), `$1${emojis[emoji]}`)));
     Array.from(comments.querySelectorAll(".comment > .info > .name > a")).filter(user => trustedDevTeam.includes(user.innerHTML)).forEach(user => {
         if(location.href.toLowerCase().startsWith("https://scratch.mit.edu/users/isonlinev2") && user.children.length === 0) {
             let devProof = document.createElement("SPAN");
