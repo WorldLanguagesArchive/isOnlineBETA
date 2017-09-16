@@ -203,5 +203,6 @@ function removeFromFriends(user){
     friendlist.splice(finditem, 1);
     friendliststatuses.splice(finditem, 1);
     chrome.storage.sync.set({iOfriendlist : friendlist}, function(){/*location.reload();*/});
-	if(friendlist.length===0){localStorage.setItem("iOfriendsempty","1");}else{localStorage.setItem("iOfriendsempty","0");}
+	if(friendlist.length===0){localStorage.setItem("iOfriendsempty","1");}else{localStorage.setItem("iOfriendsempty","0");
+	chrome.browserAction.setBadgeText({text: ""});}
 }

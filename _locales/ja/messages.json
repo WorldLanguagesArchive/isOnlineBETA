@@ -56,9 +56,6 @@
    "isbot":{
       "message":"おっと!残念ながらあなたはIsOnlineのサーバーによってBotとしてマークされてしまっているようです。<a href='https://scratch.mit.edu/users/isOnlineV2/#comments' target='_blank'>isOnlineV2</a> に連絡してください。"
    },
-   "probablyonlinehelp":{
-      "message":"5分以内にユーザーの活動がありました。"
-   },
    "absenthelp":{
       "message":"このユーザーはScratchを開いたまま放置しています。"
    },
@@ -119,21 +116,6 @@
    "maxreached":{
       "message":"フレンドがいっぱいです(10)。"
    },
-   "removedfromfriends":{
-      "message":"フレンドから削除しました。"
-   },
-   "removedfromfriendsbody":{
-      "message":"もうオンラインになったときの通知を受け取りません。"
-   },
-   "couldnotadd":{
-      "message":"フレンドに追加できませんでした。"
-   },
-   "wasadded":{
-      "message":"はフレンドに追加されました。"
-   },
-   "wasaddedbody":{
-      "message":"オンラインになったときに通知を受け取ります。"
-   },
    "onlyfollowing":{
       "message":"あなたをフォローしている人のみ、フレンドとして追加できます。"
    },
@@ -151,5 +133,14 @@
    },
    "notifyofflineonline":{
       "message":"オフラインのフレンドがオンラインになったときに通知します。"
+   },
+   "adding":{
+      "message":"Adding..."
+   },
+   "gotocomments":{
+      "message":"Go to profile comments"
+   },
+   "removefromfriends":{
+      "message":"Remove from friends"
    }
 }

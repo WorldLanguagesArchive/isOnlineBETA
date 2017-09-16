@@ -56,9 +56,6 @@
    "isbot":{
       "message":"Whoops! It looks like you've been marked as a bot by the isOnline server. isOnline isn't working. Please contact <a href='https://scratch.mit.edu/users/isOnlineV2/#comments' target='_blank'>isOnlineV2</a> to unblock your account."
    },
-   "probablyonlinehelp":{
-      "message":"This user shows activity on their What I've been doing from the last 5 minutes."
-   },
    "absenthelp":{
       "message":"The user has open inactive Scratch tabs."
    },
@@ -119,21 +116,6 @@
    "maxreached":{
       "message":"Reached maximum amount of friends (10)."
    },
-   "removedfromfriends":{
-      "message":"Removed from friends"
-   },
-   "removedfromfriendsbody":{
-      "message":"You won't receive notifications when they get online anymore."
-   },
-   "couldnotadd":{
-      "message":"Could not add to friend list"
-   },
-   "wasadded":{
-      "message":"was added to friends"
-   },
-   "wasaddedbody":{
-      "message":"You'll now receive notifications when they get online."
-   },
    "onlyfollowing":{
       "message":"You can only add users that are following you to your friend list."
    },
@@ -151,5 +133,14 @@
    },
    "notifyofflineonline":{
       "message":"Send a notification when a friend goes Online"
+   },
+   "adding":{
+      "message":"Adding..."
+   },
+   "gotocomments":{
+      "message":"Go to profile comments"
+   },
+   "removefromfriends":{
+      "message":"Remove from friends"
    }
 }
