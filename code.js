@@ -159,7 +159,7 @@ let emojis = {
     "dnd": "https://scratchtools.tk/isonline/assets/dnd.svg",
     "away": "https://scratchtools.tk/isonline/assets/absent.svg",
     "isonline": "https://scratchtools.tk/isonline/isonline-logo.png",
-    "crown": "https://emojipedia-us.s3.amazonaws.com/thumbs/120/microsoft/94/crown_1f451.png",
+	"crown": "https://emojipedia-us.s3.amazonaws.com/thumbs/120/microsoft/94/crown_1f451.png",
 	"cookie": "https://emojipedia-us.s3.amazonaws.com/thumbs/120/microsoft/94/cookie_1f36a.png"
 };
 
@@ -663,12 +663,12 @@ function addFriendButton(){
     document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].style.display="inline";
     document.getElementsByClassName("header-text")[0].getElementsByTagName("h2")[0].outerHTML += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="addfrienddiv" style="display:inline;vertical-align:top;"><a id="addfriend"><small>+ '+chrome.i18n.getMessage("friends")+'</small></a></span>';        
     document.getElementById("addfriend").onclick = function(){
-        document.getElementById("addfrienddiv").innerHTML="Adding...";
+        document.getElementById("addfrienddiv").innerHTML="<small>Adding...</small>";
         chrome.runtime.sendMessage({addfriend: [user,localuser]}, function (response){
 			console.log(response);
             if(response.result=="ok") {document.getElementById("addfrienddiv").remove();removeFriendButton();}
-            if(response.result=="maxreached") {document.getElementById("addfrienddiv").innerHTML=chrome.i18n.getMessage("maxreached");}
-            if(response.result=="onlyfollowing") {document.getElementById("addfrienddiv").innerHTML=chrome.i18n.getMessage("onlyfollowing");}
+            if(response.result=="maxreached") {document.getElementById("addfrienddiv").innerHTML="<small>"+chrome.i18n.getMessage("maxreached");+"</small"}
+            if(response.result=="onlyfollowing") {document.getElementById("addfrienddiv").innerHTML="<small>"+chrome.i18n.getMessage("onlyfollowing")+"</small>";}
         });
     };
 }
