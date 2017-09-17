@@ -30,7 +30,6 @@ chrome.runtime.onMessage.addListener(
 			else{setTimeout(checkifdone,100);}
 			}
 			checkifdone();
-			console.log("noice");
 			return true;
 			}
         }
@@ -40,13 +39,9 @@ chrome.runtime.onMessage.addListener(
         }
     });
 
-
-chrome.permissions.contains({
-    permissions: ['notifications'],
-}, function(result) {
-    if (result && localStorage.getItem("iOfriendlistenabled")==1) {
+    if (localStorage.getItem("iOfriendlistenabled")==1) {
         chrome.storage.sync.get(["iOaccounts", "iOfriendlist", "iOfriendlistenabled"], function (data) {
-            registeredUsers = JSON.stringify(data.iOaccounts) === "{}" ? [] : JSON.parse(data.iOaccounts);
+            registeredUsers = JSON.stringify(data.iOaccounts) === "{}" || typeof(data.iOaccounts)==="undefined" ? [] : JSON.parse(data.iOaccounts);
             friendlist = typeof(data.iOfriendlist)==="undefined" ? [] : data.iOfriendlist;
             if(friendlist.length===0){localStorage.setItem("iOfriendsempty","1");}else{localStorage.setItem("iOfriendsempty","0");}
             for (i = 0; i < registeredUsers.length; i++) {
@@ -54,7 +49,6 @@ chrome.permissions.contains({
             }
         });
     }
-});
 
 function friendlistcode() {
 
