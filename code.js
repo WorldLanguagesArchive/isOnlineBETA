@@ -225,6 +225,9 @@ function main() {
 					document.getElementById("main-post-form").getElementsByClassName("control-group")[1].getElementsByClassName("button small")[0].click();
                     }
 					previouskey = event.key;
+					setTimeout(function(){
+						if(previouskey===event.key){previouskey="";}
+					},1000);
 					});
 					}else{setTimeout(iOcomments,100);}};
 				iOcomments();
