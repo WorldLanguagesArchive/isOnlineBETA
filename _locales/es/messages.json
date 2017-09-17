@@ -142,5 +142,8 @@
    },
    "removefromfriends": {
       "message": "Quitar de amigos"
+   },
+   "translationcredits":{
+      "message":"Traduccion por @World_Languages"
    }
 }

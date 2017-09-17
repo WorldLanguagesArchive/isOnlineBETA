@@ -8,6 +8,7 @@ window.onload = function() {
     document.getElementById("notifyawayonline").innerHTML=chrome.i18n.getMessage("notifyawayonline");
     document.getElementById("soundnotiftext").innerHTML=chrome.i18n.getMessage("soundnotiftext");
     document.getElementById("notifyofflineonline").innerHTML=chrome.i18n.getMessage("notifyofflineonline");
+    document.getElementById("translationcredits").innerHTML=chrome.i18n.getMessage("translationcredits");
 	isenglish = chrome.i18n.getUILanguage().startsWith("en");
     //
 

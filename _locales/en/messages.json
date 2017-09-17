@@ -142,5 +142,8 @@
    },
    "removefromfriends":{
       "message":"Remove from friends"
+   },
+   "translationcredits":{
+      "message":""
    }
 }

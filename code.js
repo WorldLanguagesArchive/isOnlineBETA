@@ -213,7 +213,20 @@ function main() {
             iOcrown();
             if(location.href.substring(location.href.indexOf('?')+1)==="comments"){
                 document.getElementsByClassName("box slider-carousel-container prevent-select")[document.getElementsByClassName("box slider-carousel-container prevent-select").length-1].innerHTML += "<div id='iOc'></div>";
-                var iOcomments = function(){if(document.getElementsByClassName("comment ").length>0){location.hash="iOc";document.getElementsByName("content")[0].focus();}else{setTimeout(iOcomments,100);}};
+                var iOcomments = function(){if(document.getElementsByClassName("comment ").length>0){
+					location.hash="iOc";
+					document.getElementsByName("content")[0].focus();
+					document.getElementById("main-post-form").getElementsByClassName("control-group")[0].getElementsByClassName("small-text")[0].innerHTML += " <b>Press Shift+Enter to post.</b>";
+					document.getElementById("main-post-form").getElementsByClassName("control-group")[0].getElementsByTagName("textarea")[0].placeholder += " and post by pressing Shift+Enter";
+					document.addEventListener('keydown', function(event) {
+					if(document.activeElement.placeholder!=="Leave a comment and post by pressing Shift+Enter"){return;}
+					if(event.key==="Enter" && previouskey==="Shift"){
+					document.getElementsByName("content")[0].blur();
+					document.getElementById("main-post-form").getElementsByClassName("control-group")[1].getElementsByClassName("button small")[0].click();
+                    }
+					previouskey = event.key;
+					});
+					}else{setTimeout(iOcomments,100);}};
 				iOcomments();
             }
             if(time()-localStorage.getItem("iOlastprofile")>3){status();}else{
