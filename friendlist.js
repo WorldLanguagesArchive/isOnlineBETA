@@ -52,7 +52,7 @@ chrome.runtime.onMessage.addListener(
 
 function friendlistcode() {
 
-    if (JSON.stringify(friendlist)==="[]"){return;}
+    if (friendlist.length===0){return;}
     time = function(){return Math.floor(Date.now() / 1000);};
 
     x = 0;
@@ -197,6 +197,10 @@ function removeFromFriends(user){
     friendlist.splice(finditem, 1);
     friendliststatuses.splice(finditem, 1);
     chrome.storage.sync.set({iOfriendlist : friendlist}, function(){/*location.reload();*/});
-	if(friendlist.length===0){localStorage.setItem("iOfriendsempty","1");}else{localStorage.setItem("iOfriendsempty","0");
-	chrome.browserAction.setBadgeText({text: ""});}
+	if(friendlist.length===0){localStorage.setItem("iOfriendsempty","1");location.reload();}else{localStorage.setItem("iOfriendsempty","0");}
+	chrome.browserAction.setBadgeText({text: ""});
+    chrome.browserAction.getBadgeText({}, function(result) {
+        if(result!==" "){
+            chrome.browserAction.setBadgeText({text: ""});}
+    });
 }
